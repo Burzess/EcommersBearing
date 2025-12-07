@@ -135,16 +135,40 @@
                         <p class="text-gray-600">Masuk ke akun Anda untuk melanjutkan belanja bearing</p>
                     </div>
 
+                    <!-- Pesan Error -->
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-circle text-red-600 mr-2"></i>
+                                <span class="text-red-800 font-medium text-sm">Terjadi kesalahan:</span>
+                            </div>
+                            <ul class="text-red-700 text-sm space-y-1 ml-6">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                                <span class="text-green-800 text-sm">{{ session('success') }}</span>
+                            </div>
+                        </div>
+                    @endif
+
                     <!-- Form Login -->
-                    <form onsubmit="alert('Fitur login dalam pengembangan. Backend belum tersedia.'); return false;"
-                        class="space-y-6">
+                    <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                        @csrf
 
                         <!-- Alamat Email -->
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                                 <i class="fas fa-envelope mr-2 text-gray-400"></i>Email
                             </label>
-                            <input id="email" type="email" name="email" required autofocus autocomplete="username"
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
                                 class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="contoh@email.com">
 
@@ -173,7 +197,7 @@
                                     <span class="ml-2 text-sm text-gray-700">Ingat saya</span>
                                 </label>
 
-                                <a href="#" onclick="alert('Fitur lupa password dalam pengembangan'); return false;"
+                                <a href="{{ route('password.request') }}"
                                     class="text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline">
                                     Lupa password?
                                 </a>
@@ -199,7 +223,7 @@
                             <div class="text-center">
                                 <p class="text-sm text-gray-600">
                                     Belum punya akun?
-                                    <a href="#" onclick="alert('Fitur registrasi dalam pengembangan'); return false;"
+                                    <a href="{{ route('register') }}"
                                         class="text-blue-600 hover:text-blue-700 font-medium hover:underline ml-1">
                                         Daftar sekarang
                                     </a>

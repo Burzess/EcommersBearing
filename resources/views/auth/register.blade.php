@@ -152,16 +152,15 @@
                     @endif
 
                     <!-- Form Registrasi -->
-                    <form
-                        onsubmit="alert('Fitur registrasi dalam pengembangan. Backend belum tersedia.'); return false;"
-                        class="space-y-5">
+                    <form method="POST" action="{{ route('register') }}" class="space-y-5">
+                        @csrf
 
                         <!-- Nama -->
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                                 <i class="fas fa-user mr-2 text-gray-400"></i>Nama Lengkap
                             </label>
-                            <input id="name" type="text" name="name" required autofocus autocomplete="name"
+                            <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
                                 class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="Masukkan nama lengkap Anda">
                         </div>
@@ -171,17 +170,17 @@
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                                 <i class="fas fa-envelope mr-2 text-gray-400"></i>Email
                             </label>
-                            <input id="email" type="email" name="email" required autocomplete="email"
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email"
                                 class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="contoh@email.com">
                         </div>
 
                         <!-- Telepon -->
                         <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="telepon" class="block text-sm font-medium text-gray-700 mb-2">
                                 <i class="fas fa-phone mr-2 text-gray-400"></i>Nomor Telepon
                             </label>
-                            <input id="phone" type="tel" name="phone" required
+                            <input id="telepon" type="tel" name="telepon" value="{{ old('telepon') }}" required
                                 class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="08123456789">
                         </div>
@@ -261,7 +260,7 @@
                         <div class="text-center">
                             <p class="text-sm text-gray-600">
                                 Sudah punya akun?
-                                <a href="#" onclick="alert('Fitur login dalam pengembangan'); return false;"
+                                <a href="{{ route('login') }}"
                                     class="text-blue-600 hover:text-blue-700 font-medium hover:underline ml-1">
                                     Masuk di sini
                                 </a>

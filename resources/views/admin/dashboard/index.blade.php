@@ -29,9 +29,9 @@
             <div class="flex items-center justify-between">
                 <div class="flex-1">
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Pendapatan bulan ini</p>
-                    <p class="text-2xl font-bold text-gray-900">Rp 125,4 Jt</p>
+                    <p class="text-2xl font-bold text-gray-900">Rp {{ number_format($totalPendapatan ?? 0, 0, ',', '.') }}</p>
                     <p class="text-xs text-green-600 mt-2">
-                        <i class="fas fa-arrow-up mr-1"></i>+12,5% dari bulan lalu
+                        <i class="fas fa-arrow-up mr-1"></i>Dari pesanan selesai
                     </p>
                 </div>
                 <div
@@ -46,7 +46,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex-1">
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Pesanan</p>
-                    <p class="text-2xl font-bold text-gray-900">1,542</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPesanan ?? 0) }}</p>
                 </div>
                 <div
                     class="w-14 h-14 bg-linear-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -60,7 +60,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex-1">
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Produk</p>
-                    <p class="text-2xl font-bold text-gray-900">1,248</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalProduk ?? 0) }}</p>
                 </div>
                 <div
                     class="w-14 h-14 bg-linear-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -74,9 +74,9 @@
             <div class="flex items-center justify-between">
                 <div class="flex-1">
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Pelanggan</p>
-                    <p class="text-2xl font-bold text-gray-900">2,847</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPelanggan ?? 0) }}</p>
                     <p class="text-xs text-yellow-600 mt-2">
-                        <i class="fas fa-user-plus mr-1"></i>28 pelanggan baru
+                        <i class="fas fa-user-plus mr-1"></i>Akun terdaftar
                     </p>
                 </div>
                 <div
@@ -115,11 +115,28 @@
                 <i class="fas fa-clock mr-2 text-blue-600"></i>Pesanan Terbaru
             </h2>
 
-            <div class="space-y-4" id="recentOrders">
-                <!-- Orders akan diisi oleh JavaScript -->
+            <div class="space-y-4">
+                @forelse($pesananTerbaru ?? [] as $pesanan)
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                        <div class="flex-1">
+                            <p class="font-semibold text-gray-900 text-sm">{{ $pesanan->order_number }}</p>
+                            <p class="text-xs text-gray-500">{{ $pesanan->user->name ?? 'Guest' }}</p>
+                            <p class="text-xs text-blue-600 mt-1">Rp {{ number_format($pesanan->total, 0, ',', '.') }}</p>
+                        </div>
+                        <div class="text-right">
+                            {!! $pesanan->status_badge !!}
+                            <p class="text-xs text-gray-400 mt-1">{{ $pesanan->created_at->diffForHumans() }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-inbox text-4xl mb-2"></i>
+                        <p>Belum ada pesanan</p>
+                    </div>
+                @endforelse
             </div>
 
-            <a href="#"
+            <a href="{{ route('admin.pembelian.index') }}"
                 class="block mt-4 px-4 py-2 text-center border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all">
                 Lihat Semua Pesanan
             </a>
@@ -144,11 +161,32 @@
                 <i class="fas fa-exclamation-triangle mr-2 text-red-600"></i>Stok Menipis
             </h2>
 
-            <div class="space-y-4" id="lowStock">
-                <!-- Low stock items akan diisi oleh JavaScript -->
+            <div class="space-y-4">
+                @forelse($produkStokMenipis ?? [] as $produk)
+                    <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex items-start justify-between mb-2">
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-900 text-sm">{{ $produk->nama }}</p>
+                                <p class="text-xs text-gray-500">SKU: {{ $produk->sku }}</p>
+                            </div>
+                            <i class="fas fa-exclamation-triangle text-red-600"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-600">Stok: <span class="font-bold text-red-600">{{ $produk->stok }}</span> / {{ $produk->min_stok }}</span>
+                            <a href="{{ route('admin.produk.edit', $produk->id) }}" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                                Edit Stok
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
+                        <p>Semua stok aman</p>
+                    </div>
+                @endforelse
             </div>
 
-            <a href="#"
+            <a href="{{ route('admin.produk.index') }}"
                 class="block mt-4 px-4 py-2 text-center border-2 border-red-600 text-red-600 rounded-lg font-semibold hover:bg-red-50 transition-all">
                 Kelola Stok
             </a>
@@ -164,111 +202,12 @@
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('id-ID', options);
 
-        // Data dummy
-        const recentOrdersData = [
-            { id: 'ORD-2024-001', customer: 'John Doe', amount: 850000, status: 'pending', time: '5 menit lalu' },
-            { id: 'ORD-2024-002', customer: 'Jane Smith', amount: 1250000, status: 'paid', time: '15 menit lalu' },
-            { id: 'ORD-2024-003', customer: 'Robert Johnson', amount: 650000, status: 'processing', time: '1 jam lalu' },
-            { id: 'ORD-2024-004', customer: 'Maria Garcia', amount: 2400000, status: 'shipped', time: '2 jam lalu' },
-            { id: 'ORD-2024-005', customer: 'David Lee', amount: 450000, status: 'delivered', time: '3 jam lalu' }
-        ];
-
-        const topProductsData = [
-            { name: 'SKF 6204 Bearing', sold: 342, image: 'https://via.placeholder.com/50?text=SKF' },
-            { name: 'NSK Ball Bearing', sold: 289, image: 'https://via.placeholder.com/50?text=NSK' },
-            { name: 'NTN Roller Bearing', sold: 245, image: 'https://via.placeholder.com/50?text=NTN' },
-            { name: 'FAG Deep Groove', sold: 198, image: 'https://via.placeholder.com/50?text=FAG' },
-            { name: 'Timken Bearing', sold: 156, image: 'https://via.placeholder.com/50?text=TMK' }
-        ];
-
-        const lowStockData = [
-            { name: 'NSK 6205 Bearing', stock: 8, minStock: 20, sku: 'NSK-6205' },
-            { name: 'FAG 7208 Angular', stock: 5, minStock: 15, sku: 'FAG-7208' },
-            { name: 'SKF 6208 Ball', stock: 12, minStock: 20, sku: 'SKF-6208' },
-            { name: 'NTN 7210 Contact', stock: 3, minStock: 15, sku: 'NTN-7210' }
-        ];
-
-        const recentActivityData = [
-            { type: 'order', text: 'Pesanan baru #ORD-2024-001', time: '5 menit lalu', icon: 'fa-shopping-cart', color: 'blue' },
-            { type: 'product', text: 'Produk SKF-6204 stok diperbarui', time: '30 menit lalu', icon: 'fa-box', color: 'green' },
-            { type: 'customer', text: 'Pelanggan baru mendaftar', time: '1 jam lalu', icon: 'fa-user-plus', color: 'purple' },
-            { type: 'review', text: 'Review baru untuk NSK Ball Bearing', time: '2 jam lalu', icon: 'fa-star', color: 'yellow' },
-            { type: 'payment', text: 'Pembayaran dikonfirmasi #ORD-2024-002', time: '3 jam lalu', icon: 'fa-check-circle', color: 'green' }
-        ];
+        // Data untuk grafik dari backend
+        const salesData = @json($penjualan7Hari ?? []);
 
         // Format mata uang
         function formatCurrency(amount) {
             return 'Rp ' + amount.toLocaleString('id-ID');
-        }
-
-        // Dapatkan badge status
-        function getStatusBadge(status) {
-            const badges = {
-                'pending': '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"><i class="fas fa-clock mr-1"></i>Pending</span>',
-                'paid': '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"><i class="fas fa-check mr-1"></i>Dibayar</span>',
-                'processing': '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"><i class="fas fa-cogs mr-1"></i>Diproses</span>',
-                'shipped': '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"><i class="fas fa-truck mr-1"></i>Dikirim</span>',
-                'delivered': '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"><i class="fas fa-check-circle mr-1"></i>Selesai</span>'
-            };
-            return badges[status] || '';
-        }
-
-        // Render pesanan terbaru
-        function renderRecentOrders() {
-            const container = document.getElementById('recentOrders');
-            container.innerHTML = recentOrdersData.map(order => `
-                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                                <div class="flex-1">
-                                    <p class="font-semibold text-gray-900 text-sm">${order.id}</p>
-                                    <p class="text-xs text-gray-500">${order.customer}</p>
-                                    <p class="text-xs text-blue-600 mt-1">${formatCurrency(order.amount)}</p>
-                                </div>
-                                <div class="text-right">
-                                    ${getStatusBadge(order.status)}
-                                    <p class="text-xs text-gray-400 mt-1">${order.time}</p>
-                                </div>
-                            </div>
-                        `).join('');
-        }
-
-        // Render produk terlaris
-        function renderTopProducts() {
-            const container = document.getElementById('topProducts');
-            container.innerHTML = topProductsData.map((product, index) => `
-                            <div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 font-bold text-sm">
-                                    ${index + 1}
-                                </div>
-                                <img src="${product.image}" alt="${product.name}" class="w-10 h-10 rounded-lg mr-3">
-                                <div class="flex-1">
-                                    <p class="font-semibold text-gray-900 text-sm">${product.name}</p>
-                                    <p class="text-xs text-gray-500">${product.sold} terjual</p>
-                                </div>
-                                <i class="fas fa-fire text-orange-500"></i>
-                            </div>
-                        `).join('');
-        }
-
-        // Render stok menipis
-        function renderLowStock() {
-            const container = document.getElementById('lowStock');
-            container.innerHTML = lowStockData.map(item => `
-                            <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
-                                <div class="flex items-start justify-between mb-2">
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-gray-900 text-sm">${item.name}</p>
-                                        <p class="text-xs text-gray-500">SKU: ${item.sku}</p>
-                                    </div>
-                                    <i class="fas fa-exclamation-triangle text-red-600"></i>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs text-gray-600">Stok: <span class="font-bold text-red-600">${item.stock}</span> / ${item.minStock}</span>
-                                    <button onclick="restockProduct('${item.sku}')" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                                        Restock
-                                    </button>
-                                </div>
-                            </div>
-                        `).join('');
         }
 
         // Grafik penjualan
@@ -276,15 +215,12 @@
         function createSalesChart() {
             const ctx = document.getElementById('salesChart').getContext('2d');
 
-            // Data dummy untuk 30 hari
-            const labels = [];
-            const data = [];
-            for (let i = 29; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(date.getDate() - i);
-                labels.push(date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }));
-                data.push(Math.floor(Math.random() * 5000000) + 2000000);
-            }
+            // Gunakan data dari controller
+            const labels = salesData.map(item => {
+                const date = new Date(item.date);
+                return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            });
+            const data = salesData.map(item => item.total);
 
             salesChart = new Chart(ctx, {
                 type: 'line',
@@ -336,26 +272,10 @@
         // Update grafik
         function updateChart() {
             const period = document.getElementById('chartPeriod').value;
-            alert('Update chart untuk periode: ' + period + '\n\nFitur dalam pengembangan');
-        }
-
-        // Restock produk
-        function restockProduct(sku) {
-            const amount = prompt('Tambah stok untuk ' + sku + ' (unit):');
-            if (amount && !isNaN(amount)) {
-                alert(`Menambah ${amount} unit stok untuk ${sku}\n\nFitur dalam pengembangan`);
-            }
-        }
-
-        // Export laporan
-        function exportReport() {
-            alert('Export laporan ke Excel\n\nFitur dalam pengembangan');
+            window.location.href = '{{ route('admin.dashboard.index') }}?period=' + period;
         }
 
         // Inisialisasi
-        renderRecentOrders();
-        renderTopProducts();
-        renderLowStock();
         createSalesChart();
     </script>
 @endsection
