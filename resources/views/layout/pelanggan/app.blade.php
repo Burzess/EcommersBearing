@@ -78,9 +78,9 @@
                     <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
                         <p>&copy; {{ date('Y') }} Bearing Shop. All rights reserved.</p>
                         <div class="flex space-x-4 mt-2 md:mt-0">
-                            <a href="#" class="hover:text-blue-600">Tentang Kami</a>
-                            <a href="#" class="hover:text-blue-600">Kontak</a>
-                            <a href="#" class="hover:text-blue-600">Kebijakan Privasi</a>
+                            <a href="{{ route('pelanggan.tentang-kami') }}" class="hover:text-blue-600">Tentang Kami</a>
+                            <a href="{{ route('pelanggan.kontak') }}" class="hover:text-blue-600">Kontak</a>
+                            <a href="{{ route('pelanggan.kebijakan-privasi') }}" class="hover:text-blue-600">Kebijakan Privasi</a>
                         </div>
                     </div>
                 </div>

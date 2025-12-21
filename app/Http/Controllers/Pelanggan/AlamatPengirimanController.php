@@ -7,7 +7,7 @@ use App\Http\Requests\Pelanggan\AlamatRequest;
 use App\Models\Alamat;
 use Illuminate\Http\Request;
 
-class AlamatController extends Controller
+class AlamatPengirimanController extends Controller
 {
     public function store(AlamatRequest $request)
     {

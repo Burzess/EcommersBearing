@@ -32,6 +32,31 @@ class CheckoutController extends Controller
         return view('pelanggan.checkout.index', compact('keranjangs', 'alamats', 'defaultAlamat', 'subtotal'));
     }
 
+    public function showBuyNowForm(Request $request, $produkId)
+    {
+        $produk = Produk::with('images', 'merk')->findOrFail($produkId);
+        
+        if ($produk->stok < 1) {
+            return back()->with('error', 'Maaf, produk ini sedang tidak tersedia.');
+        }
+        
+        $quantity = $request->get('quantity', 1);
+        
+        // Validasi quantity
+        if ($quantity > $produk->stok) {
+            $quantity = $produk->stok;
+        }
+        
+        $user = auth()->user();
+        $alamats = $user->alamats;
+        $defaultAlamat = $user->getDefaultAlamat();
+        
+        $harga = $produk->harga_diskon ?? $produk->harga;
+        $subtotal = $harga * $quantity;
+        
+        return view('pelanggan.checkout.buy-now', compact('produk', 'quantity', 'alamats', 'defaultAlamat', 'subtotal', 'harga'));
+    }
+
     public function processCheckout(CheckoutRequest $request)
     {
         $keranjangs = Keranjang::with('produk')
@@ -72,7 +97,7 @@ class CheckoutController extends Controller
                 'alamat_kecamatan' => $alamat->kecamatan,
                 'alamat_kode_pos' => $alamat->kode_pos,
                 'subtotal' => $subtotal,
-                'ongkir' => 0, // TODO: Hitung ongkir
+                'ongkir' => 0,
                 'total' => $subtotal,
                 'metode_pembayaran' => $request->metode_pembayaran,
                 'catatan' => $request->catatan,

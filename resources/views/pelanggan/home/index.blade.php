@@ -100,7 +100,7 @@
         </div>
         <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
             @forelse($kategoris as $kategori)
-                <a href="{{ route('pelanggan.produk.index', ['kategori' => $kategori->slug]) }}"
+                <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                     class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all group">
                     <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:bg-blue-200 transition-all">
                         @if($kategori->icon)
@@ -110,7 +110,7 @@
                         @endif
                     </div>
                     <h3 class="font-bold text-gray-900 text-center mb-1 text-sm">{{ $kategori->nama }}</h3>
-                    <p class="text-gray-500 text-xs text-center">{{ $kategori->total_produk }} produk</p>
+                    <p class="text-gray-500 text-xs text-center">{{ $kategori->produks_count ?? $kategori->produks->count() }} produk</p>
                 </a>
             @empty
                 <div class="col-span-6 text-center py-8 text-gray-500">
@@ -121,11 +121,43 @@
         </div>
     </div>
 
+    <!-- Bagian Brand Premium -->
+    @if($merksPremium->count() > 0)
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-1">Brand Premium</h2>
+                    <p class="text-gray-600">Bearing dari brand ternama dunia</p>
+                </div>
+                <a href="{{ route('pelanggan.produk.index') }}"
+                    class="text-blue-600 hover:text-blue-700 font-semibold flex items-center">
+                    Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+                @foreach($merksPremium as $merk)
+                    <a href="{{ route('pelanggan.produk.index', ['merk_id' => $merk->id]) }}"
+                        class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all group text-center">
+                        @if($merk->logo)
+                            <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}" 
+                                class="h-12 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform">
+                        @else
+                            <div class="h-12 flex items-center justify-center mb-3">
+                                <span class="text-xl font-bold text-gray-700">{{ $merk->nama }}</span>
+                            </div>
+                        @endif
+                        <h3 class="font-semibold text-gray-900 text-sm">{{ $merk->nama }}</h3>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     <!-- Bagian Produk Terpopuler -->
     <div class="mb-8">
         <div class="flex items-center justify-between mb-6">
             <div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-1">Produk Terpopuler</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-1">Produk Unggulan</h2>
                 <p class="text-gray-600">Produk bearing yang paling banyak diminati</p>
             </div>
             <a href="{{ route('pelanggan.produk.index', ['sort' => 'popular']) }}"
@@ -137,23 +169,28 @@
             @forelse($featuredProducts as $produk)
                 <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden group">
                     <div class="relative overflow-hidden">
-                        @if($produk->primary_image)
-                            <img src="{{ asset('storage/' . $produk->primary_image) }}" 
+                        @if($produk->images->first())
+                            <img src="{{ asset('storage/' . $produk->images->first()->image_path) }}" 
                                  alt="{{ $produk->nama }}"
                                  class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
                         @else
-                            <img src="{{ asset('assets/semua bearing.jpg') }}" 
-                                 alt="{{ $produk->nama }}"
-                                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center group-hover:bg-gray-300 transition-all">
+                                <i class="fas fa-image text-gray-400 text-4xl"></i>
+                            </div>
                         @endif
                         @if($produk->is_featured)
                             <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
-                                <i class="fas fa-fire mr-1"></i>Featured
+                                <i class="fas fa-fire mr-1"></i>Unggulan
+                            </div>
+                        @endif
+                        @if($produk->harga_diskon)
+                            <div class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
+                                -{{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
                             </div>
                         @endif
                     </div>
                     <div class="p-4">
-                        <p class="text-xs text-gray-500 mb-1">{{ $produk->kategori->nama ?? '' }} - {{ $produk->merk->nama ?? '' }}</p>
+                        <p class="text-xs text-gray-500 mb-1">{{ $produk->merk->nama ?? '-' }}</p>
                         <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 min-h-12">{{ $produk->nama }}</h3>
                         <div class="flex items-center gap-2 mb-3">
                             @if($produk->harga_diskon)
@@ -176,7 +213,7 @@
             @empty
                 <div class="col-span-4 text-center py-8 text-gray-500">
                     <i class="fas fa-box-open text-4xl mb-2"></i>
-                    <p>Belum ada produk featured</p>
+                    <p>Belum ada produk unggulan</p>
                 </div>
             @endforelse
         </div>
@@ -198,21 +235,26 @@
             @forelse($produkTerbaru as $produk)
                 <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden group">
                     <div class="relative overflow-hidden">
-                        @if($produk->primary_image)
-                            <img src="{{ asset('storage/' . $produk->primary_image) }}" 
+                        @if($produk->images->first())
+                            <img src="{{ asset('storage/' . $produk->images->first()->image_path) }}" 
                                  alt="{{ $produk->nama }}"
                                  class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
                         @else
-                            <img src="{{ asset('assets/semua bearing.jpg') }}" 
-                                 alt="{{ $produk->nama }}"
-                                 class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center group-hover:bg-gray-300 transition-all">
+                                <i class="fas fa-image text-gray-400 text-4xl"></i>
+                            </div>
                         @endif
                         <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
                             <i class="fas fa-star mr-1"></i>Baru
                         </div>
+                        @if($produk->harga_diskon)
+                            <div class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
+                                -{{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
+                            </div>
+                        @endif
                     </div>
                     <div class="p-4">
-                        <p class="text-xs text-gray-500 mb-1">{{ $produk->kategori->nama ?? '' }} - {{ $produk->merk->nama ?? '' }}</p>
+                        <p class="text-xs text-gray-500 mb-1">{{ $produk->merk->nama ?? '-' }}</p>
                         <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 min-h-12">{{ $produk->nama }}</h3>
                         <div class="flex items-center gap-2 mb-3">
                             @if($produk->harga_diskon)

@@ -1,4 +1,25 @@
 @import 'tailwindcss';
+
+/* Cursor pointer untuk semua elemen interaktif */
+button,
+[type="button"],
+[type="submit"],
+[type="reset"],
+a,
+select,
+label[for],
+input[type="checkbox"],
+input[type="radio"],
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Disabled elements */
+button:disabled,
+[disabled] {
+    cursor: not-allowed;
+}
+
 /* Hilangkan spinner di Chrome, Safari, Edge */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -12,4 +33,3 @@ input[type="number"] {
     -webkit-appearance: none;
     -moz-appearance: textfield;
 }
-

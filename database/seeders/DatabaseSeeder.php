@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             KategoriSeeder::class,
             MerkSeeder::class,
             ProdukSeeder::class,
+            TentangKamiSeeder::class,
+            KontakSeeder::class,
+            KebijakanPrivasiSeeder::class,
         ]);
     }
 }

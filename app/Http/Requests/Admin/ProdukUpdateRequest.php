@@ -32,6 +32,7 @@ class ProdukUpdateRequest extends FormRequest
             'harga_diskon' => ['nullable', 'numeric', 'min:0', 'lt:harga'],
             'stok' => ['required', 'integer', 'min:0'],
             'min_stok' => ['required', 'integer', 'min:0'],
+            'berat' => ['required', 'numeric', 'min:0'],
             'deskripsi' => ['nullable', 'string'],
             'inner_diameter' => ['nullable', 'numeric', 'min:0'],
             'outer_diameter' => ['nullable', 'numeric', 'min:0'],

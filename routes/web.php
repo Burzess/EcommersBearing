@@ -31,6 +31,12 @@ Route::get('/', [Pelanggan\HomeController::class, 'index'])->name('pelanggan.hom
 Route::get('/pelanggan/produk', [Pelanggan\ProdukController::class, 'index'])->name('pelanggan.produk.index');
 Route::get('/pelanggan/produk/{slug}', [Pelanggan\ProdukController::class, 'show'])->name('pelanggan.produk.show');
 
+// Halaman Statis Public
+Route::get('/tentang-kami', [Pelanggan\HalamanController::class, 'tentangKami'])->name('pelanggan.tentang-kami');
+Route::get('/kontak', [Pelanggan\HalamanController::class, 'kontak'])->name('pelanggan.kontak');
+Route::get('/kebijakan-privasi', [Pelanggan\HalamanController::class, 'kebijakanPrivasi'])->name('pelanggan.kebijakan-privasi');
+
+
 /*
 |--------------------------------------------------------------------------
 | Pelanggan Routes - Authenticated
@@ -46,10 +52,10 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'role:pelang
      Route::put('/profil/notifikasi', [Pelanggan\ProfilController::class, 'updateNotifikasi'])->name('profil.update-notifikasi');
 
      // Alamat
-     Route::post('/alamat', [Pelanggan\AlamatController::class, 'store'])->name('alamat.store');
-     Route::put('/alamat/{id}', [Pelanggan\AlamatController::class, 'update'])->name('alamat.update');
-     Route::delete('/alamat/{id}', [Pelanggan\AlamatController::class, 'destroy'])->name('alamat.destroy');
-     Route::patch('/alamat/{id}/set-default', [Pelanggan\AlamatController::class, 'setDefault'])->name('alamat.set-default');
+     Route::post('/alamat', [Pelanggan\AlamatPengirimanController::class, 'store'])->name('alamat.store');
+     Route::put('/alamat/{id}', [Pelanggan\AlamatPengirimanController::class, 'update'])->name('alamat.update');
+     Route::delete('/alamat/{id}', [Pelanggan\AlamatPengirimanController::class, 'destroy'])->name('alamat.destroy');
+     Route::patch('/alamat/{id}/set-default', [Pelanggan\AlamatPengirimanController::class, 'setDefault'])->name('alamat.set-default');
 
      // Keranjang
      Route::get('/keranjang', [Pelanggan\KeranjangController::class, 'index'])->name('keranjang.index');
@@ -61,6 +67,7 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'role:pelang
      // Checkout
      Route::get('/checkout', [Pelanggan\CheckoutController::class, 'showCheckoutForm'])->name('checkout.form');
      Route::post('/checkout', [Pelanggan\CheckoutController::class, 'processCheckout'])->name('checkout.process');
+     Route::get('/buy-now/{produk}', [Pelanggan\CheckoutController::class, 'showBuyNowForm'])->name('buy-now.form');
      Route::post('/buy-now', [Pelanggan\CheckoutController::class, 'buyNow'])->name('buy-now');
 
      // Pembelian
@@ -124,4 +131,19 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
      Route::get('/akunpelanggan/{id}/edit', [Admin\AkunPelangganController::class, 'edit'])->name('akunpelanggan.edit');
      Route::put('/akunpelanggan/{id}', [Admin\AkunPelangganController::class, 'update'])->name('akunpelanggan.update');
      Route::delete('/akunpelanggan/{id}', [Admin\AkunPelangganController::class, 'destroy'])->name('akunpelanggan.destroy');
+
+     // Tentang Kami
+     Route::get('/tentang-kami', [Admin\TentangKamiController::class, 'index'])->name('tentang-kami.index');
+     Route::get('/tentang-kami/edit', [Admin\TentangKamiController::class, 'edit'])->name('tentang-kami.edit');
+     Route::put('/tentang-kami', [Admin\TentangKamiController::class, 'update'])->name('tentang-kami.update');
+
+     // Kontak
+     Route::get('/kontak', [Admin\KontakController::class, 'index'])->name('kontak.index');
+     Route::get('/kontak/edit', [Admin\KontakController::class, 'edit'])->name('kontak.edit');
+     Route::put('/kontak', [Admin\KontakController::class, 'update'])->name('kontak.update');
+
+     // Kebijakan Privasi
+     Route::get('/kebijakan-privasi', [Admin\KebijakanPrivasiController::class, 'index'])->name('kebijakan-privasi.index');
+     Route::get('/kebijakan-privasi/edit', [Admin\KebijakanPrivasiController::class, 'edit'])->name('kebijakan-privasi.edit');
+     Route::put('/kebijakan-privasi', [Admin\KebijakanPrivasiController::class, 'update'])->name('kebijakan-privasi.update');
 });

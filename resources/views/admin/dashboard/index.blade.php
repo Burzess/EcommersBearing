@@ -1,14 +1,14 @@
 @extends('layout.admin.app')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard - Admin Bearing Shop')
 
 @section('content')
-    <!-- Header Dashboard -->
+    <!-- Header -->
     <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-white mb-2">Dashboard Admin</h1>
-                <p class="text-blue-100">Selamat datang kembali! Berikut ringkasan toko Anda hari ini.</p>
+                <h1 class="text-3xl font-bold text-white mb-2">Dashboard</h1>
+                <p class="text-blue-100">Selamat datang, {{ auth()->user()->name }}!</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -16,266 +16,271 @@
                 </div>
             </div>
         </div>
-        <div class="mt-6 flex items-center text-blue-100">
-            <i class="fas fa-calendar-day mr-2"></i>
-            <span id="currentDate"></span>
-        </div>
     </div>
 
-    <!-- Quick Stats -->
+    <!-- Statistik Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- Total Pendapatan -->
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+        <div class="bg-white rounded-xl shadow-md p-6">
             <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <p class="text-gray-500 text-sm font-medium mb-1">Total Pendapatan bulan ini</p>
-                    <p class="text-2xl font-bold text-gray-900">Rp {{ number_format($totalPendapatan ?? 0, 0, ',', '.') }}</p>
-                    <p class="text-xs text-green-600 mt-2">
-                        <i class="fas fa-arrow-up mr-1"></i>Dari pesanan selesai
-                    </p>
+                <div>
+                    <p class="text-gray-500 text-sm font-medium mb-1">Total Pendapatan</p>
+                    <p class="text-2xl font-bold text-gray-900">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</p>
+                    <p class="text-xs text-green-600 mt-1"><i class="fas fa-check mr-1"></i>Dari order selesai</p>
                 </div>
-                <div
-                    class="w-14 h-14 bg-linear-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-dollar-sign text-white text-2xl"></i>
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-money-bill-wave text-green-600 text-xl"></i>
                 </div>
             </div>
         </div>
 
         <!-- Total Pesanan -->
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+        <div class="bg-white rounded-xl shadow-md p-6">
             <div class="flex items-center justify-between">
-                <div class="flex-1">
+                <div>
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Pesanan</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPesanan ?? 0) }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPesanan) }}</p>
+                    <p class="text-xs text-blue-600 mt-1"><i class="fas fa-shopping-cart mr-1"></i>Semua order</p>
                 </div>
-                <div
-                    class="w-14 h-14 bg-linear-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-shopping-cart text-white text-2xl"></i>
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-shopping-bag text-blue-600 text-xl"></i>
                 </div>
             </div>
         </div>
 
         <!-- Total Produk -->
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+        <div class="bg-white rounded-xl shadow-md p-6">
             <div class="flex items-center justify-between">
-                <div class="flex-1">
+                <div>
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Produk</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalProduk ?? 0) }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalProduk) }}</p>
+                    <p class="text-xs text-purple-600 mt-1"><i class="fas fa-box mr-1"></i>Dalam katalog</p>
                 </div>
-                <div
-                    class="w-14 h-14 bg-linear-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-box text-white text-2xl"></i>
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-boxes text-purple-600 text-xl"></i>
                 </div>
             </div>
         </div>
 
         <!-- Total Pelanggan -->
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+        <div class="bg-white rounded-xl shadow-md p-6">
             <div class="flex items-center justify-between">
-                <div class="flex-1">
+                <div>
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Pelanggan</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPelanggan ?? 0) }}</p>
-                    <p class="text-xs text-yellow-600 mt-2">
-                        <i class="fas fa-user-plus mr-1"></i>Akun terdaftar
-                    </p>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPelanggan) }}</p>
+                    <p class="text-xs text-orange-600 mt-1"><i class="fas fa-users mr-1"></i>Terdaftar</p>
                 </div>
-                <div
-                    class="w-14 h-14 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-users text-white text-2xl"></i>
+                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-users text-orange-600 text-xl"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-6 mb-8">
-        <!-- Grafik Penjualan -->
-        <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-bold text-gray-900">
-                    <i class="fas fa-chart-area mr-2 text-blue-600"></i>Grafik Penjualan
-                </h2>
-                <select id="chartPeriod" onchange="updateChart()"
-                    class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="7days">7 Hari Terakhir</option>
-                    <option value="30days" selected>30 Hari Terakhir</option>
-                    <option value="90days">90 Hari Terakhir</option>
-                    <option value="year">Tahun Ini</option>
-                </select>
-            </div>
-
-            <!-- Canvas untuk Chart -->
-            <div class="h-80">
-                <canvas id="salesChart"></canvas>
+    <!-- Grafik & Tabel -->
+    <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Grafik Penjualan 7 Hari -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+                <i class="fas fa-chart-bar mr-2 text-blue-600"></i>Penjualan 7 Hari Terakhir
+            </h3>
+            
+            <div class="h-64" id="chartContainer">
+                @if($penjualan7Hari->count() > 0)
+                    <canvas id="salesChart"></canvas>
+                @else
+                    <div class="h-full flex items-center justify-center text-gray-400">
+                        <div class="text-center">
+                            <i class="fas fa-chart-line text-4xl mb-2"></i>
+                            <p>Belum ada data penjualan</p>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
 
-        <!-- Pesanan Terbaru -->
+        <!-- Produk Stok Menipis -->
         <div class="bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">
-                <i class="fas fa-clock mr-2 text-blue-600"></i>Pesanan Terbaru
-            </h2>
-
-            <div class="space-y-4">
-                @forelse($pesananTerbaru ?? [] as $pesanan)
-                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                        <div class="flex-1">
-                            <p class="font-semibold text-gray-900 text-sm">{{ $pesanan->order_number }}</p>
-                            <p class="text-xs text-gray-500">{{ $pesanan->user->name ?? 'Guest' }}</p>
-                            <p class="text-xs text-blue-600 mt-1">Rp {{ number_format($pesanan->total, 0, ',', '.') }}</p>
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-900">
+                    <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>Produk Stok Menipis
+                </h3>
+                <a href="{{ route('admin.produk.index') }}" class="text-sm text-blue-600 hover:text-blue-800">
+                    Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="space-y-3 max-h-64 overflow-y-auto">
+                @forelse ($produkStokMenipis as $produk)
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-box text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">{{ Str::limit($produk->nama, 25) }}</p>
+                                <p class="text-xs text-gray-500">{{ $produk->merk->nama ?? '-' }}</p>
+                            </div>
                         </div>
                         <div class="text-right">
-                            {!! $pesanan->status_badge !!}
-                            <p class="text-xs text-gray-400 mt-1">{{ $pesanan->created_at->diffForHumans() }}</p>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                Stok: {{ $produk->stok }}
+                            </span>
+                            <p class="text-xs text-gray-500 mt-1">Min: {{ $produk->min_stok }}</p>
                         </div>
                     </div>
                 @empty
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-inbox text-4xl mb-2"></i>
-                        <p>Belum ada pesanan</p>
+                    <div class="text-center py-8 text-gray-400">
+                        <i class="fas fa-check-circle text-4xl mb-2 text-green-400"></i>
+                        <p>Semua stok produk aman</p>
                     </div>
                 @endforelse
             </div>
-
-            <a href="{{ route('admin.pembelian.index') }}"
-                class="block mt-4 px-4 py-2 text-center border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all">
-                Lihat Semua Pesanan
-            </a>
         </div>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-6 mb-8">
-        <!-- Produk Terlaris -->
-        <div class="bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">
-                <i class="fas fa-fire mr-2 text-blue-600"></i>Produk Terlaris
-            </h2>
-
-            <div class="space-y-4" id="topProducts">
-                <!-- Products akan diisi oleh JavaScript -->
+    <!-- Pesanan Terbaru -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">
+                    <i class="fas fa-clock mr-2 text-blue-600"></i>Pesanan Terbaru
+                </h3>
+                <a href="{{ route('admin.pembelian.index') }}" class="text-sm text-blue-600 hover:text-blue-800">
+                    Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
         </div>
-
-        <!-- Stok Menipis -->
-        <div class="bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">
-                <i class="fas fa-exclamation-triangle mr-2 text-red-600"></i>Stok Menipis
-            </h2>
-
-            <div class="space-y-4">
-                @forelse($produkStokMenipis ?? [] as $produk)
-                    <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <div class="flex items-start justify-between mb-2">
-                            <div class="flex-1">
-                                <p class="font-semibold text-gray-900 text-sm">{{ $produk->nama }}</p>
-                                <p class="text-xs text-gray-500">SKU: {{ $produk->sku }}</p>
-                            </div>
-                            <i class="fas fa-exclamation-triangle text-red-600"></i>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-gray-600">Stok: <span class="font-bold text-red-600">{{ $produk->stok }}</span> / {{ $produk->min_stok }}</span>
-                            <a href="{{ route('admin.produk.edit', $produk->id) }}" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                                Edit Stok
-                            </a>
-                        </div>
-                    </div>
-                @empty
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
-                        <p>Semua stok aman</p>
-                    </div>
-                @endforelse
-            </div>
-
-            <a href="{{ route('admin.produk.index') }}"
-                class="block mt-4 px-4 py-2 text-center border-2 border-red-600 text-red-600 rounded-lg font-semibold hover:bg-red-50 transition-all">
-                Kelola Stok
-            </a>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">No. Order</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Pelanggan</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Total</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Tanggal</th>
+                        <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @forelse ($pesananTerbaru as $order)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <span class="font-medium text-gray-900">{{ $order->order_number }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($order->user->name ?? 'User') }}&size=32&background=3b82f6&color=fff" 
+                                        alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                    <span class="text-sm text-gray-900">{{ $order->user->name ?? 'Guest' }}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="font-semibold text-gray-900">Rp {{ number_format($order->total, 0, ',', '.') }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                @switch($order->status)
+                                    @case('pending')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <i class="fas fa-clock mr-1"></i>Pending
+                                        </span>
+                                        @break
+                                    @case('paid')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <i class="fas fa-credit-card mr-1"></i>Paid
+                                        </span>
+                                        @break
+                                    @case('processing')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            <i class="fas fa-cog mr-1"></i>Processing
+                                        </span>
+                                        @break
+                                    @case('shipped')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                            <i class="fas fa-truck mr-1"></i>Shipped
+                                        </span>
+                                        @break
+                                    @case('delivered')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <i class="fas fa-check-circle mr-1"></i>Delivered
+                                        </span>
+                                        @break
+                                    @case('cancelled')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            <i class="fas fa-times-circle mr-1"></i>Cancelled
+                                        </span>
+                                        @break
+                                    @default
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            {{ $order->status }}
+                                        </span>
+                                @endswitch
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm text-gray-500">{{ $order->created_at->format('d M Y H:i') }}</span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="{{ route('admin.pembelian.show', $order->id) }}" 
+                                    class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-gray-400">
+                                <i class="fas fa-inbox text-4xl mb-2"></i>
+                                <p>Belum ada pesanan</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
+@endsection
 
-
-    <!-- Chart.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-    <script>
-        // Set tanggal saat ini
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('id-ID', options);
-
-        // Data untuk grafik dari backend
-        const salesData = @json($penjualan7Hari ?? []);
-
-        // Format mata uang
-        function formatCurrency(amount) {
-            return 'Rp ' + amount.toLocaleString('id-ID');
-        }
-
-        // Grafik penjualan
-        let salesChart;
-        function createSalesChart() {
-            const ctx = document.getElementById('salesChart').getContext('2d');
-
-            // Gunakan data dari controller
-            const labels = salesData.map(item => {
-                const date = new Date(item.date);
-                return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
-            });
-            const data = salesData.map(item => item.total);
-
-            salesChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Penjualan (Rp)',
-                        data: data,
-                        borderColor: 'rgb(37, 99, 235)',
-                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: 'rgb(37, 99, 235)',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
+@push('scripts')
+@if($penjualan7Hari->count() > 0)
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($penjualan7Hari->pluck('tanggal')->map(function($d) { return \Carbon\Carbon::parse($d)->format('d M'); })) !!},
+                datasets: [{
+                    label: 'Penjualan (Rp)',
+                    data: {!! json_encode($penjualan7Hari->pluck('total')) !!},
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    return 'Rp ' + context.parsed.y.toLocaleString('id-ID');
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function (value) {
-                                    return 'Rp ' + (value / 1000000).toFixed(1) + 'Jt';
-                                }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp ' + value.toLocaleString('id-ID');
                             }
                         }
                     }
                 }
-            });
-        }
-
-        // Update grafik
-        function updateChart() {
-            const period = document.getElementById('chartPeriod').value;
-            window.location.href = '{{ route('admin.dashboard.index') }}?period=' + period;
-        }
-
-        // Inisialisasi
-        createSalesChart();
-    </script>
-@endsection
+            }
+        });
+    });
+</script>
+@endif
+@endpush

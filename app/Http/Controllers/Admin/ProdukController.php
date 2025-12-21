@@ -59,8 +59,13 @@ class ProdukController extends Controller
         
         // Auto generate SKU jika kosong
         if (empty($data['sku'])) {
-            $lastProduk = Produk::latest()->first();
-            $number = $lastProduk ? intval(substr($lastProduk->sku, 4)) + 1 : 1;
+            // Cari nomor SKU tertinggi yang sudah ada (termasuk yang soft-deleted)
+            $maxSku = Produk::withTrashed()
+                ->where('sku', 'like', 'BRG-%')
+                ->orderByRaw('CAST(SUBSTRING(sku, 5) AS UNSIGNED) DESC')
+                ->value('sku');
+            
+            $number = $maxSku ? intval(substr($maxSku, 4)) + 1 : 1;
             $data['sku'] = 'BRG-' . str_pad($number, 5, '0', STR_PAD_LEFT);
         }
         
