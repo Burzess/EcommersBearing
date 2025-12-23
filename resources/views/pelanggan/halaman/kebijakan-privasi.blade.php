@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-600 to-primary-800 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">{{ $kebijakanPrivasi->judul }}</h1>
-                <p class="text-blue-100">
+                <p class="text-primary-100">
                     @if ($kebijakanPrivasi->tanggal_berlaku)
                         Berlaku sejak {{ $kebijakanPrivasi->tanggal_berlaku->format('d F Y') }}
                     @else
@@ -37,7 +37,7 @@
                         @foreach ($items as $index => $item)
                             <div class="border-b border-gray-100 pb-6 last:border-b-0 last:pb-0">
                                 <div class="flex items-start">
-                                    <span class="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
+                                    <span class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
                                         {{ $index + 1 }}
                                     </span>
                                     <div class="flex-1">
@@ -72,13 +72,13 @@
             <!-- Kontak -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <div class="flex items-center mb-4">
-                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-envelope text-blue-600"></i>
+                    <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-envelope text-primary-600"></i>
                     </div>
                     <h3 class="text-lg font-bold text-gray-900">Ada Pertanyaan?</h3>
                 </div>
                 <p class="text-gray-600 text-sm mb-4">Hubungi kami jika ada pertanyaan seputar kebijakan privasi.</p>
-                <a href="{{ route('pelanggan.kontak') }}" class="inline-flex items-center text-blue-600 font-medium hover:underline">
+                <a href="{{ route('pelanggan.kontak') }}" class="inline-flex items-center text-primary-600 font-medium hover:underline">
                     <i class="fas fa-arrow-right mr-2"></i>Hubungi Kami
                 </a>
             </div>

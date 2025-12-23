@@ -32,8 +32,8 @@
                         <a href="#" class="block px-4 py-3 hover:bg-gray-50 border-b border-gray-100">
                             <div class="flex items-start">
                                 <div class="shrink-0">
-                                    <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-shopping-cart text-indigo-600"></i>
+                                    <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart text-primary-600"></i>
                                     </div>
                                 </div>
                                 <div class="ml-3 flex-1">
@@ -58,8 +58,8 @@
                         <a href="#" class="block px-4 py-3 hover:bg-gray-50">
                             <div class="flex items-start">
                                 <div class="shrink-0">
-                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-user text-blue-600"></i>
+                                    <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-primary-600"></i>
                                     </div>
                                 </div>
                                 <div class="ml-3 flex-1">
@@ -70,7 +70,7 @@
                         </a>
                     </div>
                     <div class="px-4 py-3 border-t border-gray-200 text-center">
-                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+                        <a href="#" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
                             Lihat semua notifikasi
                         </a>
                     </div>
@@ -81,7 +81,7 @@
             <div x-data="{ open: false }" class="relative">
                 <button @click="open = !open"
                     class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                    <div class="w-9 h-9 bg-indigo-600 rounded-full flex items-center justify-center">
+                    <div class="w-9 h-9 bg-primary-600 rounded-full flex items-center justify-center">
                         <span class="text-white text-sm font-semibold">A</span>
                     </div>
                     <div class="hidden md:block text-left">

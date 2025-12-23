@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Header -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <a href="{{ route('admin.produk.index') }}"
@@ -12,11 +12,11 @@
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
                 <h1 class="text-3xl font-bold text-white mb-2">Detail Produk</h1>
-                <p class="text-blue-100">{{ $produk->nama }}</p>
+                <p class="text-primary-100">{{ $produk->nama }}</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-box text-blue-900 text-4xl"></i>
+                    <i class="fas fa-box text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <!-- Quick Actions -->
                 <div class="mt-6 pt-6 border-t border-gray-200 space-y-2">
                     <a href="{{ route('admin.produk.edit', $produk->id) }}" 
-                        class="w-full block px-4 py-2 bg-blue-600 text-white text-center rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                        class="w-full block px-4 py-2 bg-primary-600 text-white text-center rounded-lg font-semibold hover:bg-primary-700 transition-all">
                         <i class="fas fa-edit mr-2"></i>Edit Produk
                     </a>
                     <form action="{{ route('admin.produk.destroy', $produk->id) }}" method="POST" 
@@ -67,7 +67,7 @@
             <!-- Informasi Dasar -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-info-circle mr-2 text-blue-600"></i>Informasi Produk
+                    <i class="fas fa-info-circle mr-2 text-primary-600"></i>Informasi Produk
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-4">
@@ -82,7 +82,7 @@
                     <div>
                         <label class="text-sm font-medium text-gray-500">Kategori</label>
                         <p class="text-gray-900 font-medium mt-1">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                                 {{ $produk->kategori->nama ?? '-' }}
                             </span>
                         </p>
@@ -124,7 +124,7 @@
             <!-- Harga & Stok -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-tag mr-2 text-blue-600"></i>Harga & Stok
+                    <i class="fas fa-tag mr-2 text-primary-600"></i>Harga & Stok
                 </h2>
 
                 <div class="grid md:grid-cols-4 gap-4">
@@ -159,7 +159,7 @@
             <!-- Spesifikasi Teknis -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-cog mr-2 text-blue-600"></i>Spesifikasi Teknis
+                    <i class="fas fa-cog mr-2 text-primary-600"></i>Spesifikasi Teknis
                 </h2>
 
                 <div class="grid md:grid-cols-3 gap-4">
@@ -193,7 +193,7 @@
             <!-- Info Tambahan -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-clock mr-2 text-blue-600"></i>Informasi Tambahan
+                    <i class="fas fa-clock mr-2 text-primary-600"></i>Informasi Tambahan
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-4">

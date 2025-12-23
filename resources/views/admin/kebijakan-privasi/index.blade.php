@@ -10,7 +10,7 @@
             <p class="text-gray-600">Kelola halaman Kebijakan Privasi</p>
         </div>
         <a href="{{ route('admin.kebijakan-privasi.edit') }}"
-            class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors">
             <i class="fas fa-edit mr-2"></i>Edit
         </a>
     </div>
@@ -68,7 +68,7 @@
                             @foreach ($items as $index => $item)
                                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                                     <div class="flex items-start">
-                                        <span class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                                        <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
                                             {{ $index + 1 }}
                                         </span>
                                         <div class="flex-1">
@@ -95,7 +95,7 @@
             <h3 class="text-lg font-semibold text-gray-900 mb-2">Belum Ada Data</h3>
             <p class="text-gray-600 mb-4">Kebijakan Privasi belum diatur</p>
             <a href="{{ route('admin.kebijakan-privasi.edit') }}"
-                class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700">
                 <i class="fas fa-plus mr-2"></i>Buat Sekarang
             </a>
         </div>

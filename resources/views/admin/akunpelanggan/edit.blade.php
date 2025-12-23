@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <a href="{{ route('admin.akunpelanggan.index') }}"
@@ -12,11 +12,11 @@
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
                 <h1 class="text-3xl font-bold text-white mb-2">Edit Akun Pelanggan</h1>
-                <p class="text-blue-100">Ubah informasi pelanggan</p>
+                <p class="text-primary-100">Ubah informasi pelanggan</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-18 h-18 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-user-edit text-blue-900 text-4xl"></i>
+                    <i class="fas fa-user-edit text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
             <div class="bg-white rounded-xl shadow-md p-6 mb-6">
                 <div class="text-center mb-6">
                     <img src="https://ui-avatars.com/api/?name={{ urlencode($pelanggan->name) }}&size=128&background=3b82f6&color=fff" alt="Avatar"
-                        class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-100">
+                        class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-primary-100">
                     <h3 class="text-xl font-bold text-gray-900">{{ $pelanggan->name }}</h3>
                     <p class="text-sm text-gray-500">ID: #{{ $pelanggan->id }}</p>
                     @if ($pelanggan->is_active)
@@ -83,7 +83,7 @@
                 <!-- Informasi Pribadi -->
                 <div class="bg-white rounded-xl shadow-md p-6 mb-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-6">
-                        <i class="fas fa-user mr-2 text-blue-600"></i>Informasi Pribadi
+                        <i class="fas fa-user mr-2 text-primary-600"></i>Informasi Pribadi
                     </h2>
 
                     <div class="grid md:grid-cols-2 gap-4">
@@ -92,7 +92,7 @@
                                 Nama Lengkap <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="name" value="{{ old('name', $pelanggan->name) }}" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('name') border-red-500 @enderror"
                                 placeholder="Contoh: John Doe">
                             @error('name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -104,7 +104,7 @@
                                 Email <span class="text-red-500">*</span>
                             </label>
                             <input type="email" name="email" value="{{ old('email', $pelanggan->email) }}" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('email') border-red-500 @enderror"
                                 placeholder="contoh@email.com">
                             @error('email')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -116,7 +116,7 @@
                                 Nomor Telepon
                             </label>
                             <input type="tel" name="telepon" value="{{ old('telepon', $pelanggan->telepon) }}"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('telepon') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('telepon') border-red-500 @enderror"
                                 placeholder="081234567890">
                             @error('telepon')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -128,7 +128,7 @@
                                 Status Akun <span class="text-red-500">*</span>
                             </label>
                             <select name="is_active" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('is_active') border-red-500 @enderror">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('is_active') border-red-500 @enderror">
                                 <option value="1" {{ old('is_active', $pelanggan->is_active) == 1 ? 'selected' : '' }}>Aktif</option>
                                 <option value="0" {{ old('is_active', $pelanggan->is_active) == 0 ? 'selected' : '' }}>Tidak Aktif</option>
                             </select>
@@ -147,7 +147,7 @@
                         Batal
                     </a>
                     <button type="submit"
-                        class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                        class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
                         <i class="fas fa-save mr-2"></i>Simpan Perubahan
                     </button>
                 </div>

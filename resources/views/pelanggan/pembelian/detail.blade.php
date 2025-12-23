@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <a href="{{ route('pelanggan.pembelian.index') }}"
@@ -12,11 +12,11 @@
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
                 <h1 class="text-3xl font-bold text-white mb-2">Detail Pesanan</h1>
-                <p class="text-blue-100">No. Pesanan: {{ $order->order_number }}</p>
+                <p class="text-primary-100">No. Pesanan: {{ $order->order_number }}</p>
             </div>
             <div class="md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-receipt text-blue-800 text-4xl"></i>
+                    <i class="fas fa-receipt text-primary-800 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -40,8 +40,8 @@
                 @php
                     $statusColors = [
                         'pending' => 'bg-yellow-100 text-yellow-700',
-                        'paid' => 'bg-blue-100 text-blue-700',
-                        'processing' => 'bg-blue-100 text-blue-700',
+                        'paid' => 'bg-primary-100 text-primary-700',
+                        'processing' => 'bg-primary-100 text-primary-700',
                         'shipped' => 'bg-purple-100 text-purple-700',
                         'delivered' => 'bg-green-100 text-green-700',
                         'cancelled' => 'bg-red-100 text-red-700',
@@ -68,14 +68,14 @@
                         @foreach ($order->statuses->sortByDesc('created_at') as $index => $status)
                             <div class="relative {{ !$loop->last ? 'pb-8' : 'pb-0' }}">
                                 @if (!$loop->last)
-                                    <span class="absolute top-8 left-[-20px] -ml-px h-full w-0.5 bg-blue-600"></span>
+                                    <span class="absolute top-8 left-[-20px] -ml-px h-full w-0.5 bg-primary-600"></span>
                                 @endif
                                 <div class="relative flex items-start">
-                                    <span class="h-10 w-10 rounded-full flex items-center justify-center absolute -left-10 bg-blue-600 text-white {{ $loop->first ? 'ring-4 ring-blue-200' : '' }}">
+                                    <span class="h-10 w-10 rounded-full flex items-center justify-center absolute -left-10 bg-primary-600 text-white {{ $loop->first ? 'ring-4 ring-primary-200' : '' }}">
                                         <i class="fas fa-{{ $statusIcons[$status->status] ?? 'info-circle' }}"></i>
                                     </span>
                                     <div class="min-w-0 flex-1">
-                                        <p class="font-bold text-gray-900 {{ $loop->first ? 'text-blue-600' : '' }}">
+                                        <p class="font-bold text-gray-900 {{ $loop->first ? 'text-primary-600' : '' }}">
                                             {{ $status->status_label ?? ucfirst($status->status) }}
                                         </p>
                                         @if ($status->keterangan)
@@ -93,7 +93,7 @@
             <!-- Produk yang Dipesan -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-4">
-                    <i class="fas fa-box mr-2 text-blue-600"></i>Produk yang Dipesan
+                    <i class="fas fa-box mr-2 text-primary-600"></i>Produk yang Dipesan
                 </h2>
                 <div class="space-y-4">
                     @foreach ($order->items as $item)
@@ -113,7 +113,7 @@
                                 <p class="text-xs text-gray-500 mb-2">SKU: {{ $item->produk->sku ?? '-' }}</p>
                                 <div class="flex items-center justify-between">
                                     <p class="text-sm text-gray-600">{{ $item->quantity }} × Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
-                                    <p class="font-bold text-blue-600 text-lg">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</p>
+                                    <p class="font-bold text-primary-600 text-lg">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
             <!-- Informasi Pengiriman -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-4">
-                    <i class="fas fa-truck mr-2 text-blue-600"></i>Informasi Pengiriman
+                    <i class="fas fa-truck mr-2 text-primary-600"></i>Informasi Pengiriman
                 </h2>
                 <div class="space-y-4">
                     <div class="bg-gray-50 rounded-lg p-4">
@@ -148,7 +148,7 @@
                     </div>
 
                     @if ($order->kurir || $order->resi)
-                        <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="bg-primary-50 rounded-lg p-4">
                             <h3 class="font-semibold text-gray-900 mb-3">Kurir & Pengiriman</h3>
                             <div class="space-y-2 text-sm">
                                 @if ($order->kurir)
@@ -178,7 +178,7 @@
             <!-- Informasi Pembayaran -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-4">
-                    <i class="fas fa-credit-card mr-2 text-blue-600"></i>Informasi Pembayaran
+                    <i class="fas fa-credit-card mr-2 text-primary-600"></i>Informasi Pembayaran
                 </h2>
                 <div class="space-y-4">
                     <div class="bg-gray-50 rounded-lg p-4">
@@ -222,7 +222,7 @@
                                     <div class="flex items-center space-x-2">
                                         <input type="file" name="bukti_pembayaran" accept="image/*" required
                                             class="flex-1 text-sm border border-gray-300 rounded-lg">
-                                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                                        <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700">
                                             <i class="fas fa-upload mr-1"></i>Upload
                                         </button>
                                     </div>
@@ -270,7 +270,7 @@
                     </div>
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-lg font-bold text-gray-900">Total Pembayaran</span>
-                        <span class="text-2xl font-bold text-blue-600">Rp {{ number_format($order->total, 0, ',', '.') }}</span>
+                        <span class="text-2xl font-bold text-primary-600">Rp {{ number_format($order->total, 0, ',', '.') }}</span>
                     </div>
                     <p class="text-xs text-gray-500 text-center">Termasuk PPN jika berlaku</p>
                 </div>
@@ -306,7 +306,7 @@
                 @if ($order->catatan)
                     <div class="bg-gray-50 rounded-xl shadow-md p-6">
                         <h3 class="font-bold text-gray-900 mb-3">
-                            <i class="fas fa-sticky-note mr-2 text-blue-600"></i>Catatan
+                            <i class="fas fa-sticky-note mr-2 text-primary-600"></i>Catatan
                         </h3>
                         <p class="text-sm text-gray-700">{{ $order->catatan }}</p>
                     </div>

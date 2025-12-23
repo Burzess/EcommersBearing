@@ -10,7 +10,7 @@
             <p class="text-gray-600">Kelola halaman Tentang Kami</p>
         </div>
         <a href="{{ route('admin.tentang-kami.edit') }}"
-            class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors">
             <i class="fas fa-edit mr-2"></i>Edit
         </a>
     </div>
@@ -89,7 +89,7 @@
             <h3 class="text-lg font-semibold text-gray-900 mb-2">Belum Ada Data</h3>
             <p class="text-gray-600 mb-4">Halaman Tentang Kami belum diatur</p>
             <a href="{{ route('admin.tentang-kami.edit') }}"
-                class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700">
                 <i class="fas fa-plus mr-2"></i>Buat Sekarang
             </a>
         </div>

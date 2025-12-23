@@ -4,15 +4,15 @@
 
 @section('content')
     <!-- Header -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Manajemen Pembelian</h1>
-                <p class="text-blue-100">Kelola pesanan dari pelanggan</p>
+                <p class="text-primary-100">Kelola pesanan dari pelanggan</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-shopping-cart text-blue-900 text-4xl"></i>
+                    <i class="fas fa-shopping-cart text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
                     <p class="text-gray-500 text-xs mb-1">Total</p>
                     <p class="text-xl font-bold text-gray-900">{{ $orders->total() }}</p>
                 </div>
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-shopping-bag text-blue-600"></i>
+                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-shopping-bag text-primary-600"></i>
                 </div>
             </div>
         </div>
@@ -85,10 +85,10 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500 text-xs mb-1">Processing</p>
-                    <p class="text-xl font-bold text-blue-600">{{ $orders->where('status', 'processing')->count() }}</p>
+                    <p class="text-xl font-bold text-primary-600">{{ $orders->where('status', 'processing')->count() }}</p>
                 </div>
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-cog text-blue-600"></i>
+                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-cog text-primary-600"></i>
                 </div>
             </div>
         </div>
@@ -124,13 +124,13 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Cari</label>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="No. Order, nama..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                 <select name="status"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                     <option value="">Semua Status</option>
                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="paid" {{ request('status') == 'paid' ? 'selected' : '' }}>Paid</option>
@@ -144,18 +144,18 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Mulai</label>
                 <input type="date" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Akhir</label>
                 <input type="date" name="tanggal_akhir" value="{{ request('tanggal_akhir') }}"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             </div>
 
             <div class="flex items-end gap-2">
                 <button type="submit"
-                    class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                    class="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
                     <i class="fas fa-search mr-2"></i>Cari
                 </button>
                 <a href="{{ route('admin.pembelian.index') }}"
@@ -177,6 +177,7 @@
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Items</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Bukti</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tanggal</th>
                         <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                     </tr>
@@ -199,7 +200,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                                     {{ $order->items->count() }} produk
                                 </span>
                             </td>
@@ -222,7 +223,7 @@
                                         </span>
                                         @break
                                     @case('processing')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                                             <i class="fas fa-cog mr-1"></i>Processing
                                         </span>
                                         @break
@@ -247,6 +248,17 @@
                                         </span>
                                 @endswitch
                             </td>
+                            <td class="px-6 py-4 text-center">
+                                @if ($order->bukti_pembayaran)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" title="Bukti sudah diupload">
+                                        <i class="fas fa-check-circle mr-1"></i>Ada
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500" title="Bukti belum diupload">
+                                        <i class="fas fa-minus-circle mr-1"></i>Belum
+                                    </span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4">
                                 <div class="text-sm text-gray-900">{{ $order->created_at->format('d M Y') }}</div>
                                 <div class="text-xs text-gray-500">{{ $order->created_at->format('H:i') }}</div>
@@ -254,7 +266,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center justify-center">
                                     <a href="{{ route('admin.pembelian.show', $order->id) }}" 
-                                        class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Lihat Detail">
+                                        class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Lihat Detail">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </div>
@@ -262,7 +274,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
+                            <td colspan="8" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-shopping-cart text-gray-300 text-5xl mb-4"></i>
                                     <p class="text-gray-500 text-lg">Tidak ada data pembelian</p>

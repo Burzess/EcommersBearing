@@ -19,11 +19,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="h-full bg-linear-to-br from-blue-50 via-white to-gray-50">
+<body class="h-full bg-linear-to-br from-primary-50 via-white to-gray-50">
     <div class="min-h-full flex">
         <!-- Sisi Kiri - Gambar/Branding -->
         <div
-            class="hidden lg:flex lg:w-1/2 bg-linear-to-br from-blue-600 via-blue-700 to-blue-900 relative overflow-hidden">
+            class="hidden lg:flex lg:w-1/2 bg-linear-to-br from-primary-600 via-primary-700 to-primary-900 relative overflow-hidden">
             <!-- Elemen Dekoratif -->
             <div class="absolute inset-0 opacity-10">
                 <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
@@ -36,11 +36,11 @@
                 <div class="mb-8">
                     <div class="flex items-center space-x-3 mb-6">
                         <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center shadow-xl">
-                            <i class="fas fa-cog text-blue-600 text-3xl"></i>
+                            <i class="fas fa-cog text-primary-600 text-3xl"></i>
                         </div>
                         <div>
                             <h1 class="text-3xl font-bold">Bearing Shop</h1>
-                            <p class="text-blue-200 text-sm">Premium Quality Bearings</p>
+                            <p class="text-primary-200 text-sm">Premium Quality Bearings</p>
                         </div>
                     </div>
                 </div>
@@ -49,63 +49,63 @@
                 <div class="space-y-6 max-w-md">
                     <div class="flex items-start space-x-4">
                         <div
-                            class="w-12 h-12 bg-blue-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
+                            class="w-12 h-12 bg-primary-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
                             <i class="fas fa-shipping-fast text-xl"></i>
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg mb-1">Pengiriman Cepat</h3>
-                            <p class="text-blue-100 text-sm">Pengiriman ke seluruh Indonesia dengan jaminan aman dan
+                            <p class="text-primary-100 text-sm">Pengiriman ke seluruh Indonesia dengan jaminan aman dan
                                 cepat</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
                         <div
-                            class="w-12 h-12 bg-blue-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
+                            class="w-12 h-12 bg-primary-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
                             <i class="fas fa-shield-alt text-xl"></i>
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg mb-1">Produk Original</h3>
-                            <p class="text-blue-100 text-sm">100% produk bearing original dari brand ternama dunia</p>
+                            <p class="text-primary-100 text-sm">100% produk bearing original dari brand ternama dunia</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
                         <div
-                            class="w-12 h-12 bg-blue-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
+                            class="w-12 h-12 bg-primary-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
                             <i class="fas fa-headset text-xl"></i>
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg mb-1">Customer Support 24/7</h3>
-                            <p class="text-blue-100 text-sm">Tim support siap membantu Anda kapan saja</p>
+                            <p class="text-primary-100 text-sm">Tim support siap membantu Anda kapan saja</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
                         <div
-                            class="w-12 h-12 bg-blue-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
+                            class="w-12 h-12 bg-primary-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
                             <i class="fas fa-tags text-xl"></i>
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg mb-1">Harga Kompetitif</h3>
-                            <p class="text-blue-100 text-sm">Dapatkan harga terbaik untuk bearing berkualitas tinggi</p>
+                            <p class="text-primary-100 text-sm">Dapatkan harga terbaik untuk bearing berkualitas tinggi</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Statistik -->
-                <div class="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-blue-500 border-opacity-30">
+                <div class="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-primary-500 border-opacity-30">
                     <div>
                         <div class="text-3xl font-bold mb-1">5000+</div>
-                        <div class="text-blue-200 text-sm">Produk Bearing</div>
+                        <div class="text-primary-200 text-sm">Produk Bearing</div>
                     </div>
                     <div>
                         <div class="text-3xl font-bold mb-1">10K+</div>
-                        <div class="text-blue-200 text-sm">Pelanggan Puas</div>
+                        <div class="text-primary-200 text-sm">Pelanggan Puas</div>
                     </div>
                     <div>
                         <div class="text-3xl font-bold mb-1">24/7</div>
-                        <div class="text-blue-200 text-sm">Support</div>
+                        <div class="text-primary-200 text-sm">Support</div>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
             <!-- Logo Mobile -->
             <div class="lg:hidden mb-8 text-center">
                 <div class="inline-flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg">
                         <i class="fas fa-cog text-white text-2xl"></i>
                     </div>
                     <div class="text-left">
@@ -161,7 +161,7 @@
                                 <i class="fas fa-user mr-2 text-gray-400"></i>Nama Lengkap
                             </label>
                             <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
-                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                 placeholder="Masukkan nama lengkap Anda">
                         </div>
 
@@ -171,7 +171,7 @@
                                 <i class="fas fa-envelope mr-2 text-gray-400"></i>Email
                             </label>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email"
-                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                 placeholder="contoh@email.com">
                         </div>
 
@@ -181,7 +181,7 @@
                                 <i class="fas fa-phone mr-2 text-gray-400"></i>Nomor Telepon
                             </label>
                             <input id="telepon" type="tel" name="telepon" value="{{ old('telepon') }}" required
-                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                 placeholder="08123456789">
                         </div>
 
@@ -193,7 +193,7 @@
                             <div class="relative">
                                 <input id="password" type="password" name="password" required
                                     autocomplete="new-password"
-                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                     placeholder="Minimal 8 karakter">
                                 <button type="button" onclick="togglePassword('password', 'toggleIcon1')"
                                     class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -213,7 +213,7 @@
                             <div class="relative">
                                 <input id="password_confirmation" type="password" name="password_confirmation" required
                                     autocomplete="new-password"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                     placeholder="Ulangi password Anda">
                                 <button type="button" onclick="togglePassword('password_confirmation', 'toggleIcon2')"
                                     class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -226,15 +226,15 @@
                         <div>
                             <label class="flex items-start cursor-pointer">
                                 <input type="checkbox" name="terms" required
-                                    class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 mt-1">
+                                    class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500 focus:ring-2 mt-1">
                                 <span class="ml-2 text-sm text-gray-700">
                                     Saya setuju dengan
                                     <a href="#"
-                                        class="text-blue-600 hover:text-blue-700 font-medium hover:underline">Syarat &
+                                        class="text-primary-600 hover:text-primary-700 font-medium hover:underline">Syarat &
                                         Ketentuan</a>
                                     dan
                                     <a href="#"
-                                        class="text-blue-600 hover:text-blue-700 font-medium hover:underline">Kebijakan
+                                        class="text-primary-600 hover:text-primary-700 font-medium hover:underline">Kebijakan
                                         Privasi</a>
                                 </span>
                             </label>
@@ -242,7 +242,7 @@
 
                         <!-- Tombol Submit -->
                         <button type="submit"
-                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                            class="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                             <i class="fas fa-user-plus mr-2"></i>Daftar Sekarang
                         </button>
 
@@ -261,7 +261,7 @@
                             <p class="text-sm text-gray-600">
                                 Sudah punya akun?
                                 <a href="{{ route('login') }}"
-                                    class="text-blue-600 hover:text-blue-700 font-medium hover:underline ml-1">
+                                    class="text-primary-600 hover:text-primary-700 font-medium hover:underline ml-1">
                                     Masuk di sini
                                 </a>
                             </p>
@@ -277,7 +277,7 @@
                         </button>
                         <button type="button"
                             class="flex items-center justify-center px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all">
-                            <i class="fab fa-facebook text-blue-600 mr-2"></i>
+                            <i class="fab fa-facebook text-primary-600 mr-2"></i>
                             <span class="text-sm font-medium text-gray-700">Facebook</span>
                         </button>
                     </div>

@@ -18,7 +18,7 @@
             'icon' => 'exclamation-triangle',
         ],
         'info' => [
-            'bg' => 'bg-blue-100 border-blue-400 text-blue-700',
+            'bg' => 'bg-primary-100 border-primary-400 text-primary-700',
             'icon' => 'info-circle',
         ],
     ];

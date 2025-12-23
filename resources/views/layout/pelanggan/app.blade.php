@@ -56,7 +56,7 @@
                                                     <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
                                                 @endif
                                                 <a href="{{ $breadcrumb['url'] }}"
-                                                    class="text-sm font-medium text-gray-700 hover:text-blue-600">
+                                                    class="text-sm font-medium text-gray-700 hover:text-primary-600">
                                                     {{ $breadcrumb['name'] }}
                                                 </a>
                                             </div>
@@ -78,9 +78,9 @@
                     <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
                         <p>&copy; {{ date('Y') }} Bearing Shop. All rights reserved.</p>
                         <div class="flex space-x-4 mt-2 md:mt-0">
-                            <a href="{{ route('pelanggan.tentang-kami') }}" class="hover:text-blue-600">Tentang Kami</a>
-                            <a href="{{ route('pelanggan.kontak') }}" class="hover:text-blue-600">Kontak</a>
-                            <a href="{{ route('pelanggan.kebijakan-privasi') }}" class="hover:text-blue-600">Kebijakan Privasi</a>
+                            <a href="{{ route('pelanggan.tentang-kami') }}" class="hover:text-primary-600">Tentang Kami</a>
+                            <a href="{{ route('pelanggan.kontak') }}" class="hover:text-primary-600">Kontak</a>
+                            <a href="{{ route('pelanggan.kebijakan-privasi') }}" class="hover:text-primary-600">Kebijakan Privasi</a>
                         </div>
                     </div>
                 </div>

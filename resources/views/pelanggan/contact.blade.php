@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-600 to-primary-800 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Hubungi Kami</h1>
-                <p class="text-blue-100">Kami siap membantu Anda</p>
+                <p class="text-primary-100">Kami siap membantu Anda</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -33,8 +33,8 @@
             <!-- Card Alamat -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <div class="flex items-center space-x-4 mb-4">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt text-primary-600 text-xl"></i>
                     </div>
                     <div>
                         <h3 class="font-bold text-gray-900">Alamat</h3>
@@ -60,8 +60,8 @@
                     </div>
                 </div>
                 <p class="text-gray-700">
-                    <a href="tel:+6231123456" class="hover:text-blue-600">+62 31 123 456</a><br>
-                    <a href="tel:+6281234567890" class="hover:text-blue-600">+62 812 3456 7890</a>
+                    <a href="tel:+6231123456" class="hover:text-primary-600">+62 31 123 456</a><br>
+                    <a href="tel:+6281234567890" class="hover:text-primary-600">+62 812 3456 7890</a>
                 </p>
             </div>
 
@@ -77,8 +77,8 @@
                     </div>
                 </div>
                 <p class="text-gray-700">
-                    <a href="mailto:info@bearingshop.com" class="hover:text-blue-600">info@bearingshop.com</a><br>
-                    <a href="mailto:sales@bearingshop.com" class="hover:text-blue-600">sales@bearingshop.com</a>
+                    <a href="mailto:info@bearingshop.com" class="hover:text-primary-600">info@bearingshop.com</a><br>
+                    <a href="mailto:sales@bearingshop.com" class="hover:text-primary-600">sales@bearingshop.com</a>
                 </p>
             </div>
 
@@ -114,7 +114,7 @@
         <div class="lg:col-span-2">
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-paper-plane mr-2 text-blue-600"></i>Kirim Pesan
+                    <i class="fas fa-paper-plane mr-2 text-primary-600"></i>Kirim Pesan
                 </h2>
                 
                 <form action="#" method="POST" class="space-y-4">
@@ -123,13 +123,13 @@
                         <div>
                             @include('pelanggan.component.input-label', ['value' => 'Nama Lengkap'])
                             <input type="text" name="nama" required placeholder="Masukkan nama lengkap"
-                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all">
                             @include('pelanggan.component.input-error', ['messages' => $errors->get('nama')])
                         </div>
                         <div>
                             @include('pelanggan.component.input-label', ['value' => 'Email'])
                             <input type="email" name="email" required placeholder="Masukkan email"
-                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all">
                             @include('pelanggan.component.input-error', ['messages' => $errors->get('email')])
                         </div>
                     </div>
@@ -137,19 +137,19 @@
                     <div>
                         @include('pelanggan.component.input-label', ['value' => 'Subjek'])
                         <input type="text" name="subjek" required placeholder="Masukkan subjek pesan"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all">
                         @include('pelanggan.component.input-error', ['messages' => $errors->get('subjek')])
                     </div>
 
                     <div>
                         @include('pelanggan.component.input-label', ['value' => 'Pesan'])
                         <textarea name="pesan" rows="5" required placeholder="Tuliskan pesan Anda..."
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"></textarea>
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all resize-none"></textarea>
                         @include('pelanggan.component.input-error', ['messages' => $errors->get('pesan')])
                     </div>
 
                     <button type="submit"
-                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
+                        class="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
                         <i class="fas fa-paper-plane mr-2"></i>Kirim Pesan
                     </button>
                 </form>
@@ -158,7 +158,7 @@
             <!-- FAQ Section -->
             <div class="bg-white rounded-xl shadow-md p-6 mt-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-question-circle mr-2 text-blue-600"></i>Pertanyaan Umum
+                    <i class="fas fa-question-circle mr-2 text-primary-600"></i>Pertanyaan Umum
                 </h2>
                 
                 <div class="space-y-4">

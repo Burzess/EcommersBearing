@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pelanggan;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PembelianController extends Controller
 {
@@ -47,15 +48,27 @@ class PembelianController extends Controller
         ]);
         
         if ($request->hasFile('bukti_pembayaran')) {
+            // Pastikan folder ada di disk public
+            if (!Storage::disk('public')->exists('bukti-pembayaran')) {
+                Storage::disk('public')->makeDirectory('bukti-pembayaran');
+            }
+            
+            // Hapus bukti lama jika ada
+            if ($order->bukti_pembayaran && Storage::disk('public')->exists($order->bukti_pembayaran)) {
+                Storage::disk('public')->delete($order->bukti_pembayaran);
+            }
+            
             $file = $request->file('bukti_pembayaran');
-            $fileName = 'bukti_' . $order->order_number . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/bukti-pembayaran', $fileName);
+            $fileName = 'bukti_' . $order->order_number . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('bukti-pembayaran', $fileName, 'public');
             
-            $order->update([
-                'bukti_pembayaran' => 'bukti-pembayaran/' . $fileName,
-            ]);
-            
-            return back()->with('success', 'Bukti pembayaran berhasil diupload. Menunggu verifikasi admin.');
+            if ($path) {
+                $order->update([
+                    'bukti_pembayaran' => $path,
+                ]);
+                
+                return back()->with('success', 'Bukti pembayaran berhasil diupload. Menunggu verifikasi admin.');
+            }
         }
         
         return back()->with('error', 'Gagal upload bukti pembayaran.');

@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-600 to-primary-800 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Keranjang Belanja</h1>
-                <p class="text-blue-100">Kelola produk yang ingin Anda beli</p>
+                <p class="text-primary-100">Kelola produk yang ingin Anda beli</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -35,7 +35,7 @@
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-shopping-bag text-blue-600"></i>
+                            <i class="fas fa-shopping-bag text-primary-600"></i>
                             <span class="font-semibold text-gray-900">{{ $keranjangs->count() }} Produk di Keranjang</span>
                         </div>
                         <form action="{{ route('pelanggan.keranjang.clear') }}" method="POST" 
@@ -71,12 +71,12 @@
                                     <div class="flex-1 pr-4">
                                         <p class="text-xs text-gray-500 mb-1">{{ $keranjang->produk->merk->nama ?? '-' }}</p>
                                         <h4 class="font-semibold text-gray-900 mb-2 line-clamp-2">
-                                            <a href="{{ route('pelanggan.produk.show', $keranjang->produk->slug) }}" class="hover:text-blue-600">
+                                            <a href="{{ route('pelanggan.produk.show', $keranjang->produk->slug) }}" class="hover:text-primary-600">
                                                 {{ $keranjang->produk->nama }}
                                             </a>
                                         </h4>
                                         <div class="flex items-center space-x-2 mb-3">
-                                            <span class="text-lg font-bold text-blue-600">Rp {{ number_format($keranjang->harga, 0, ',', '.') }}</span>
+                                            <span class="text-lg font-bold text-primary-600">Rp {{ number_format($keranjang->harga, 0, ',', '.') }}</span>
                                             @if ($keranjang->produk->stok < 10)
                                                 <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">Stok tinggal {{ $keranjang->produk->stok }}</span>
                                             @endif
@@ -102,7 +102,7 @@
                                             <i class="fas fa-minus text-xs"></i>
                                         </button>
                                         <input type="number" name="quantity" value="{{ $keranjang->quantity }}" min="1" max="{{ $keranjang->produk->stok }}"
-                                            class="w-16 text-center border border-gray-300 rounded-lg py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            class="w-16 text-center border border-gray-300 rounded-lg py-1 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                             onchange="this.form.submit()">
                                         <button type="button" onclick="increaseQty(this, {{ $keranjang->produk->stok }})" 
                                             class="w-8 h-8 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
@@ -128,7 +128,7 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Keranjang Belanja Kosong</h3>
                     <p class="text-gray-600 mb-6">Belum ada produk di keranjang Anda. Yuk, mulai belanja sekarang!</p>
                     <a href="{{ route('pelanggan.produk.index') }}"
-                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                        class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all shadow-md hover:shadow-lg">
                         <i class="fas fa-shopping-bag mr-2"></i>Belanja Sekarang
                     </a>
                 </div>
@@ -156,7 +156,7 @@
                     <div class="flex justify-between items-center">
                         <span class="text-lg font-bold text-gray-900">Subtotal</span>
                         <div class="text-right">
-                            <div class="text-2xl font-bold text-blue-600">Rp {{ number_format($subtotal, 0, ',', '.') }}</div>
+                            <div class="text-2xl font-bold text-primary-600">Rp {{ number_format($subtotal, 0, ',', '.') }}</div>
                         </div>
                     </div>
                 </div>
@@ -164,7 +164,7 @@
                 <!-- Tombol Checkout -->
                 @if ($keranjangs->count() > 0)
                     <a href="{{ route('pelanggan.checkout.form') }}"
-                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
+                        class="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
                         <i class="fas fa-lock mr-2"></i>Lanjut ke Pembayaran
                     </a>
                 @else
@@ -176,7 +176,7 @@
 
                 <div class="mt-4 text-center">
                     <a href="{{ route('pelanggan.produk.index') }}"
-                        class="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        class="text-primary-600 hover:text-primary-700 font-medium text-sm">
                         <i class="fas fa-arrow-left mr-2"></i>Lanjut Belanja
                     </a>
                 </div>
@@ -191,7 +191,7 @@
                         </div>
                     </div>
                     <div class="flex items-start space-x-3">
-                        <i class="fas fa-undo text-blue-600 mt-1"></i>
+                        <i class="fas fa-undo text-primary-600 mt-1"></i>
                         <div>
                             <p class="text-sm font-medium text-gray-900">Garansi Uang Kembali</p>
                             <p class="text-xs text-gray-600">Jika produk tidak sesuai</p>

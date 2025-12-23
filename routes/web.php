@@ -5,6 +5,29 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Pelanggan;
+use App\Http\Controllers\Api\WilayahController;
+use App\Http\Controllers\Api\OngkirController;
+
+/*
+|--------------------------------------------------------------------------
+| API Wilayah Routes (Proxy)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('api/wilayah')->name('api.wilayah.')->group(function () {
+    Route::get('/provinsi', [WilayahController::class, 'provinsi'])->name('provinsi');
+    Route::get('/kota', [WilayahController::class, 'kota'])->name('kota');
+    Route::get('/kecamatan', [WilayahController::class, 'kecamatan'])->name('kecamatan');
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Ongkir Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('api/ongkir')->name('api.ongkir.')->middleware('auth')->group(function () {
+    Route::post('/hitung-by-alamat', [OngkirController::class, 'hitungByAlamat'])->name('hitung-by-alamat');
+    Route::post('/hitung-by-provinsi', [OngkirController::class, 'hitungByProvinsi'])->name('hitung-by-provinsi');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -44,37 +67,37 @@ Route::get('/kebijakan-privasi', [Pelanggan\HalamanController::class, 'kebijakan
 */
 Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'role:pelanggan'])->group(function () {
 
-     // Profil
-     Route::get('/profil', [Pelanggan\ProfilController::class, 'index'])->name('profil.index');
-     Route::put('/profil/pribadi', [Pelanggan\ProfilController::class, 'updatePribadi'])->name('profil.update-pribadi');
-     Route::put('/profil/password', [Pelanggan\ProfilController::class, 'updatePassword'])->name('profil.update-password');
-     Route::post('/profil/avatar', [Pelanggan\ProfilController::class, 'updateAvatar'])->name('profil.update-avatar');
-     Route::put('/profil/notifikasi', [Pelanggan\ProfilController::class, 'updateNotifikasi'])->name('profil.update-notifikasi');
+    // Profil
+    Route::get('/profil', [Pelanggan\ProfilController::class, 'index'])->name('profil.index');
+    Route::put('/profil/pribadi', [Pelanggan\ProfilController::class, 'updatePribadi'])->name('profil.update-pribadi');
+    Route::put('/profil/password', [Pelanggan\ProfilController::class, 'updatePassword'])->name('profil.update-password');
+    Route::post('/profil/avatar', [Pelanggan\ProfilController::class, 'updateAvatar'])->name('profil.update-avatar');
+    Route::put('/profil/notifikasi', [Pelanggan\ProfilController::class, 'updateNotifikasi'])->name('profil.update-notifikasi');
 
-     // Alamat
-     Route::post('/alamat', [Pelanggan\AlamatPengirimanController::class, 'store'])->name('alamat.store');
-     Route::put('/alamat/{id}', [Pelanggan\AlamatPengirimanController::class, 'update'])->name('alamat.update');
-     Route::delete('/alamat/{id}', [Pelanggan\AlamatPengirimanController::class, 'destroy'])->name('alamat.destroy');
-     Route::patch('/alamat/{id}/set-default', [Pelanggan\AlamatPengirimanController::class, 'setDefault'])->name('alamat.set-default');
+    // Alamat
+    Route::post('/alamat', [Pelanggan\AlamatPengirimanController::class, 'store'])->name('alamat.store');
+    Route::put('/alamat/{id}', [Pelanggan\AlamatPengirimanController::class, 'update'])->name('alamat.update');
+    Route::delete('/alamat/{id}', [Pelanggan\AlamatPengirimanController::class, 'destroy'])->name('alamat.destroy');
+    Route::patch('/alamat/{id}/set-default', [Pelanggan\AlamatPengirimanController::class, 'setDefault'])->name('alamat.set-default');
 
-     // Keranjang
-     Route::get('/keranjang', [Pelanggan\KeranjangController::class, 'index'])->name('keranjang.index');
-     Route::post('/keranjang', [Pelanggan\KeranjangController::class, 'store'])->name('keranjang.store');
-     Route::put('/keranjang/{id}', [Pelanggan\KeranjangController::class, 'update'])->name('keranjang.update');
-     Route::delete('/keranjang/{id}', [Pelanggan\KeranjangController::class, 'destroy'])->name('keranjang.destroy');
-     Route::delete('/keranjang-clear', [Pelanggan\KeranjangController::class, 'clear'])->name('keranjang.clear');
+    // Keranjang
+    Route::get('/keranjang', [Pelanggan\KeranjangController::class, 'index'])->name('keranjang.index');
+    Route::post('/keranjang', [Pelanggan\KeranjangController::class, 'store'])->name('keranjang.store');
+    Route::put('/keranjang/{id}', [Pelanggan\KeranjangController::class, 'update'])->name('keranjang.update');
+    Route::delete('/keranjang/{id}', [Pelanggan\KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+    Route::delete('/keranjang-clear', [Pelanggan\KeranjangController::class, 'clear'])->name('keranjang.clear');
 
-     // Checkout
-     Route::get('/checkout', [Pelanggan\CheckoutController::class, 'showCheckoutForm'])->name('checkout.form');
-     Route::post('/checkout', [Pelanggan\CheckoutController::class, 'processCheckout'])->name('checkout.process');
-     Route::get('/buy-now/{produk}', [Pelanggan\CheckoutController::class, 'showBuyNowForm'])->name('buy-now.form');
-     Route::post('/buy-now', [Pelanggan\CheckoutController::class, 'buyNow'])->name('buy-now');
+    // Checkout
+    Route::get('/checkout', [Pelanggan\CheckoutController::class, 'showCheckoutForm'])->name('checkout.form');
+    Route::post('/checkout', [Pelanggan\CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::get('/buy-now/{produk}', [Pelanggan\CheckoutController::class, 'showBuyNowForm'])->name('buy-now.form');
+    Route::post('/buy-now', [Pelanggan\CheckoutController::class, 'buyNow'])->name('buy-now');
 
-     // Pembelian
-     Route::get('/pembelian/riwayat', [Pelanggan\PembelianController::class, 'index'])->name('pembelian.index');
-     Route::get('/pembelian/{order_number}', [Pelanggan\PembelianController::class, 'show'])->name('pembelian.show');
-     Route::post('/pembelian/{id}/upload-bukti', [Pelanggan\PembelianController::class, 'uploadBuktiPembayaran'])->name('pembelian.upload-bukti');
-     Route::post('/pembelian/{id}/cancel', [Pelanggan\PembelianController::class, 'cancel'])->name('pembelian.cancel');
+    // Pembelian
+    Route::get('/pembelian/riwayat', [Pelanggan\PembelianController::class, 'index'])->name('pembelian.index');
+    Route::get('/pembelian/{order_number}', [Pelanggan\PembelianController::class, 'show'])->name('pembelian.show');
+    Route::post('/pembelian/{id}/upload-bukti', [Pelanggan\PembelianController::class, 'uploadBuktiPembayaran'])->name('pembelian.upload-bukti');
+    Route::post('/pembelian/{id}/cancel', [Pelanggan\PembelianController::class, 'cancel'])->name('pembelian.cancel');
 });
 
 /*
@@ -84,66 +107,75 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'role:pelang
 */
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
 
-     // Dashboard
-     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard.index');
+    // Dashboard
+    Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard.index');
 
-     // Profil
-     Route::get('/profil', [Admin\ProfilController::class, 'index'])->name('profil.index');
-     Route::put('/profil', [Admin\ProfilController::class, 'update'])->name('profil.update');
+    // Profil
+    Route::get('/profil', [Admin\ProfilController::class, 'index'])->name('profil.index');
+    Route::put('/profil', [Admin\ProfilController::class, 'update'])->name('profil.update');
 
-     // Produk
-     Route::get('/produk', [Admin\ProdukController::class, 'index'])->name('produk.index');
-     Route::get('/produk/create', [Admin\ProdukController::class, 'create'])->name('produk.create');
-     Route::post('/produk', [Admin\ProdukController::class, 'store'])->name('produk.store');
-     Route::get('/produk/{id}/detail', [Admin\ProdukController::class, 'show'])->name('produk.show');
-     Route::get('/produk/{id}/edit', [Admin\ProdukController::class, 'edit'])->name('produk.edit');
-     Route::put('/produk/{id}', [Admin\ProdukController::class, 'update'])->name('produk.update');
-     Route::delete('/produk/{id}', [Admin\ProdukController::class, 'destroy'])->name('produk.destroy');
-     Route::get('/produk-export', [Admin\ProdukController::class, 'export'])->name('produk.export');
+    // Produk
+    Route::get('/produk', [Admin\ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/produk/create', [Admin\ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/produk', [Admin\ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/produk/{id}/detail', [Admin\ProdukController::class, 'show'])->name('produk.show');
+    Route::get('/produk/{id}/edit', [Admin\ProdukController::class, 'edit'])->name('produk.edit');
+    Route::put('/produk/{id}', [Admin\ProdukController::class, 'update'])->name('produk.update');
+    Route::delete('/produk/{id}', [Admin\ProdukController::class, 'destroy'])->name('produk.destroy');
+    Route::get('/produk-export', [Admin\ProdukController::class, 'export'])->name('produk.export');
 
-     // Kategori
-     Route::get('/kategori', [Admin\KategoriController::class, 'index'])->name('kategori.index');
-     Route::get('/kategori/create', [Admin\KategoriController::class, 'create'])->name('kategori.create');
-     Route::post('/kategori', [Admin\KategoriController::class, 'store'])->name('kategori.store');
-     Route::get('/kategori/{id}/edit', [Admin\KategoriController::class, 'edit'])->name('kategori.edit');
-     Route::put('/kategori/{id}', [Admin\KategoriController::class, 'update'])->name('kategori.update');
-     Route::delete('/kategori/{id}', [Admin\KategoriController::class, 'destroy'])->name('kategori.destroy');
-     Route::patch('/kategori/{id}/toggle-status', [Admin\KategoriController::class, 'toggleStatus'])->name('kategori.toggle-status');
+    // Kategori
+    Route::get('/kategori', [Admin\KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/kategori/create', [Admin\KategoriController::class, 'create'])->name('kategori.create');
+    Route::post('/kategori', [Admin\KategoriController::class, 'store'])->name('kategori.store');
+    Route::get('/kategori/{id}/edit', [Admin\KategoriController::class, 'edit'])->name('kategori.edit');
+    Route::put('/kategori/{id}', [Admin\KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/kategori/{id}', [Admin\KategoriController::class, 'destroy'])->name('kategori.destroy');
+    Route::patch('/kategori/{id}/toggle-status', [Admin\KategoriController::class, 'toggleStatus'])->name('kategori.toggle-status');
 
-     // Merk
-     Route::get('/merk', [Admin\MerkController::class, 'index'])->name('merk.index');
-     Route::get('/merk/create', [Admin\MerkController::class, 'create'])->name('merk.create');
-     Route::post('/merk', [Admin\MerkController::class, 'store'])->name('merk.store');
-     Route::get('/merk/{id}/edit', [Admin\MerkController::class, 'edit'])->name('merk.edit');
-     Route::put('/merk/{id}', [Admin\MerkController::class, 'update'])->name('merk.update');
-     Route::delete('/merk/{id}', [Admin\MerkController::class, 'destroy'])->name('merk.destroy');
-     Route::patch('/merk/{id}/toggle-status', [Admin\MerkController::class, 'toggleStatus'])->name('merk.toggle-status');
+    // Merk
+    Route::get('/merk', [Admin\MerkController::class, 'index'])->name('merk.index');
+    Route::get('/merk/create', [Admin\MerkController::class, 'create'])->name('merk.create');
+    Route::post('/merk', [Admin\MerkController::class, 'store'])->name('merk.store');
+    Route::get('/merk/{id}/edit', [Admin\MerkController::class, 'edit'])->name('merk.edit');
+    Route::put('/merk/{id}', [Admin\MerkController::class, 'update'])->name('merk.update');
+    Route::delete('/merk/{id}', [Admin\MerkController::class, 'destroy'])->name('merk.destroy');
+    Route::patch('/merk/{id}/toggle-status', [Admin\MerkController::class, 'toggleStatus'])->name('merk.toggle-status');
 
-     // Pembelian
-     Route::get('/pembelian', [Admin\PembelianController::class, 'index'])->name('pembelian.index');
-     Route::get('/pembelian/{id}', [Admin\PembelianController::class, 'show'])->name('pembelian.show');
-     Route::patch('/pembelian/{id}/status', [Admin\PembelianController::class, 'updateStatus'])->name('pembelian.update-status');
-     Route::patch('/pembelian/{id}/resi', [Admin\PembelianController::class, 'updateResi'])->name('pembelian.update-resi');
-     Route::get('/pembelian-export', [Admin\PembelianController::class, 'export'])->name('pembelian.export');
+    // Pembelian
+    Route::get('/pembelian', [Admin\PembelianController::class, 'index'])->name('pembelian.index');
+    Route::get('/pembelian/{id}', [Admin\PembelianController::class, 'show'])->name('pembelian.show');
+    Route::patch('/pembelian/{id}/status', [Admin\PembelianController::class, 'updateStatus'])->name('pembelian.update-status');
+    Route::patch('/pembelian/{id}/resi', [Admin\PembelianController::class, 'updateResi'])->name('pembelian.update-resi');
+    Route::get('/pembelian-export', [Admin\PembelianController::class, 'export'])->name('pembelian.export');
 
-     // Akun Pelanggan
-     Route::get('/akunpelanggan', [Admin\AkunPelangganController::class, 'index'])->name('akunpelanggan.index');
-     Route::get('/akunpelanggan/{id}/edit', [Admin\AkunPelangganController::class, 'edit'])->name('akunpelanggan.edit');
-     Route::put('/akunpelanggan/{id}', [Admin\AkunPelangganController::class, 'update'])->name('akunpelanggan.update');
-     Route::delete('/akunpelanggan/{id}', [Admin\AkunPelangganController::class, 'destroy'])->name('akunpelanggan.destroy');
+    // Akun Pelanggan
+    Route::get('/akunpelanggan', [Admin\AkunPelangganController::class, 'index'])->name('akunpelanggan.index');
+    Route::get('/akunpelanggan/{id}/edit', [Admin\AkunPelangganController::class, 'edit'])->name('akunpelanggan.edit');
+    Route::put('/akunpelanggan/{id}', [Admin\AkunPelangganController::class, 'update'])->name('akunpelanggan.update');
+    Route::delete('/akunpelanggan/{id}', [Admin\AkunPelangganController::class, 'destroy'])->name('akunpelanggan.destroy');
 
-     // Tentang Kami
-     Route::get('/tentang-kami', [Admin\TentangKamiController::class, 'index'])->name('tentang-kami.index');
-     Route::get('/tentang-kami/edit', [Admin\TentangKamiController::class, 'edit'])->name('tentang-kami.edit');
-     Route::put('/tentang-kami', [Admin\TentangKamiController::class, 'update'])->name('tentang-kami.update');
+    // Tentang Kami
+    Route::get('/tentang-kami', [Admin\TentangKamiController::class, 'index'])->name('tentang-kami.index');
+    Route::get('/tentang-kami/edit', [Admin\TentangKamiController::class, 'edit'])->name('tentang-kami.edit');
+    Route::put('/tentang-kami', [Admin\TentangKamiController::class, 'update'])->name('tentang-kami.update');
 
-     // Kontak
-     Route::get('/kontak', [Admin\KontakController::class, 'index'])->name('kontak.index');
-     Route::get('/kontak/edit', [Admin\KontakController::class, 'edit'])->name('kontak.edit');
-     Route::put('/kontak', [Admin\KontakController::class, 'update'])->name('kontak.update');
+    // Kontak
+    Route::get('/kontak', [Admin\KontakController::class, 'index'])->name('kontak.index');
+    Route::get('/kontak/edit', [Admin\KontakController::class, 'edit'])->name('kontak.edit');
+    Route::put('/kontak', [Admin\KontakController::class, 'update'])->name('kontak.update');
 
-     // Kebijakan Privasi
-     Route::get('/kebijakan-privasi', [Admin\KebijakanPrivasiController::class, 'index'])->name('kebijakan-privasi.index');
-     Route::get('/kebijakan-privasi/edit', [Admin\KebijakanPrivasiController::class, 'edit'])->name('kebijakan-privasi.edit');
-     Route::put('/kebijakan-privasi', [Admin\KebijakanPrivasiController::class, 'update'])->name('kebijakan-privasi.update');
+    // Kebijakan Privasi
+    Route::get('/kebijakan-privasi', [Admin\KebijakanPrivasiController::class, 'index'])->name('kebijakan-privasi.index');
+    Route::get('/kebijakan-privasi/edit', [Admin\KebijakanPrivasiController::class, 'edit'])->name('kebijakan-privasi.edit');
+    Route::put('/kebijakan-privasi', [Admin\KebijakanPrivasiController::class, 'update'])->name('kebijakan-privasi.update');
+
+    // Metode Pembayaran
+    Route::get('/metode-pembayaran', [Admin\MetodePembayaranController::class, 'index'])->name('metode-pembayaran.index');
+    Route::get('/metode-pembayaran/create', [Admin\MetodePembayaranController::class, 'create'])->name('metode-pembayaran.create');
+    Route::post('/metode-pembayaran', [Admin\MetodePembayaranController::class, 'store'])->name('metode-pembayaran.store');
+    Route::get('/metode-pembayaran/{id}/edit', [Admin\MetodePembayaranController::class, 'edit'])->name('metode-pembayaran.edit');
+    Route::put('/metode-pembayaran/{id}', [Admin\MetodePembayaranController::class, 'update'])->name('metode-pembayaran.update');
+    Route::delete('/metode-pembayaran/{id}', [Admin\MetodePembayaranController::class, 'destroy'])->name('metode-pembayaran.destroy');
+    Route::patch('/metode-pembayaran/{id}/toggle-status', [Admin\MetodePembayaranController::class, 'toggleStatus'])->name('metode-pembayaran.toggle-status');
 });

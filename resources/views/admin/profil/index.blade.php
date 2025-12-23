@@ -4,15 +4,15 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Profil Admin</h1>
-                <p class="text-blue-100">Kelola informasi profil administrator</p>
+                <p class="text-primary-100">Kelola informasi profil administrator</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-user-shield text-blue-800 text-4xl"></i>
+                    <i class="fas fa-user-shield text-primary-800 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="lg:col-span-1">
             <div class="bg-white rounded-xl shadow-md">
                 <!-- Avatar -->
-                <div class="bg-linear-to-br from-blue-700 to-blue-900 p-8 text-center rounded-t-xl">
+                <div class="bg-linear-to-br from-primary-700 to-primary-900 p-8 text-center rounded-t-xl">
                     <div class="w-32 h-32 mx-auto mb-4 relative">
                         @if (auth()->user()->avatar)
                             <img src="{{ asset('storage/' . auth()->user()->avatar) }}"
@@ -61,7 +61,7 @@
                         @endif
                     </div>
                     <h3 class="text-xl font-bold text-white">{{ auth()->user()->name }}</h3>
-                    <p class="text-blue-100 text-sm">{{ auth()->user()->email }}</p>
+                    <p class="text-primary-100 text-sm">{{ auth()->user()->email }}</p>
                     <span class="inline-block mt-2 px-3 py-1 bg-white bg-opacity-20 text-white text-xs font-semibold rounded-full">
                         {{ auth()->user()->role->name ?? 'Admin' }}
                     </span>
@@ -96,7 +96,7 @@
                 <!-- Informasi Pribadi -->
                 <div class="bg-white rounded-xl shadow-md p-6 mb-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-6">
-                        <i class="fas fa-user mr-2 text-blue-600"></i>Informasi Pribadi
+                        <i class="fas fa-user mr-2 text-primary-600"></i>Informasi Pribadi
                     </h2>
 
                     <div class="grid md:grid-cols-2 gap-4">
@@ -105,7 +105,7 @@
                                 Nama Lengkap <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="name" value="{{ old('name', auth()->user()->name) }}" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('name') border-red-500 @enderror"
                                 placeholder="Nama lengkap Anda">
                             @error('name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -117,7 +117,7 @@
                                 Email <span class="text-red-500">*</span>
                             </label>
                             <input type="email" name="email" value="{{ old('email', auth()->user()->email) }}" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('email') border-red-500 @enderror"
                                 placeholder="admin@example.com">
                             @error('email')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -129,7 +129,7 @@
                                 Nomor Telepon
                             </label>
                             <input type="tel" name="telepon" value="{{ old('telepon', auth()->user()->telepon) }}"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('telepon') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('telepon') border-red-500 @enderror"
                                 placeholder="08xx-xxxx-xxxx">
                             @error('telepon')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -141,7 +141,7 @@
                                 Avatar
                             </label>
                             <input type="file" name="avatar" accept="image/jpeg,image/png,image/jpg"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('avatar') border-red-500 @enderror">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('avatar') border-red-500 @enderror">
                             @error('avatar')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -153,7 +153,7 @@
                 <!-- Ubah Password -->
                 <div class="bg-white rounded-xl shadow-md p-6 mb-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-6">
-                        <i class="fas fa-lock mr-2 text-blue-600"></i>Ubah Password
+                        <i class="fas fa-lock mr-2 text-primary-600"></i>Ubah Password
                     </h2>
                     <p class="text-gray-500 text-sm mb-4">Kosongkan jika tidak ingin mengubah password</p>
 
@@ -163,7 +163,7 @@
                                 Password Baru
                             </label>
                             <input type="password" name="password"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('password') border-red-500 @enderror"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('password') border-red-500 @enderror"
                                 placeholder="Minimal 8 karakter">
                             @error('password')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -175,7 +175,7 @@
                                 Konfirmasi Password
                             </label>
                             <input type="password" name="password_confirmation"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                 placeholder="Ulangi password baru">
                             <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Harus sama dengan password baru</p>
                         </div>
@@ -185,7 +185,7 @@
                 <!-- Tombol Aksi -->
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                        class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
                         <i class="fas fa-save mr-2"></i>Simpan Perubahan
                     </button>
                 </div>

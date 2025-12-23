@@ -6,12 +6,12 @@
     <div class="mb-8">
         <!-- Breadcrumb -->
         <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-            <a href="{{ route('pelanggan.home.index') }}" class="hover:text-blue-600"><i class="fas fa-home"></i></a>
+            <a href="{{ route('pelanggan.home.index') }}" class="hover:text-primary-600"><i class="fas fa-home"></i></a>
             <i class="fas fa-chevron-right text-xs"></i>
-            <a href="{{ route('pelanggan.produk.index') }}" class="hover:text-blue-600">Produk</a>
+            <a href="{{ route('pelanggan.produk.index') }}" class="hover:text-primary-600">Produk</a>
             <i class="fas fa-chevron-right text-xs"></i>
             @if ($produk->kategori)
-                <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $produk->kategori_id]) }}" class="hover:text-blue-600">{{ $produk->kategori->nama }}</a>
+                <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $produk->kategori_id]) }}" class="hover:text-primary-600">{{ $produk->kategori->nama }}</a>
                 <i class="fas fa-chevron-right text-xs"></i>
             @endif
             <span class="text-gray-900 font-medium">{{ Str::limit($produk->nama, 40) }}</span>
@@ -36,7 +36,7 @@
                 @if ($produk->images->count() > 1)
                     <div class="grid grid-cols-4 gap-3">
                         @foreach ($produk->images as $index => $image)
-                            <div class="aspect-square rounded-lg overflow-hidden border-2 {{ $index === 0 ? 'border-blue-600' : 'border-gray-200' }} cursor-pointer hover:border-blue-400 transition-all"
+                            <div class="aspect-square rounded-lg overflow-hidden border-2 {{ $index === 0 ? 'border-primary-600' : 'border-gray-200' }} cursor-pointer hover:border-primary-400 transition-all"
                                 onclick="changeImage('{{ asset('storage/' . $image->image_path) }}', this)">
                                 <img src="{{ asset('storage/' . $image->image_path) }}" alt="Thumbnail {{ $index + 1 }}" class="w-full h-full object-cover">
                             </div>
@@ -49,7 +49,7 @@
             <div class="bg-white rounded-2xl shadow-xl p-8">
                 <div class="mb-6">
                     @if ($produk->is_featured)
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Unggulan</span>
+                        <span class="bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Unggulan</span>
                     @endif
                     <h1 class="text-3xl font-bold text-gray-900 mt-2 mb-3">{{ $produk->nama }}</h1>
                     <div class="flex items-center space-x-4 text-sm">
@@ -80,9 +80,9 @@
                                             -{{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
                                         </span>
                                     </div>
-                                    <div class="text-3xl font-bold text-blue-600">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</div>
+                                    <div class="text-3xl font-bold text-primary-600">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</div>
                                 @else
-                                    <div class="text-3xl font-bold text-blue-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
+                                    <div class="text-3xl font-bold text-primary-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
                                 @endif
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                             <!-- Tombol Aksi -->
                             <div class="grid grid-cols-2 gap-4 mb-6">
                                 <button type="submit"
-                                    class="bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
+                                    class="bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
                                     <i class="fas fa-shopping-cart mr-2"></i>Tambah ke Keranjang
                                 </button>
                                 <button type="button" onclick="buyNow()"
@@ -150,7 +150,7 @@
                 @else
                     <div class="mb-6">
                         <a href="{{ route('login') }}"
-                            class="block w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all text-center">
+                            class="block w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-all text-center">
                             <i class="fas fa-sign-in-alt mr-2"></i>Login untuk Membeli
                         </a>
                     </div>
@@ -159,7 +159,7 @@
                 <!-- Aksi Tambahan -->
                 <div class="flex items-center justify-center space-x-6 pt-6 border-t border-gray-200">
                     <button onclick="shareProduct()"
-                        class="flex items-center text-gray-600 hover:text-blue-500 transition-all">
+                        class="flex items-center text-gray-600 hover:text-primary-500 transition-all">
                         <i class="fas fa-share-alt text-xl mr-2"></i>
                         <span class="text-sm">Bagikan</span>
                     </button>
@@ -172,7 +172,7 @@
             <div class="border-b border-gray-200">
                 <nav class="flex space-x-8 px-8">
                     <button onclick="showTab('description')"
-                        class="tab-button py-4 border-b-2 font-medium text-sm transition-all border-blue-600 text-blue-600"
+                        class="tab-button py-4 border-b-2 font-medium text-sm transition-all border-primary-600 text-primary-600"
                         data-tab="description">
                         Deskripsi Produk
                     </button>
@@ -247,11 +247,11 @@
                                 <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm">{{ $related->nama }}</h3>
                                 <div class="flex items-center justify-between">
                                     @if ($related->harga_diskon)
-                                        <span class="font-bold text-blue-600">Rp {{ number_format($related->harga_diskon, 0, ',', '.') }}</span>
+                                        <span class="font-bold text-primary-600">Rp {{ number_format($related->harga_diskon, 0, ',', '.') }}</span>
                                     @else
-                                        <span class="font-bold text-blue-600">Rp {{ number_format($related->harga, 0, ',', '.') }}</span>
+                                        <span class="font-bold text-primary-600">Rp {{ number_format($related->harga, 0, ',', '.') }}</span>
                                     @endif
-                                    <a href="{{ route('pelanggan.produk.show', $related->slug) }}" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                    <a href="{{ route('pelanggan.produk.show', $related->slug) }}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </div>
@@ -268,17 +268,17 @@
         function changeImage(src, element) {
             document.getElementById('mainImage').src = src;
             document.querySelectorAll('.grid.grid-cols-4 > div').forEach(el => {
-                el.classList.remove('border-blue-600');
+                el.classList.remove('border-primary-600');
                 el.classList.add('border-gray-200');
             });
             element.classList.remove('border-gray-200');
-            element.classList.add('border-blue-600');
+            element.classList.add('border-primary-600');
         }
 
         // Fungsi Tab
         function showTab(tabName) {
             document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('border-blue-600', 'text-blue-600');
+                btn.classList.remove('border-primary-600', 'text-primary-600');
                 btn.classList.add('border-transparent', 'text-gray-500');
             });
 
@@ -287,7 +287,7 @@
             });
 
             document.querySelector(`[data-tab="${tabName}"]`).classList.remove('border-transparent', 'text-gray-500');
-            document.querySelector(`[data-tab="${tabName}"]`).classList.add('border-blue-600', 'text-blue-600');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('border-primary-600', 'text-primary-600');
             document.getElementById(`${tabName}-content`).classList.remove('hidden');
         }
 

@@ -4,15 +4,15 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Riwayat Pembelian</h1>
-                <p class="text-blue-100">Lihat dan kelola pesanan Anda</p>
+                <p class="text-primary-100">Lihat dan kelola pesanan Anda</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-18 h-18 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-history text-blue-800 text-4xl"></i>
+                    <i class="fas fa-history text-primary-800 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -31,31 +31,31 @@
     <div class="bg-white rounded-xl shadow-md mb-6">
         <div class="flex overflow-x-auto">
             <a href="{{ route('pelanggan.pembelian.index') }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ !request('status') ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ !request('status') ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Semua
             </a>
             <a href="{{ route('pelanggan.pembelian.index', ['status' => 'pending']) }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'pending' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'pending' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Menunggu
             </a>
             <a href="{{ route('pelanggan.pembelian.index', ['status' => 'paid']) }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'paid' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'paid' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Dibayar
             </a>
             <a href="{{ route('pelanggan.pembelian.index', ['status' => 'processing']) }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'processing' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'processing' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Diproses
             </a>
             <a href="{{ route('pelanggan.pembelian.index', ['status' => 'shipped']) }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'shipped' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'shipped' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Dikirim
             </a>
             <a href="{{ route('pelanggan.pembelian.index', ['status' => 'delivered']) }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'delivered' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'delivered' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Selesai
             </a>
             <a href="{{ route('pelanggan.pembelian.index', ['status' => 'cancelled']) }}"
-                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'cancelled' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
+                class="flex-1 min-w-[120px] px-6 py-4 font-semibold text-center border-b-2 {{ request('status') == 'cancelled' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-600 hover:bg-gray-50' }} transition-all">
                 Dibatalkan
             </a>
         </div>
@@ -83,8 +83,8 @@
                                 @php
                                     $statusColors = [
                                         'pending' => 'bg-yellow-100 text-yellow-700',
-                                        'paid' => 'bg-blue-100 text-blue-700',
-                                        'processing' => 'bg-blue-100 text-blue-700',
+                                        'paid' => 'bg-primary-100 text-primary-700',
+                                        'processing' => 'bg-primary-100 text-primary-700',
                                         'shipped' => 'bg-purple-100 text-purple-700',
                                         'delivered' => 'bg-green-100 text-green-700',
                                         'cancelled' => 'bg-red-100 text-red-700',
@@ -125,7 +125,7 @@
                                         <h4 class="font-semibold text-gray-900 mb-1 line-clamp-2">{{ $item->nama_produk }}</h4>
                                         <div class="flex items-center justify-between">
                                             <p class="text-sm text-gray-600">{{ $item->quantity }} × Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
-                                            <p class="font-bold text-blue-600">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</p>
+                                            <p class="font-bold text-primary-600">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
 
                         <!-- Info Pengiriman jika shipped -->
                         @if ($order->status == 'shipped' && $order->resi)
-                            <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                            <div class="bg-primary-50 rounded-lg p-4 mb-4">
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="text-sm text-gray-600 mb-1">Nomor Resi</p>
@@ -155,7 +155,7 @@
                                     </div>
                                     @if (!$order->bukti_pembayaran)
                                         <button onclick="document.getElementById('uploadForm{{ $order->id }}').classList.toggle('hidden')"
-                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all text-sm">
+                                            class="px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-all text-sm">
                                             <i class="fas fa-upload mr-2"></i>Upload Bukti
                                         </button>
                                     @else
@@ -199,7 +199,7 @@
 
                             <div class="flex flex-wrap gap-3">
                                 <a href="{{ route('pelanggan.pembelian.show', $order->order_number) }}"
-                                    class="flex-1 min-w-[120px] px-4 py-2.5 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all text-center">
+                                    class="flex-1 min-w-[120px] px-4 py-2.5 border-2 border-primary-600 text-primary-600 rounded-lg font-semibold hover:bg-primary-50 transition-all text-center">
                                     <i class="fas fa-info-circle mr-2"></i>Lihat Detail
                                 </a>
 
@@ -244,7 +244,7 @@
             <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Pesanan</h3>
             <p class="text-gray-600 mb-6">Anda belum memiliki riwayat pembelian</p>
             <a href="{{ route('pelanggan.produk.index') }}"
-                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all shadow-md hover:shadow-lg">
                 <i class="fas fa-shopping-bag mr-2"></i>Mulai Belanja
             </a>
         </div>

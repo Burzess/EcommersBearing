@@ -57,7 +57,7 @@
                                                     <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
                                                 @endif
                                                 <a href="{{ $breadcrumb['url'] }}"
-                                                    class="text-sm font-medium text-gray-700 hover:text-indigo-600">
+                                                    class="text-sm font-medium text-gray-700 hover:text-primary-600">
                                                     {{ $breadcrumb['name'] }}
                                                 </a>
                                             </div>

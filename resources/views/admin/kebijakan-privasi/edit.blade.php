@@ -6,7 +6,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
         <div>
-            <a href="{{ route('admin.kebijakan-privasi.index') }}" class="text-gray-600 hover:text-blue-600 mb-2 inline-flex items-center">
+            <a href="{{ route('admin.kebijakan-privasi.index') }}" class="text-gray-600 hover:text-primary-600 mb-2 inline-flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i>Kembali
             </a>
             <h1 class="text-2xl font-bold text-gray-900">Edit Kebijakan Privasi</h1>
@@ -23,7 +23,7 @@
             <div class="mb-6">
                 <label class="flex items-center">
                     <input type="checkbox" name="is_active" value="1" {{ old('is_active', $kebijakanPrivasi->is_active ?? true) ? 'checked' : '' }}
-                        class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        class="w-5 h-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
                     <span class="ml-3 text-gray-700 font-medium">Aktif</span>
                 </label>
             </div>
@@ -32,7 +32,7 @@
             <div class="mb-6">
                 <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">Judul <span class="text-red-500">*</span></label>
                 <input type="text" name="judul" id="judul" value="{{ old('judul', $kebijakanPrivasi->judul ?? '') }}" required
-                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('judul') border-red-500 @enderror">
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('judul') border-red-500 @enderror">
                 @error('judul')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -43,7 +43,7 @@
                 <label for="tanggal_berlaku" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Berlaku</label>
                 <input type="date" name="tanggal_berlaku" id="tanggal_berlaku" 
                     value="{{ old('tanggal_berlaku', isset($kebijakanPrivasi->tanggal_berlaku) ? $kebijakanPrivasi->tanggal_berlaku->format('Y-m-d') : '') }}"
-                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             </div>
 
             <!-- Daftar Kebijakan -->
@@ -88,13 +88,13 @@
                                     <label class="block text-xs font-medium text-gray-600 mb-1">Judul Kebijakan</label>
                                     <input type="text" name="items[{{ $index }}][judul]" value="{{ $item['judul'] ?? '' }}" required
                                         placeholder="Contoh: Pendahuluan"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                                 </div>
                                 <div class="md:col-span-2">
                                     <label class="block text-xs font-medium text-gray-600 mb-1">Isi Kebijakan</label>
                                     <textarea name="items[{{ $index }}][isi]" rows="3" required
                                         placeholder="Tuliskan isi kebijakan..."
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none">{{ $item['isi'] ?? '' }}</textarea>
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none">{{ $item['isi'] ?? '' }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                     Batal
                 </a>
                 <button type="submit"
-                    class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                    class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700">
                     <i class="fas fa-save mr-2"></i>Simpan
                 </button>
             </div>
@@ -141,13 +141,13 @@
                             <label class="block text-xs font-medium text-gray-600 mb-1">Judul Kebijakan</label>
                             <input type="text" name="items[${itemIndex}][judul]" required
                                 placeholder="Contoh: Pendahuluan"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-xs font-medium text-gray-600 mb-1">Isi Kebijakan</label>
                             <textarea name="items[${itemIndex}][isi]" rows="3" required
                                 placeholder="Tuliskan isi kebijakan..."
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"></textarea>
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"></textarea>
                         </div>
                     </div>
                 </div>

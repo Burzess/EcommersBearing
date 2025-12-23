@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Header -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <a href="{{ route('admin.merk.index') }}"
@@ -12,11 +12,11 @@
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
                 <h1 class="text-3xl font-bold text-white mb-2">Tambah Merk</h1>
-                <p class="text-blue-100">Buat merk produk baru</p>
+                <p class="text-primary-100">Buat merk produk baru</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-plus text-blue-900 text-4xl"></i>
+                    <i class="fas fa-plus text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                         Nama Merk <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="nama" value="{{ old('nama') }}" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('nama') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('nama') border-red-500 @enderror"
                         placeholder="Contoh: SKF, NSK, FAG">
                     @error('nama')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -63,7 +63,7 @@
                         Logo
                     </label>
                     <input type="file" name="logo" accept="image/jpeg,image/png,image/jpg,image/svg+xml"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('logo') border-red-500 @enderror">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('logo') border-red-500 @enderror">
                     @error('logo')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
@@ -76,7 +76,7 @@
                         Deskripsi
                     </label>
                     <textarea name="deskripsi" rows="3"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('deskripsi') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('deskripsi') border-red-500 @enderror"
                         placeholder="Deskripsi singkat tentang merk ini">{{ old('deskripsi') }}</textarea>
                     @error('deskripsi')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -90,7 +90,7 @@
                         Merk Premium
                     </label>
                     <select name="is_premium"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('is_premium') border-red-500 @enderror">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('is_premium') border-red-500 @enderror">
                         <option value="0" {{ old('is_premium', 0) == 0 ? 'selected' : '' }}>Tidak</option>
                         <option value="1" {{ old('is_premium') == 1 ? 'selected' : '' }}>Ya (Premium)</option>
                     </select>
@@ -106,7 +106,7 @@
                         Status
                     </label>
                     <select name="is_active"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('is_active') border-red-500 @enderror">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('is_active') border-red-500 @enderror">
                         <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Aktif</option>
                         <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
@@ -124,7 +124,7 @@
                     Batal
                 </a>
                 <button type="submit"
-                    class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                    class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
                     <i class="fas fa-save mr-2"></i>Simpan Merk
                 </button>
             </div>

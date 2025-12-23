@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Pelanggan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pelanggan\CheckoutRequest;
 use App\Models\Keranjang;
+use App\Models\MetodePembayaran;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use App\Models\Ongkir;
 use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
@@ -26,10 +28,11 @@ class CheckoutController extends Controller
         $user = auth()->user();
         $alamats = $user->alamats;
         $defaultAlamat = $user->getDefaultAlamat();
+        $metodes = MetodePembayaran::where('is_active', true)->get();
         
         $subtotal = Keranjang::getGrandTotal(auth()->id());
         
-        return view('pelanggan.checkout.index', compact('keranjangs', 'alamats', 'defaultAlamat', 'subtotal'));
+        return view('pelanggan.checkout.index', compact('keranjangs', 'alamats', 'defaultAlamat', 'subtotal', 'metodes'));
     }
 
     public function showBuyNowForm(Request $request, $produkId)
@@ -50,11 +53,12 @@ class CheckoutController extends Controller
         $user = auth()->user();
         $alamats = $user->alamats;
         $defaultAlamat = $user->getDefaultAlamat();
+        $metodes = MetodePembayaran::where('is_active', true)->get();
         
         $harga = $produk->harga_diskon ?? $produk->harga;
         $subtotal = $harga * $quantity;
         
-        return view('pelanggan.checkout.buy-now', compact('produk', 'quantity', 'alamats', 'defaultAlamat', 'subtotal', 'harga'));
+        return view('pelanggan.checkout.buy-now', compact('produk', 'quantity', 'alamats', 'defaultAlamat', 'subtotal', 'harga', 'metodes'));
     }
 
     public function processCheckout(CheckoutRequest $request)
@@ -79,10 +83,17 @@ class CheckoutController extends Controller
             // Get alamat
             $alamat = auth()->user()->alamats()->findOrFail($request->alamat_id);
             
+            // Get metode pembayaran
+            $metodePembayaran = MetodePembayaran::findOrFail($request->metode_pembayaran_id);
+            
             // Calculate subtotal
             $subtotal = $keranjangs->sum(function($item) {
                 return $item->subtotal;
             });
+
+            // Calculate ongkir
+            $ongkirData = Ongkir::hitungOngkir($alamat->provinsi);
+            $ongkir = $ongkirData['tarif'];
             
             // Create Order
             $order = Order::create([
@@ -97,9 +108,10 @@ class CheckoutController extends Controller
                 'alamat_kecamatan' => $alamat->kecamatan,
                 'alamat_kode_pos' => $alamat->kode_pos,
                 'subtotal' => $subtotal,
-                'ongkir' => 0,
-                'total' => $subtotal,
-                'metode_pembayaran' => $request->metode_pembayaran,
+                'ongkir' => $ongkir,
+                'total' => $subtotal + $ongkir,
+                'metode_pembayaran' => $metodePembayaran->nama,
+                'metode_pembayaran_id' => $metodePembayaran->id,
                 'catatan' => $request->catatan,
                 'status' => 'pending',
             ]);
@@ -145,7 +157,7 @@ class CheckoutController extends Controller
             'produk_id' => 'required|exists:produks,id',
             'quantity' => 'required|integer|min:1',
             'alamat_id' => 'required|exists:alamats,id',
-            'metode_pembayaran' => 'required|string',
+            'metode_pembayaran_id' => 'required|exists:metode_pembayarans,id',
         ]);
         
         $produk = Produk::findOrFail($request->produk_id);
@@ -158,9 +170,14 @@ class CheckoutController extends Controller
         DB::beginTransaction();
         try {
             $alamat = auth()->user()->alamats()->findOrFail($request->alamat_id);
+            $metodePembayaran = MetodePembayaran::findOrFail($request->metode_pembayaran_id);
             
             $harga = $produk->harga_diskon ?? $produk->harga;
             $subtotal = $harga * $request->quantity;
+
+            // Calculate ongkir
+            $ongkirData = Ongkir::hitungOngkir($alamat->provinsi);
+            $ongkir = $ongkirData['tarif'];
             
             // Create Order
             $order = Order::create([
@@ -175,9 +192,10 @@ class CheckoutController extends Controller
                 'alamat_kecamatan' => $alamat->kecamatan,
                 'alamat_kode_pos' => $alamat->kode_pos,
                 'subtotal' => $subtotal,
-                'ongkir' => 0,
-                'total' => $subtotal,
-                'metode_pembayaran' => $request->metode_pembayaran,
+                'ongkir' => $ongkir,
+                'total' => $subtotal + $ongkir,
+                'metode_pembayaran' => $metodePembayaran->nama,
+                'metode_pembayaran_id' => $metodePembayaran->id,
                 'status' => 'pending',
             ]);
             

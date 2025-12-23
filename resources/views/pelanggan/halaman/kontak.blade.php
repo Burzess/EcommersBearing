@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-600 to-primary-800 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Hubungi Kami</h1>
-                <p class="text-blue-100">Kami siap membantu Anda</p>
+                <p class="text-primary-100">Kami siap membantu Anda</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -24,8 +24,8 @@
             <!-- Card Alamat -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <div class="flex items-center space-x-4 mb-4">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt text-primary-600 text-xl"></i>
                     </div>
                     <div>
                         <h3 class="font-bold text-gray-900">Alamat</h3>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="space-y-1">
                     @if ($kontak->telepon)
-                        <p><a href="tel:{{ $kontak->telepon }}" class="text-gray-700 hover:text-blue-600">{{ $kontak->telepon }}</a></p>
+                        <p><a href="tel:{{ $kontak->telepon }}" class="text-gray-700 hover:text-primary-600">{{ $kontak->telepon }}</a></p>
                     @endif
                     @if ($kontak->whatsapp)
                         <p><a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $kontak->whatsapp) }}" target="_blank" class="text-gray-700 hover:text-green-600">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 @if ($kontak->email)
-                    <a href="mailto:{{ $kontak->email }}" class="text-gray-700 hover:text-blue-600">{{ $kontak->email }}</a>
+                    <a href="mailto:{{ $kontak->email }}" class="text-gray-700 hover:text-primary-600">{{ $kontak->email }}</a>
                 @endif
             </div>
 
@@ -96,8 +96,8 @@
                     <h3 class="font-bold text-gray-900 mb-4">Ikuti Kami</h3>
                     <div class="flex space-x-4">
                         @if ($kontak->facebook)
-                            <a href="{{ $kontak->facebook }}" target="_blank" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-all">
-                                <i class="fab fa-facebook-f text-blue-600"></i>
+                            <a href="{{ $kontak->facebook }}" target="_blank" class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center hover:bg-primary-200 transition-all">
+                                <i class="fab fa-facebook-f text-primary-600"></i>
                             </a>
                         @endif
                         @if ($kontak->instagram)
@@ -106,7 +106,7 @@
                             </a>
                         @endif
                         @if ($kontak->twitter)
-                            <a href="{{ $kontak->twitter }}" target="_blank" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-all">
+                            <a href="{{ $kontak->twitter }}" target="_blank" class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center hover:bg-primary-200 transition-all">
                                 <i class="fab fa-twitter text-blue-400"></i>
                             </a>
                         @endif
@@ -121,7 +121,7 @@
             @if ($kontak->google_maps_embed)
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4">
-                        <i class="fas fa-map mr-2 text-blue-600"></i>Lokasi Kami
+                        <i class="fas fa-map mr-2 text-primary-600"></i>Lokasi Kami
                     </h2>
                     <div class="bg-gray-100 rounded-lg p-6 text-center">
                         <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -129,7 +129,7 @@
                         </div>
                         <p class="text-gray-600 mb-4">Klik tombol di bawah untuk melihat lokasi kami di Google Maps</p>
                         <a href="{{ $kontak->google_maps_embed }}" target="_blank" 
-                            class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                            class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors">
                             <i class="fas fa-external-link-alt mr-2"></i>Buka di Google Maps
                         </a>
                     </div>
@@ -139,7 +139,7 @@
             <!-- FAQ Section -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-question-circle mr-2 text-blue-600"></i>Pertanyaan Umum
+                    <i class="fas fa-question-circle mr-2 text-primary-600"></i>Pertanyaan Umum
                 </h2>
                 
                 <div class="space-y-4">

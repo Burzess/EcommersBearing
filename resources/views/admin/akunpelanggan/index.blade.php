@@ -4,15 +4,15 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Manajemen Akun Pelanggan</h1>
-                <p class="text-blue-100">Kelola data pelanggan terdaftar</p>
+                <p class="text-primary-100">Kelola data pelanggan terdaftar</p>
             </div>
             <div class="md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-users text-blue-900 text-4xl"></i>
+                    <i class="fas fa-users text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
                     <p class="text-sm text-gray-500 mb-1">Total Pelanggan</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $pelanggans->total() }}</p>
                 </div>
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-users text-blue-600 text-2xl"></i>
+                <div class="w-14 h-14 bg-primary-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-users text-primary-600 text-2xl"></i>
                 </div>
             </div>
         </div>
@@ -87,18 +87,18 @@
         <form action="{{ route('admin.akunpelanggan.index') }}" method="GET" class="grid md:grid-cols-3 gap-4">
             <div class="relative">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, email, atau telepon..."
-                    class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                 <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
             </div>
             <select name="is_active"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                 <option value="">Semua Status</option>
                 <option value="1" {{ request('is_active') === '1' ? 'selected' : '' }}>Aktif</option>
                 <option value="0" {{ request('is_active') === '0' ? 'selected' : '' }}>Tidak Aktif</option>
             </select>
             <div class="flex gap-2">
                 <button type="submit"
-                    class="px-4 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all">
+                    class="px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-all">
                     <i class="fas fa-filter mr-2"></i>Filter
                 </button>
                 <a href="{{ route('admin.akunpelanggan.index') }}"
@@ -172,7 +172,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center space-x-2">
                                     <a href="{{ route('admin.akunpelanggan.edit', $pelanggan->id) }}" 
-                                        class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Edit">
+                                        class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('admin.akunpelanggan.destroy', $pelanggan->id) }}" method="POST" 

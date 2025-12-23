@@ -10,7 +10,7 @@
             <p class="text-gray-600">Kelola informasi kontak perusahaan</p>
         </div>
         <a href="{{ route('admin.kontak.edit') }}"
-            class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors">
             <i class="fas fa-edit mr-2"></i>Edit
         </a>
     </div>
@@ -81,7 +81,7 @@
                     <h3 class="text-sm font-medium text-gray-500 mb-3">Media Sosial</h3>
                     <div class="flex flex-wrap gap-4">
                         @if ($kontak->facebook)
-                            <a href="{{ $kontak->facebook }}" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                            <a href="{{ $kontak->facebook }}" target="_blank" class="flex items-center text-primary-600 hover:underline">
                                 <i class="fab fa-facebook mr-2"></i>Facebook
                             </a>
                         @endif
@@ -107,7 +107,7 @@
             <h3 class="text-lg font-semibold text-gray-900 mb-2">Belum Ada Data</h3>
             <p class="text-gray-600 mb-4">Informasi kontak belum diatur</p>
             <a href="{{ route('admin.kontak.edit') }}"
-                class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700">
                 <i class="fas fa-plus mr-2"></i>Buat Sekarang
             </a>
         </div>

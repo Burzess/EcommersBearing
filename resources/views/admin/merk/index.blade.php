@@ -4,15 +4,15 @@
 
 @section('content')
     <!-- Header -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Manajemen Merk</h1>
-                <p class="text-blue-100">Kelola merk produk bearing Anda</p>
+                <p class="text-primary-100">Kelola merk produk bearing Anda</p>
             </div>
             <div class="md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-tag text-blue-900 text-4xl"></i>
+                    <i class="fas fa-tag text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -45,14 +45,14 @@
 
     <!-- Statistik Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-primary-500">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500 text-sm mb-1">Total Merk</p>
                     <h3 class="text-3xl font-bold text-gray-800">{{ $merks->total() }}</h3>
                 </div>
-                <div class="bg-blue-100 p-4 rounded-lg">
-                    <i class="fas fa-tag text-blue-600 text-2xl"></i>
+                <div class="bg-primary-100 p-4 rounded-lg">
+                    <i class="fas fa-tag text-primary-600 text-2xl"></i>
                 </div>
             </div>
         </div>
@@ -88,12 +88,12 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Cari Merk</label>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama merk..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             </div>
 
             <div class="flex items-end gap-2">
                 <button type="submit"
-                    class="px-4 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                    class="px-4 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
                     <i class="fas fa-search mr-2"></i>Cari
                 </button>
                 <a href="{{ route('admin.merk.index') }}"
@@ -151,7 +151,7 @@
                                 <div class="text-sm text-gray-500 max-w-xs truncate">{{ $merk->deskripsi ?? '-' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary-100 text-primary-800">
                                     {{ $merk->produks()->count() }} produk
                                 </span>
                             </td>
@@ -180,7 +180,7 @@
                                     
                                     <!-- Edit -->
                                     <a href="{{ route('admin.merk.edit', $merk->id) }}" 
-                                        class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Edit">
+                                        class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     
@@ -204,7 +204,7 @@
                                     <p class="text-gray-500 text-lg">Tidak ada data merk</p>
                                     <p class="text-gray-400 text-sm mb-4">Mulai tambahkan merk baru</p>
                                     <a href="{{ route('admin.merk.create') }}" 
-                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
+                                        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all">
                                         <i class="fas fa-plus mr-2"></i>Tambah Merk
                                     </a>
                                 </div>

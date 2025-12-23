@@ -4,7 +4,7 @@
 
 @section('content')
    
-    <div class="relative rounded-2xl shadow-xl mb-8 bg-linear-to-r from-blue-600 via-blue-700 to-blue-900">
+    <div class="relative rounded-2xl shadow-xl mb-8 bg-linear-to-r from-primary-600 via-primary-700 to-primary-900">
 
         <!-- Pembungkus khusus SVG agar overflow-nya tidak mengganggu dropdown -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -27,19 +27,19 @@
                     <h1 class="text-4xl lg:text-5xl font-bold mb-4">
                         Bearing Berkualitas <br>untuk Industri Anda
                     </h1>
-                    <p class="text-blue-100 text-lg mb-6">
+                    <p class="text-primary-100 text-lg mb-6">
                         Temukan berbagai jenis bearing dari brand ternama dengan harga kompetitif.
                         Pengiriman cepat ke seluruh Indonesia.
                     </p>
 
                     <div class="flex flex-wrap gap-4">
                         <a href="{{ route('pelanggan.produk.index') }}"
-                            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            class="bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                             <i class="fas fa-shopping-bag mr-2"></i>Belanja Sekarang
                         </a>
 
                         <a href="#categories"
-                            class="bg-blue-500 bg-opacity-30 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-40 transition-all border-2 border-white border-opacity-30">
+                            class="bg-primary-500 bg-opacity-30 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-40 transition-all border-2 border-white border-opacity-30">
                             <i class="fas fa-th-large mr-2"></i>Lihat Kategori
                         </a>
                     </div>
@@ -61,8 +61,8 @@
     <!-- Bagian Fitur -->
     <div class="grid md:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all">
-            <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <i class="fas fa-shipping-fast text-blue-600 text-2xl"></i>
+            <div class="w-14 h-14 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-shipping-fast text-primary-600 text-2xl"></i>
             </div>
             <h3 class="font-bold text-gray-900 mb-2">Pengiriman Cepat</h3>
             <p class="text-gray-600 text-sm">Gratis ongkir untuk pembelian di atas 1 juta</p>
@@ -102,11 +102,11 @@
             @forelse($kategoris as $kategori)
                 <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                     class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all group">
-                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:bg-blue-200 transition-all">
+                    <div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:bg-primary-200 transition-all">
                         @if($kategori->icon)
                             <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-12 h-12 object-contain">
                         @else
-                            <i class="fas fa-cog text-blue-600 text-3xl"></i>
+                            <i class="fas fa-cog text-primary-600 text-3xl"></i>
                         @endif
                     </div>
                     <h3 class="font-bold text-gray-900 text-center mb-1 text-sm">{{ $kategori->nama }}</h3>
@@ -130,7 +130,7 @@
                     <p class="text-gray-600">Bearing dari brand ternama dunia</p>
                 </div>
                 <a href="{{ route('pelanggan.produk.index') }}"
-                    class="text-blue-600 hover:text-blue-700 font-semibold flex items-center">
+                    class="text-primary-600 hover:text-primary-700 font-semibold flex items-center">
                     Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
@@ -161,7 +161,7 @@
                 <p class="text-gray-600">Produk bearing yang paling banyak diminati</p>
             </div>
             <a href="{{ route('pelanggan.produk.index', ['sort' => 'popular']) }}"
-                class="text-blue-600 hover:text-blue-700 font-semibold flex items-center">
+                class="text-primary-600 hover:text-primary-700 font-semibold flex items-center">
                 Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
@@ -194,10 +194,10 @@
                         <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 min-h-12">{{ $produk->nama }}</h3>
                         <div class="flex items-center gap-2 mb-3">
                             @if($produk->harga_diskon)
-                                <span class="text-lg font-bold text-blue-600">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</span>
+                                <span class="text-lg font-bold text-primary-600">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</span>
                                 <span class="text-sm text-gray-400 line-through">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
                             @else
-                                <span class="text-lg font-bold text-blue-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                                <span class="text-lg font-bold text-primary-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
                             @endif
                         </div>
                         <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
@@ -205,7 +205,7 @@
                             <span><i class="fas fa-shopping-cart mr-1"></i>{{ $produk->sold_count ?? 0 }} terjual</span>
                         </div>
                         <a href="{{ route('pelanggan.produk.show', $produk->slug) }}"
-                            class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                            class="block w-full bg-primary-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-primary-700 transition-all">
                             Lihat Detail
                         </a>
                     </div>
@@ -227,7 +227,7 @@
                 <p class="text-gray-600">Produk bearing terbaru di katalog kami</p>
             </div>
             <a href="{{ route('pelanggan.produk.index', ['sort' => 'latest']) }}"
-                class="text-blue-600 hover:text-blue-700 font-semibold flex items-center">
+                class="text-primary-600 hover:text-primary-700 font-semibold flex items-center">
                 Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
@@ -258,10 +258,10 @@
                         <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 min-h-12">{{ $produk->nama }}</h3>
                         <div class="flex items-center gap-2 mb-3">
                             @if($produk->harga_diskon)
-                                <span class="text-lg font-bold text-blue-600">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</span>
+                                <span class="text-lg font-bold text-primary-600">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</span>
                                 <span class="text-sm text-gray-400 line-through">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
                             @else
-                                <span class="text-lg font-bold text-blue-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                                <span class="text-lg font-bold text-primary-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
                             @endif
                         </div>
                         <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
@@ -269,7 +269,7 @@
                             <span class="text-green-600"><i class="fas fa-check-circle mr-1"></i>Tersedia</span>
                         </div>
                         <a href="{{ route('pelanggan.produk.show', $produk->slug) }}"
-                            class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                            class="block w-full bg-primary-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-primary-700 transition-all">
                             Lihat Detail
                         </a>
                     </div>

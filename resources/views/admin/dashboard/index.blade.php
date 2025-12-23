@@ -4,15 +4,15 @@
 
 @section('content')
     <!-- Header -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">Dashboard</h1>
-                <p class="text-blue-100">Selamat datang, {{ auth()->user()->name }}!</p>
+                <p class="text-primary-100">Selamat datang, {{ auth()->user()->name }}!</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-chart-line text-blue-900 text-4xl"></i>
+                    <i class="fas fa-chart-line text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -40,10 +40,10 @@
                 <div>
                     <p class="text-gray-500 text-sm font-medium mb-1">Total Pesanan</p>
                     <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPesanan) }}</p>
-                    <p class="text-xs text-blue-600 mt-1"><i class="fas fa-shopping-cart mr-1"></i>Semua order</p>
+                    <p class="text-xs text-primary-600 mt-1"><i class="fas fa-shopping-cart mr-1"></i>Semua order</p>
                 </div>
-                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-shopping-bag text-blue-600 text-xl"></i>
+                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-shopping-bag text-primary-600 text-xl"></i>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
         <!-- Grafik Penjualan 7 Hari -->
         <div class="bg-white rounded-xl shadow-md p-6">
             <h3 class="text-lg font-bold text-gray-900 mb-4">
-                <i class="fas fa-chart-bar mr-2 text-blue-600"></i>Penjualan 7 Hari Terakhir
+                <i class="fas fa-chart-bar mr-2 text-primary-600"></i>Penjualan 7 Hari Terakhir
             </h3>
             
             <div class="h-64" id="chartContainer">
@@ -105,7 +105,7 @@
                 <h3 class="text-lg font-bold text-gray-900">
                     <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>Produk Stok Menipis
                 </h3>
-                <a href="{{ route('admin.produk.index') }}" class="text-sm text-blue-600 hover:text-blue-800">
+                <a href="{{ route('admin.produk.index') }}" class="text-sm text-primary-600 hover:text-primary-800">
                     Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -144,9 +144,9 @@
         <div class="p-6 border-b border-gray-200">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-bold text-gray-900">
-                    <i class="fas fa-clock mr-2 text-blue-600"></i>Pesanan Terbaru
+                    <i class="fas fa-clock mr-2 text-primary-600"></i>Pesanan Terbaru
                 </h3>
-                <a href="{{ route('admin.pembelian.index') }}" class="text-sm text-blue-600 hover:text-blue-800">
+                <a href="{{ route('admin.pembelian.index') }}" class="text-sm text-primary-600 hover:text-primary-800">
                     Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
@@ -193,7 +193,7 @@
                                         </span>
                                         @break
                                     @case('processing')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                                             <i class="fas fa-cog mr-1"></i>Processing
                                         </span>
                                         @break
@@ -223,7 +223,7 @@
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <a href="{{ route('admin.pembelian.show', $order->id) }}" 
-                                    class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
+                                    class="text-primary-600 hover:text-primary-800" title="Lihat Detail">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </td>

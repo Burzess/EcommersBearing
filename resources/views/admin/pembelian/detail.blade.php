@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Header -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <a href="{{ route('admin.pembelian.index') }}"
@@ -12,11 +12,11 @@
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
                 <h1 class="text-3xl font-bold text-white mb-2">Detail Pembelian</h1>
-                <p class="text-blue-100">{{ $order->order_number }}</p>
+                <p class="text-primary-100">{{ $order->order_number }}</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-receipt text-blue-900 text-4xl"></i>
+                    <i class="fas fa-receipt text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
@@ -71,10 +71,10 @@
                             </span>
                             @break
                         @case('processing')
-                            <div class="w-20 h-20 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                                <i class="fas fa-cog text-blue-600 text-3xl"></i>
+                            <div class="w-20 h-20 mx-auto bg-primary-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-cog text-primary-600 text-3xl"></i>
                             </div>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-blue-100 text-blue-800">
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-primary-100 text-primary-800">
                                 Processing
                             </span>
                             @break
@@ -111,7 +111,7 @@
                         @csrf
                         @method('PATCH')
                         <label class="block text-sm font-medium text-gray-700 mb-2">Ubah Status</label>
-                        <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-2">
+                        <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">
                             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="paid" {{ $order->status == 'paid' ? 'selected' : '' }}>Paid</option>
                             <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
@@ -120,8 +120,8 @@
                             <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
                         <input type="text" name="keterangan" placeholder="Keterangan (opsional)" 
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-2">
-                        <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">
+                        <button type="submit" class="w-full px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
                             <i class="fas fa-save mr-2"></i>Update Status
                         </button>
                     </form>
@@ -158,11 +158,11 @@
                         @method('PATCH')
                         <div class="space-y-2">
                             <input type="text" name="kurir" value="{{ $order->kurir }}" placeholder="Kurir (JNE, JNT, dll)" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
                             <input type="text" name="resi" value="{{ $order->resi }}" placeholder="Nomor Resi" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
                             <input type="date" name="estimasi_sampai" value="{{ $order->estimasi_sampai }}"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
                             <button type="submit" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
                                 <i class="fas fa-truck mr-2"></i>Update Resi
                             </button>
@@ -190,6 +190,50 @@
                         <span class="font-medium">{{ $order->user->telepon ?? '-' }}</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Bukti Pembayaran -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">
+                    <i class="fas fa-receipt mr-2 text-green-600"></i>Bukti Pembayaran
+                </h3>
+                
+                @if ($order->bukti_pembayaran)
+                    <div class="space-y-4">
+                        <div class="relative group">
+                            <img src="{{ asset('storage/' . $order->bukti_pembayaran) }}" 
+                                alt="Bukti Pembayaran" 
+                                class="w-full rounded-lg border border-gray-200 cursor-pointer hover:opacity-90 transition-all"
+                                onclick="openImageModal('{{ asset('storage/' . $order->bukti_pembayaran) }}')">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-30 rounded-lg">
+                                <span class="text-white text-sm font-medium">
+                                    <i class="fas fa-search-plus mr-1"></i>Lihat Besar
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500">
+                                <i class="fas fa-check-circle text-green-500 mr-1"></i>
+                                Bukti sudah diupload
+                            </span>
+                            <a href="{{ asset('storage/' . $order->bukti_pembayaran) }}" 
+                                target="_blank" 
+                                class="text-primary-600 hover:text-primary-800 font-medium">
+                                <i class="fas fa-external-link-alt mr-1"></i>Buka Tab Baru
+                            </a>
+                        </div>
+                    </div>
+                @else
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-image text-gray-400 text-2xl"></i>
+                        </div>
+                        <p class="text-gray-500">Pelanggan belum mengunggah bukti pembayaran</p>
+                        @if ($order->status === 'pending')
+                            <p class="text-xs text-gray-400 mt-1">Menunggu pembayaran dari pelanggan</p>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -297,7 +341,7 @@
                             @endif
                             <div class="flex justify-between text-lg font-bold pt-2 border-t">
                                 <span>Total:</span>
-                                <span class="text-blue-600">Rp {{ number_format($order->total + ($order->ongkir ?? 0), 0, ',', '.') }}</span>
+                                <span class="text-primary-600">Rp {{ number_format($order->total + ($order->ongkir ?? 0), 0, ',', '.') }}</span>
                             </div>
                         </div>
                     </div>
@@ -312,8 +356,8 @@
                     <div class="space-y-4">
                         @foreach ($order->statuses->sortByDesc('created_at') as $status)
                             <div class="flex items-start">
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 shrink-0">
-                                    <i class="fas fa-history text-blue-600"></i>
+                                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-4 shrink-0">
+                                    <i class="fas fa-history text-primary-600"></i>
                                 </div>
                                 <div>
                                     <p class="font-medium text-gray-900">{{ ucfirst($status->status) }}</p>
@@ -332,4 +376,34 @@
             @endif
         </div>
     </div>
+
+    <!-- Modal for Image Preview -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center p-4" onclick="closeImageModal()">
+        <div class="relative max-w-4xl max-h-full">
+            <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300 text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="Bukti Pembayaran" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl">
+        </div>
+    </div>
+
+    <script>
+        function openImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
 @endsection

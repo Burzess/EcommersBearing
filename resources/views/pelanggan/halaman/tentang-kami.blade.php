@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="bg-linear-to-r from-primary-600 to-primary-800 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold text-white mb-2">{{ $tentangKami->judul }}</h1>
-                <p class="text-blue-100">Mengenal lebih dekat Bearing Shop</p>
+                <p class="text-primary-100">Mengenal lebih dekat Bearing Shop</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -42,8 +42,8 @@
             @if ($tentangKami->visi)
                 <div class="bg-white rounded-xl shadow-md p-6">
                     <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-eye text-blue-600"></i>
+                        <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-eye text-primary-600"></i>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900">Visi</h3>
                     </div>
@@ -83,21 +83,21 @@
                 </div>
                 <ul class="space-y-3">
                     <li class="flex items-start">
-                        <i class="fas fa-shield-alt text-blue-500 mt-1 mr-3"></i>
+                        <i class="fas fa-shield-alt text-primary-500 mt-1 mr-3"></i>
                         <div>
                             <p class="font-medium text-gray-900">Produk Original</p>
                             <p class="text-sm text-gray-600">100% produk asli bergaransi resmi</p>
                         </div>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-truck text-blue-500 mt-1 mr-3"></i>
+                        <i class="fas fa-truck text-primary-500 mt-1 mr-3"></i>
                         <div>
                             <p class="font-medium text-gray-900">Pengiriman Cepat</p>
                             <p class="text-sm text-gray-600">Ke seluruh Indonesia</p>
                         </div>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-headset text-blue-500 mt-1 mr-3"></i>
+                        <i class="fas fa-headset text-primary-500 mt-1 mr-3"></i>
                         <div>
                             <p class="font-medium text-gray-900">Support 24/7</p>
                             <p class="text-sm text-gray-600">Tim support profesional</p>
