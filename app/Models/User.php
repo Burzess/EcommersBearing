@@ -2,20 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Model User
+ *
+ * Model untuk mengelola data pengguna aplikasi.
+ * Mendukung autentikasi, manajemen profil, dan relasi ke berbagai entitas.
+ *
+ * @package App\Models
+ * @author  Bearing Shop Team
+ * @version 1.0.0
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Atribut yang dapat diisi secara massal.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -32,9 +43,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Atribut yang disembunyikan saat serialisasi.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -42,7 +53,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Mendapatkan atribut yang harus di-cast.
      *
      * @return array<string, string>
      */
@@ -59,42 +70,64 @@ class User extends Authenticatable
         ];
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONSHIPS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Relasi ke Role
+     * Mendapatkan role yang dimiliki user.
+     *
+     * @return BelongsTo<Role, User>
      */
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
     /**
-     * Relasi ke Alamat
+     * Mendapatkan semua alamat milik user.
+     *
+     * @return HasMany<Alamat>
      */
-    public function alamats()
+    public function alamats(): HasMany
     {
         return $this->hasMany(Alamat::class);
     }
 
     /**
-     * Relasi ke Keranjang
+     * Mendapatkan semua item keranjang milik user.
+     *
+     * @return HasMany<Keranjang>
      */
-    public function keranjangs()
+    public function keranjangs(): HasMany
     {
         return $this->hasMany(Keranjang::class);
     }
 
     /**
-     * Relasi ke Order
+     * Mendapatkan semua order milik user.
+     *
+     * @return HasMany<Order>
      */
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | HELPER METHODS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Check apakah user adalah admin
+     * Mengecek apakah user memiliki role admin.
+     *
+     * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role && $this->role->name === 'admin';
     }

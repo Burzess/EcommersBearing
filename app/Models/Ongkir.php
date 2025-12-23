@@ -4,8 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Model Ongkir
+ *
+ * Model untuk mengelola tarif ongkos kirim berdasarkan provinsi.
+ * Mendukung tarif kustom dan tarif default berdasarkan zona wilayah.
+ *
+ * @package App\Models
+ * @author  Bearing Shop Team
+ * @version 1.0.0
+ *
+ * @property int    $id
+ * @property string $provinsi
+ * @property float  $tarif
+ * @property int    $estimasi_hari_min
+ * @property int    $estimasi_hari_max
+ * @property bool   $is_active
+ */
 class Ongkir extends Model
 {
+    /**
+     * Atribut yang dapat diisi secara massal.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'provinsi',
         'tarif',
@@ -14,15 +36,29 @@ class Ongkir extends Model
         'is_active',
     ];
 
+    /**
+     * Atribut yang harus di-cast ke tipe native.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'tarif' => 'decimal:2',
         'is_active' => 'boolean',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | STATIC METHODS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Get ongkir by provinsi
+     * Mendapatkan data ongkir berdasarkan nama provinsi.
+     *
+     * @param string $provinsi Nama provinsi
+     * @return Ongkir|null
      */
-    public static function getByProvinsi($provinsi)
+    public static function getByProvinsi(string $provinsi): ?self
     {
         return self::where('provinsi', $provinsi)
             ->where('is_active', true)
@@ -30,9 +66,13 @@ class Ongkir extends Model
     }
 
     /**
-     * Calculate ongkir - jika tidak ada di database, gunakan default
+     * Menghitung ongkir berdasarkan provinsi.
+     * Jika tidak ada di database, gunakan tarif default.
+     *
+     * @param string $provinsi Nama provinsi
+     * @return array{tarif: float, estimasi: string}
      */
-    public static function hitungOngkir($provinsi)
+    public static function hitungOngkir(string $provinsi): array
     {
         $ongkir = self::getByProvinsi($provinsi);
 
@@ -48,9 +88,17 @@ class Ongkir extends Model
     }
 
     /**
-     * Default ongkir berdasarkan zona wilayah
+     * Mendapatkan tarif ongkir default berdasarkan zona wilayah Indonesia.
+     *
+     * Zona 1: Pulau Jawa (termurah)
+     * Zona 2: Sumatera & Bali
+     * Zona 3: Kalimantan & Sulawesi
+     * Zona 4: NTB, NTT, Maluku, Papua (termahal)
+     *
+     * @param string $provinsi Nama provinsi
+     * @return array{tarif: float, estimasi: string}
      */
-    public static function getDefaultOngkir($provinsi)
+    public static function getDefaultOngkir(string $provinsi): array
     {
         // Zona 1: Pulau Jawa (termurah)
         $zona1 = ['DKI JAKARTA', 'JAWA BARAT', 'JAWA TENGAH', 'DI YOGYAKARTA', 'JAWA TIMUR', 'BANTEN'];
@@ -111,7 +159,7 @@ class Ongkir extends Model
             return ['tarif' => 50000, 'estimasi' => '5-10 hari'];
         }
 
-        // Default jika tidak dikenali
+        // Default jika provinsi tidak dikenali
         return ['tarif' => 30000, 'estimasi' => '3-7 hari'];
     }
 }

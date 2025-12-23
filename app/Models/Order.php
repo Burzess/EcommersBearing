@@ -2,14 +2,57 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Model Order
+ *
+ * Model untuk mengelola data pesanan/transaksi.
+ * Mencakup informasi pembeli, pengiriman, pembayaran, dan status pesanan.
+ *
+ * @package App\Models
+ * @author  Bearing Shop Team
+ * @version 1.0.0
+ *
+ * @property int              $id
+ * @property string           $order_number
+ * @property int              $user_id
+ * @property int|null         $alamat_id
+ * @property string           $alamat_penerima
+ * @property string           $alamat_telepon
+ * @property string           $alamat_lengkap
+ * @property string           $alamat_provinsi
+ * @property string           $alamat_kota
+ * @property string           $alamat_kecamatan
+ * @property string           $alamat_kode_pos
+ * @property float            $subtotal
+ * @property float            $ongkir
+ * @property float            $total
+ * @property string|null      $kurir
+ * @property string|null      $resi
+ * @property \Carbon\Carbon|null $estimasi_sampai
+ * @property string           $metode_pembayaran
+ * @property string|null      $bukti_pembayaran
+ * @property \Carbon\Carbon|null $paid_at
+ * @property string           $status
+ * @property string|null      $cancelled_reason
+ * @property \Carbon\Carbon|null $cancelled_at
+ * @property string|null      $catatan
+ */
 class Order extends Model
 {
     use HasFactory;
 
+    /**
+     * Atribut yang dapat diisi secara massal.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'order_number',
         'user_id',
@@ -36,6 +79,11 @@ class Order extends Model
         'catatan',
     ];
 
+    /**
+     * Atribut yang harus di-cast ke tipe native.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'subtotal' => 'decimal:2',
         'ongkir' => 'decimal:2',
@@ -45,42 +93,64 @@ class Order extends Model
         'estimasi_sampai' => 'date',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONSHIPS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Relasi ke User
+     * Mendapatkan user pemilik order.
+     *
+     * @return BelongsTo<User, Order>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Relasi ke Alamat
+     * Mendapatkan alamat pengiriman order.
+     *
+     * @return BelongsTo<Alamat, Order>
      */
-    public function alamat()
+    public function alamat(): BelongsTo
     {
         return $this->belongsTo(Alamat::class);
     }
 
     /**
-     * Relasi ke OrderItem
+     * Mendapatkan semua item dalam order.
+     *
+     * @return HasMany<OrderItem>
      */
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
     /**
-     * Relasi ke OrderStatus
+     * Mendapatkan riwayat status order.
+     *
+     * @return HasMany<OrderStatus>
      */
-    public function statuses()
+    public function statuses(): HasMany
     {
         return $this->hasMany(OrderStatus::class);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Get status badge HTML
+     * Mendapatkan badge HTML untuk status order.
+     *
+     * @return string
      */
-    public function getStatusBadgeAttribute()
+    public function getStatusBadgeAttribute(): string
     {
         $badges = [
             'pending' => '<span class="badge bg-warning">Menunggu</span>',
@@ -95,9 +165,11 @@ class Order extends Model
     }
 
     /**
-     * Get status label
+     * Mendapatkan label teks untuk status order.
+     *
+     * @return string
      */
-    public function getStatusLabelAttribute()
+    public function getStatusLabelAttribute(): string
     {
         $labels = [
             'pending' => 'Menunggu Pembayaran',
@@ -111,28 +183,46 @@ class Order extends Model
         return $labels[$this->status] ?? 'Unknown';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Scope by status
+     * Scope untuk filter berdasarkan status.
+     *
+     * @param Builder $query
+     * @param string  $status
+     * @return Builder
      */
-    public function scopeByStatus($query, $status)
+    public function scopeByStatus(Builder $query, string $status): Builder
     {
         return $query->where('status', $status);
     }
 
     /**
-     * Scope by user
+     * Scope untuk filter berdasarkan user.
+     *
+     * @param Builder $query
+     * @param int     $userId
+     * @return Builder
      */
-    public function scopeByUser($query, $userId)
+    public function scopeByUser(Builder $query, int $userId): Builder
     {
         return $query->where('user_id', $userId);
     }
 
     /**
-     * Scope search
+     * Scope untuk pencarian order.
+     *
+     * @param Builder $query
+     * @param string  $keyword
+     * @return Builder
      */
-    public function scopeSearch($query, $keyword)
+    public function scopeSearch(Builder $query, string $keyword): Builder
     {
-        return $query->where(function($q) use ($keyword) {
+        return $query->where(function ($q) use ($keyword) {
             $q->where('order_number', 'like', "%{$keyword}%")
               ->orWhere('alamat_penerima', 'like', "%{$keyword}%")
               ->orWhere('alamat_telepon', 'like', "%{$keyword}%");
@@ -140,46 +230,71 @@ class Order extends Model
     }
 
     /**
-     * Scope date range
+     * Scope untuk filter berdasarkan rentang tanggal.
+     *
+     * @param Builder $query
+     * @param string  $start
+     * @param string  $end
+     * @return Builder
      */
-    public function scopeDateRange($query, $start, $end)
+    public function scopeDateRange(Builder $query, string $start, string $end): Builder
     {
         return $query->whereBetween('created_at', [$start, $end]);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | STATIC METHODS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Generate order number
+     * Generate nomor order unik.
+     * Format: ORD-YYYYMMDD-XXXX
+     *
+     * @return string
      */
-    public static function generateOrderNumber()
+    public static function generateOrderNumber(): string
     {
         $date = Carbon::now()->format('Ymd');
         $lastOrder = static::whereDate('created_at', Carbon::today())
                           ->orderBy('id', 'desc')
                           ->first();
-        
+
         $number = $lastOrder ? intval(substr($lastOrder->order_number, -4)) + 1 : 1;
-        
+
         return 'ORD-' . $date . '-' . str_pad($number, 4, '0', STR_PAD_LEFT);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | HELPER METHODS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Update status order
+     * Update status order dan catat riwayat.
+     *
+     * @param string      $status
+     * @param string|null $keterangan
+     * @param int|null    $adminId
+     * @return void
      */
-    public function updateStatus($status, $keterangan = null, $adminId = null)
+    public function updateStatus(string $status, ?string $keterangan = null, ?int $adminId = null): void
     {
         $this->update(['status' => $status]);
-        
+
         // Jika status paid, update paid_at
         if ($status === 'paid' && !$this->paid_at) {
             $this->update(['paid_at' => now()]);
         }
-        
+
         // Jika status cancelled, update cancelled_at
         if ($status === 'cancelled' && !$this->cancelled_at) {
             $this->update(['cancelled_at' => now()]);
         }
-        
-        // Create status history
+
+        // Catat riwayat status
         OrderStatus::create([
             'order_id' => $this->id,
             'status' => $status,
@@ -189,9 +304,11 @@ class Order extends Model
     }
 
     /**
-     * Calculate total
+     * Hitung ulang total order.
+     *
+     * @return void
      */
-    public function calculateTotal()
+    public function calculateTotal(): void
     {
         $this->subtotal = $this->items()->sum('subtotal');
         $this->total = $this->subtotal + $this->ongkir;
@@ -199,48 +316,55 @@ class Order extends Model
     }
 
     /**
-     * Check if order is paid
+     * Cek apakah order sudah dibayar.
+     *
+     * @return bool
      */
-    public function isPaid()
+    public function isPaid(): bool
     {
         return $this->paid_at !== null;
     }
 
     /**
-     * Check if order can be cancelled
+     * Cek apakah order dapat dibatalkan.
+     *
+     * @return bool
      */
-    public function canBeCancelled()
+    public function canBeCancelled(): bool
     {
         return in_array($this->status, ['pending', 'paid']);
     }
 
     /**
-     * Cancel order
+     * Batalkan order dan kembalikan stok produk.
+     *
+     * @param string $reason Alasan pembatalan
+     * @return bool
      */
-    public function cancel($reason)
+    public function cancel(string $reason): bool
     {
         if (!$this->canBeCancelled()) {
             return false;
         }
-        
+
         $this->update([
             'status' => 'cancelled',
             'cancelled_reason' => $reason,
             'cancelled_at' => now(),
         ]);
-        
-        // Restore stok produk
+
+        // Kembalikan stok produk
         foreach ($this->items as $item) {
             $item->produk->incrementStok($item->quantity);
         }
-        
-        // Create status history
+
+        // Catat riwayat status
         OrderStatus::create([
             'order_id' => $this->id,
             'status' => 'cancelled',
             'keterangan' => $reason,
         ]);
-        
+
         return true;
     }
 }

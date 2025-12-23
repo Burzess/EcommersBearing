@@ -4,11 +4,33 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Model Keranjang
+ *
+ * Model untuk mengelola keranjang belanja pengguna.
+ * Menyimpan item produk sebelum checkout.
+ *
+ * @package App\Models
+ * @author  Bearing Shop Team
+ * @version 1.0.0
+ *
+ * @property int   $id
+ * @property int   $user_id
+ * @property int   $produk_id
+ * @property int   $quantity
+ * @property float $harga
+ */
 class Keranjang extends Model
 {
     use HasFactory;
 
+    /**
+     * Atribut yang dapat diisi secara massal.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'user_id',
         'produk_id',
@@ -16,49 +38,85 @@ class Keranjang extends Model
         'harga',
     ];
 
+    /**
+     * Atribut yang harus di-cast ke tipe native.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'harga' => 'decimal:2',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONSHIPS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Relasi ke User
+     * Mendapatkan user pemilik keranjang.
+     *
+     * @return BelongsTo<User, Keranjang>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Relasi ke Produk
+     * Mendapatkan produk dalam keranjang.
+     *
+     * @return BelongsTo<Produk, Keranjang>
      */
-    public function produk()
+    public function produk(): BelongsTo
     {
         return $this->belongsTo(Produk::class);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Get subtotal
+     * Menghitung subtotal item (harga x quantity).
+     *
+     * @return float
      */
-    public function getSubtotalAttribute()
+    public function getSubtotalAttribute(): float
     {
         return $this->harga * $this->quantity;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | STATIC METHODS
+    |--------------------------------------------------------------------------
+    */
+
     /**
-     * Get total items dalam keranjang user
+     * Mendapatkan total jumlah item dalam keranjang user.
+     *
+     * @param int $userId
+     * @return int
      */
-    public static function getTotalItems($userId)
+    public static function getTotalItems(int $userId): int
     {
         return static::where('user_id', $userId)->sum('quantity');
     }
 
     /**
-     * Get grand total keranjang user
+     * Menghitung grand total keranjang user.
+     *
+     * @param int $userId
+     * @return float
      */
-    public static function getGrandTotal($userId)
+    public static function getGrandTotal(int $userId): float
     {
         $items = static::where('user_id', $userId)->get();
-        return $items->sum(function($item) {
+
+        return $items->sum(function ($item) {
             return $item->subtotal;
         });
     }
