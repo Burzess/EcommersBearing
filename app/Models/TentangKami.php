@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Model TentangKami
+ *
+ * Model untuk mengelola konten halaman "Tentang Kami".
+ * Menyimpan informasi profil perusahaan, visi, dan misi.
+ *
+ * @package App\Models
+ * @author  Bearing Shop Team
+ * @version 1.0.0
+ *
+ * @property int         $id
+ * @property string      $judul
+ * @property string      $konten
+ * @property string|null $gambar
+ * @property string|null $visi
+ * @property string|null $misi
+ * @property bool        $is_active
+ */
+class TentangKami extends Model
+{
+    /**
+     * Nama tabel yang digunakan model.
+     *
+     * @var string
+     */
+    protected $table = 'tentang_kamis';
+
+    /**
+     * Atribut yang dapat diisi secara massal.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'judul',
+        'konten',
+        'gambar',
+        'visi',
+        'misi',
+        'is_active',
+    ];
+
+    /**
+     * Atribut yang harus di-cast ke tipe native.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Scope untuk filter data yang aktif.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | STATIC METHODS
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Mendapatkan data Tentang Kami yang aktif.
+     *
+     * @return TentangKami|null
+     */
+    public static function getActive(): ?self
+    {
+        return self::active()->first();
+    }
+}

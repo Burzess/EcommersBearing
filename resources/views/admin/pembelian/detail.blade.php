@@ -1,399 +1,409 @@
 @extends('layout.admin.app')
 
-@section('title', 'Detail Pesanan - Admin')
+@section('title', 'Detail Pembelian - Admin')
 
 @section('content')
-    <!-- Header Halaman -->
-    <div class="bg-linear-to-r from-blue-700 to-blue-900 rounded-2xl shadow-xl p-8 mb-8">
+    <!-- Header -->
+    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
-                <a href="#" onclick="window.history.back();"
-                    class="inline-flex items-center text-blue-100 hover:text-white mb-4 transition-all">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali ke Daftar
+                <a href="{{ route('admin.pembelian.index') }}"
+                    class="inline-flex items-center text-white hover:text-white mb-4 transition-all">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
-                <h1 class="text-3xl font-bold text-white mb-2">Detail Pesanan #ORD-2024-001</h1>
-                <p class="text-blue-100">Informasi lengkap pesanan pelanggan</p>
+                <h1 class="text-3xl font-bold text-white mb-2">Detail Pembelian</h1>
+                <p class="text-primary-100">{{ $order->order_number }}</p>
             </div>
             <div class="hidden md:block">
                 <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-file-invoice text-blue-900 text-4xl"></i>
+                    <i class="fas fa-receipt text-primary-900 text-4xl"></i>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Alert Messages -->
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center justify-between">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                {{ session('success') }}
+            </div>
+            <button onclick="this.parentElement.remove()" class="text-green-700 hover:text-green-900">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="grid lg:grid-cols-3 gap-6">
-        <!-- Konten Utama -->
-        <div class="lg:col-span-2 space-y-6">
-            <!-- Status Timeline -->
+        <!-- Info Order & Actions -->
+        <div class="lg:col-span-1 space-y-6">
+            <!-- Status Card -->
             <div class="bg-white rounded-xl shadow-md p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-history mr-2 text-blue-600"></i>Status Pesanan
-                </h2>
-
-                <div id="timelineContainer" class="space-y-6">
-                    <!-- Timeline akan diisi oleh JavaScript -->
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Status Order</h3>
+                
+                <div class="text-center mb-4">
+                    @switch($order->status)
+                        @case('pending')
+                            <div class="w-20 h-20 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-clock text-yellow-600 text-3xl"></i>
+                            </div>
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
+                                Pending
+                            </span>
+                            @break
+                        @case('paid')
+                            <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-credit-card text-green-600 text-3xl"></i>
+                            </div>
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                Paid
+                            </span>
+                            @break
+                        @case('processing')
+                            <div class="w-20 h-20 mx-auto bg-primary-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-cog text-primary-600 text-3xl"></i>
+                            </div>
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-primary-100 text-primary-800">
+                                Processing
+                            </span>
+                            @break
+                        @case('shipped')
+                            <div class="w-20 h-20 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-truck text-purple-600 text-3xl"></i>
+                            </div>
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-purple-100 text-purple-800">
+                                Shipped
+                            </span>
+                            @break
+                        @case('delivered')
+                            <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+                            </div>
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                Delivered
+                            </span>
+                            @break
+                        @case('cancelled')
+                            <div class="w-20 h-20 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-3">
+                                <i class="fas fa-times-circle text-red-600 text-3xl"></i>
+                            </div>
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-red-100 text-red-800">
+                                Cancelled
+                            </span>
+                            @break
+                    @endswitch
                 </div>
-            </div>
 
-            <!-- Update Status -->
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-edit mr-2 text-blue-600"></i>Update Status Pesanan
-                </h2>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Status Baru</label>
-                        <select id="newStatus"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option value="">-- Pilih Status --</option>
-                            <option value="paid">Pembayaran Dikonfirmasi</option>
-                            <option value="processing">Sedang Diproses</option>
-                            <option value="shipped">Sudah Dikirim</option>
-                            <option value="delivered">Pesanan Selesai</option>
-                            <option value="cancelled">Batalkan Pesanan</option>
+                <!-- Update Status Form -->
+                @if (!in_array($order->status, ['delivered', 'cancelled']))
+                    <form action="{{ route('admin.pembelian.update-status', $order->id) }}" method="POST" class="mt-4 pt-4 border-t">
+                        @csrf
+                        @method('PATCH')
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ubah Status</label>
+                        <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">
+                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="paid" {{ $order->status == 'paid' ? 'selected' : '' }}>Paid</option>
+                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
+                            <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
+                            <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
-                    </div>
+                        <input type="text" name="keterangan" placeholder="Keterangan (opsional)" 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">
+                        <button type="submit" class="w-full px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
+                            <i class="fas fa-save mr-2"></i>Update Status
+                        </button>
+                    </form>
+                @endif
+            </div>
 
+            <!-- Info Pengiriman -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Informasi Pengiriman</h3>
+                
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Kurir:</span>
+                        <span class="font-medium">{{ $order->kurir ?? '-' }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">No. Resi:</span>
+                        <span class="font-medium">{{ $order->resi ?? '-' }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Ongkir:</span>
+                        <span class="font-medium">Rp {{ number_format($order->ongkir ?? 0, 0, ',', '.') }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Estimasi Sampai:</span>
+                        <span class="font-medium">{{ $order->estimasi_sampai ? \Carbon\Carbon::parse($order->estimasi_sampai)->format('d M Y') : '-' }}</span>
+                    </div>
+                </div>
+
+                <!-- Update Resi Form -->
+                @if (in_array($order->status, ['paid', 'processing', 'shipped']))
+                    <form action="{{ route('admin.pembelian.update-resi', $order->id) }}" method="POST" class="mt-4 pt-4 border-t">
+                        @csrf
+                        @method('PATCH')
+                        <div class="space-y-2">
+                            <input type="text" name="kurir" value="{{ $order->kurir }}" placeholder="Kurir (JNE, JNT, dll)" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
+                            <input type="text" name="resi" value="{{ $order->resi }}" placeholder="Nomor Resi" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
+                            <input type="date" name="estimasi_sampai" value="{{ $order->estimasi_sampai }}"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
+                            <button type="submit" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
+                                <i class="fas fa-truck mr-2"></i>Update Resi
+                            </button>
+                        </div>
+                    </form>
+                @endif
+            </div>
+
+            <!-- Info Pelanggan -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Pelanggan</h3>
+                
+                <div class="flex items-center mb-4">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($order->user->name ?? 'User') }}&size=60&background=3b82f6&color=fff" 
+                        alt="Avatar" class="w-14 h-14 rounded-full mr-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Catatan (Opsional)</label>
-                        <textarea id="statusNote" rows="3" placeholder="Tambahkan catatan untuk perubahan status..."
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                        <p class="font-semibold text-gray-900">{{ $order->user->name ?? 'Guest' }}</p>
+                        <p class="text-sm text-gray-500">{{ $order->user->email ?? '-' }}</p>
                     </div>
-
-                    <div id="trackingNumberDiv" class="hidden">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Resi</label>
-                        <input type="text" id="trackingNumber" placeholder="Masukkan nomor resi pengiriman"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Telepon:</span>
+                        <span class="font-medium">{{ $order->user->telepon ?? '-' }}</span>
                     </div>
-
-                    <button onclick="updateOrderStatus()"
-                        class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
-                        <i class="fas fa-check mr-2"></i>Update Status
-                    </button>
                 </div>
             </div>
 
-            <!-- Daftar Produk -->
+            <!-- Bukti Pembayaran -->
             <div class="bg-white rounded-xl shadow-md p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-6">
-                    <i class="fas fa-shopping-bag mr-2 text-blue-600"></i>Daftar Produk
-                </h2>
-
-                <div id="productList" class="space-y-4">
-                    <!-- Produk akan diisi oleh JavaScript -->
-                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">
+                    <i class="fas fa-receipt mr-2 text-green-600"></i>Bukti Pembayaran
+                </h3>
+                
+                @if ($order->bukti_pembayaran)
+                    <div class="space-y-4">
+                        <div class="relative group">
+                            <img src="{{ asset('storage/' . $order->bukti_pembayaran) }}" 
+                                alt="Bukti Pembayaran" 
+                                class="w-full rounded-lg border border-gray-200 cursor-pointer hover:opacity-90 transition-all"
+                                onclick="openImageModal('{{ asset('storage/' . $order->bukti_pembayaran) }}')">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-30 rounded-lg">
+                                <span class="text-white text-sm font-medium">
+                                    <i class="fas fa-search-plus mr-1"></i>Lihat Besar
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500">
+                                <i class="fas fa-check-circle text-green-500 mr-1"></i>
+                                Bukti sudah diupload
+                            </span>
+                            <a href="{{ asset('storage/' . $order->bukti_pembayaran) }}" 
+                                target="_blank" 
+                                class="text-primary-600 hover:text-primary-800 font-medium">
+                                <i class="fas fa-external-link-alt mr-1"></i>Buka Tab Baru
+                            </a>
+                        </div>
+                    </div>
+                @else
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-image text-gray-400 text-2xl"></i>
+                        </div>
+                        <p class="text-gray-500">Pelanggan belum mengunggah bukti pembayaran</p>
+                        @if ($order->status === 'pending')
+                            <p class="text-xs text-gray-400 mt-1">Menunggu pembayaran dari pelanggan</p>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="lg:col-span-1 space-y-6">
-            <!-- Ringkasan Pesanan -->
-            <div class="bg-white rounded-xl shadow-md p-6 top-6">
-                <h3 class="font-bold text-gray-900 mb-4">Ringkasan Pesanan</h3>
+        <!-- Detail Order -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Info Order -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Detail Order</h3>
+                
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <label class="text-gray-500">No. Order</label>
+                        <p class="font-semibold text-gray-900">{{ $order->order_number }}</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500">Tanggal Order</label>
+                        <p class="font-semibold text-gray-900">{{ $order->created_at->format('d M Y H:i') }}</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500">Metode Pembayaran</label>
+                        <p class="font-semibold text-gray-900">{{ ucfirst($order->metode_pembayaran ?? 'Transfer') }}</p>
+                    </div>
+                    <div>
+                        <label class="text-gray-500">Catatan</label>
+                        <p class="font-semibold text-gray-900">{{ $order->catatan ?? '-' }}</p>
+                    </div>
+                </div>
 
-                <div class="space-y-3 text-sm mb-4">
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Subtotal:</span>
-                        <span class="font-medium" id="subtotal">Rp 800.000</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Ongkir:</span>
-                        <span class="font-medium" id="shipping">Rp 50.000</span>
-                    </div>
-                    <div class="flex justify-between text-green-600">
-                        <span>Diskon:</span>
-                        <span class="font-medium" id="discount">- Rp 0</span>
-                    </div>
-                    <div class="pt-3 border-t border-gray-200">
-                        <div class="flex justify-between">
-                            <span class="font-bold text-gray-900">Total:</span>
-                            <span class="font-bold text-blue-600 text-lg" id="total">Rp 850.000</span>
+                <!-- Alamat Pengiriman -->
+                <div class="mt-4 pt-4 border-t">
+                    <label class="text-gray-500 text-sm">Alamat Pengiriman</label>
+                    <p class="font-semibold text-gray-900 mt-1">
+                        {{ $order->alamat_pengiriman ?? '-' }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 border-b">
+                    <h3 class="text-lg font-bold text-gray-900">Produk Dipesan</h3>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Produk</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Harga</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Qty</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach ($order->items as $item)
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            @if ($item->produk && $item->produk->images->first())
+                                                <img src="{{ asset('storage/' . $item->produk->images->first()->image_path) }}" 
+                                                    alt="{{ $item->produk->nama }}" class="w-12 h-12 rounded-lg object-cover mr-3">
+                                            @else
+                                                <div class="w-12 h-12 bg-gray-100 rounded-lg mr-3 flex items-center justify-center">
+                                                    <i class="fas fa-image text-gray-400"></i>
+                                                </div>
+                                            @endif
+                                            <div>
+                                                <p class="font-medium text-gray-900">{{ $item->produk->nama ?? $item->nama_produk ?? 'Produk' }}</p>
+                                                <p class="text-xs text-gray-500">SKU: {{ $item->produk->sku ?? '-' }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">
+                                        Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">
+                                        {{ $item->qty }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Summary -->
+                <div class="bg-gray-50 p-6">
+                    <div class="flex justify-end">
+                        <div class="w-64 space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Subtotal:</span>
+                                <span class="font-medium">Rp {{ number_format($order->subtotal ?? $order->total, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Ongkir:</span>
+                                <span class="font-medium">Rp {{ number_format($order->ongkir ?? 0, 0, ',', '.') }}</span>
+                            </div>
+                            @if ($order->diskon)
+                                <div class="flex justify-between text-sm text-green-600">
+                                    <span>Diskon:</span>
+                                    <span>- Rp {{ number_format($order->diskon, 0, ',', '.') }}</span>
+                                </div>
+                            @endif
+                            <div class="flex justify-between text-lg font-bold pt-2 border-t">
+                                <span>Total:</span>
+                                <span class="text-primary-600">Rp {{ number_format($order->total + ($order->ongkir ?? 0), 0, ',', '.') }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="pt-4 border-t border-gray-200 space-y-2">
-                    <button onclick="printInvoice()"
-                        class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-900 transition-all">
-                        <i class="fas fa-print mr-2"></i>Cetak Invoice
-                    </button>
-                    <button onclick="sendInvoiceEmail()"
-                        class="w-full px-4 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all">
-                        <i class="fas fa-envelope mr-2"></i>Kirim ke Email
-                    </button>
-                </div>
             </div>
 
-            <!-- Informasi Pelanggan -->
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h3 class="font-bold text-gray-900 mb-4">Informasi Pelanggan</h3>
-
-                <div class="flex items-center mb-4">
-                    <img src="https://ui-avatars.com/api/?name=John+Doe&size=64&background=3b82f6&color=fff" alt="Avatar"
-                        class="w-12 h-12 rounded-full mr-3">
-                    <div>
-                        <div class="font-semibold text-gray-900">John Doe</div>
-                        <div class="text-xs text-gray-500">#CUST-2024-001</div>
+            <!-- Riwayat Status -->
+            @if ($order->statuses && $order->statuses->count() > 0)
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Riwayat Status</h3>
+                    
+                    <div class="space-y-4">
+                        @foreach ($order->statuses->sortByDesc('created_at') as $status)
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-4 shrink-0">
+                                    <i class="fas fa-history text-primary-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">{{ ucfirst($status->status) }}</p>
+                                    <p class="text-sm text-gray-500">{{ $status->keterangan ?? '-' }}</p>
+                                    <p class="text-xs text-gray-400 mt-1">
+                                        {{ $status->created_at->format('d M Y H:i') }} 
+                                        @if ($status->createdBy)
+                                            oleh {{ $status->createdBy->name }}
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
+            @endif
+        </div>
+    </div>
 
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <div class="text-gray-500 mb-1">Email:</div>
-                        <div class="font-medium text-gray-900">john.doe@example.com</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Telepon:</div>
-                        <div class="font-medium text-gray-900">0812-3456-7890</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Total Pesanan:</div>
-                        <div class="font-medium text-gray-900">24 pesanan</div>
-                    </div>
-                </div>
-
-                <button onclick="viewCustomer()"
-                    class="w-full mt-4 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-all">
-                    <i class="fas fa-user mr-2"></i>Lihat Profil
-                </button>
-            </div>
-
-            <!-- Informasi Pengiriman -->
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h3 class="font-bold text-gray-900 mb-4">Informasi Pengiriman</h3>
-
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <div class="text-gray-500 mb-1">Alamat:</div>
-                        <div class="font-medium text-gray-900">
-                            Jl. Sudirman No. 123, RT 05/RW 03<br>
-                            Senayan, Jakarta Selatan<br>
-                            DKI Jakarta, 12190
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Kurir:</div>
-                        <div class="font-medium text-gray-900">JNE Regular</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Estimasi:</div>
-                        <div class="font-medium text-gray-900">2-3 hari kerja</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">No. Resi:</div>
-                        <div class="font-medium text-blue-600">JNE1234567890</div>
-                    </div>
-                </div>
-
-                <button onclick="trackShipment()"
-                    class="w-full mt-4 px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all">
-                    <i class="fas fa-map-marker-alt mr-2"></i>Lacak Pengiriman
-                </button>
-            </div>
-
-            <!-- Informasi Pembayaran -->
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h3 class="font-bold text-gray-900 mb-4">Informasi Pembayaran</h3>
-
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <div class="text-gray-500 mb-1">Metode:</div>
-                        <div class="font-medium text-gray-900">Transfer Bank</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Bank:</div>
-                        <div class="font-medium text-gray-900">BCA - 1234567890</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Atas Nama:</div>
-                        <div class="font-medium text-gray-900">Toko Bearing Jakarta</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-500 mb-1">Status:</div>
-                        <span
-                            class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                            <i class="fas fa-clock mr-1"></i>Menunggu Pembayaran
-                        </span>
-                    </div>
-                </div>
-
-                <button onclick="confirmPayment()"
-                    class="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all">
-                    <i class="fas fa-check mr-2"></i>Konfirmasi Pembayaran
-                </button>
-            </div>
+    <!-- Modal for Image Preview -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center p-4" onclick="closeImageModal()">
+        <div class="relative max-w-4xl max-h-full">
+            <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300 text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="Bukti Pembayaran" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl">
         </div>
     </div>
 
     <script>
-        // Data dummy pesanan
-        const orderData = {
-            id: 'ORD-2024-001',
-            date: '2024-01-20 10:30',
-            status: 'pending',
-            customer: {
-                name: 'John Doe',
-                email: 'john.doe@example.com',
-                phone: '0812-3456-7890',
-                id: 'CUST-2024-001'
-            },
-            products: [
-                {
-                    name: 'SKF 6204 Bearing',
-                    sku: 'SKF-6204',
-                    quantity: 2,
-                    price: 350000,
-                    image: 'https://via.placeholder.com/80'
-                },
-                {
-                    name: 'NSK Ball Bearing 6205',
-                    sku: 'NSK-6205',
-                    quantity: 1,
-                    price: 450000,
-                    image: 'https://via.placeholder.com/80'
-                }
-            ],
-            shipping: {
-                address: 'Jl. Sudirman No. 123, RT 05/RW 03\nSenayan, Jakarta Selatan\nDKI Jakarta, 12190',
-                courier: 'JNE Regular',
-                cost: 50000,
-                estimation: '2-3 hari kerja',
-                trackingNumber: 'JNE1234567890'
-            },
-            payment: {
-                method: 'Transfer Bank',
-                bank: 'BCA',
-                accountNumber: '1234567890',
-                accountName: 'Toko Bearing Jakarta',
-                status: 'pending'
-            },
-            timeline: [
-                { status: 'pending', label: 'Menunggu Pembayaran', time: '20 Jan 2024, 10:30', completed: true },
-                { status: 'paid', label: 'Pembayaran Dikonfirmasi', time: '', completed: false },
-                { status: 'processing', label: 'Pesanan Diproses', time: '', completed: false },
-                { status: 'shipped', label: 'Pesanan Dikirim', time: '', completed: false },
-                { status: 'delivered', label: 'Pesanan Selesai', time: '', completed: false }
-            ]
-        };
-
-        // Format mata uang
-        function formatCurrency(amount) {
-            return 'Rp ' + amount.toLocaleString('id-ID');
+        function openImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Render timeline
-        function renderTimeline() {
-            const container = document.getElementById('timelineContainer');
-
-            container.innerHTML = orderData.timeline.map((item, index) => `
-                            <div class="flex">
-                                <div class="flex flex-col items-center mr-4">
-                                    <div class="w-10 h-10 rounded-full flex items-center justify-center ${item.completed
-                    ? 'bg-green-100 text-green-600'
-                    : 'bg-gray-100 text-gray-400'
-                }">
-                                        <i class="fas ${item.completed ? 'fa-check' : 'fa-circle'} text-sm"></i>
-                                    </div>
-                                    ${index < orderData.timeline.length - 1 ? `
-                                        <div class="w-0.5 h-16 ${item.completed ? 'bg-green-200' : 'bg-gray-200'}"></div>
-                                    ` : ''}
-                                </div>
-                                <div class="pb-8">
-                                    <div class="font-semibold text-gray-900">${item.label}</div>
-                                    ${item.time ? `<div class="text-sm text-gray-500 mt-1">${item.time}</div>` : ''}
-                                </div>
-                            </div>
-                        `).join('');
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        // Render produk
-        function renderProducts() {
-            const container = document.getElementById('productList');
-
-            container.innerHTML = orderData.products.map(product => `
-                            <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">
-                                <img src="${product.image}" alt="${product.name}" class="w-20 h-20 object-cover rounded-lg mr-4">
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-gray-900">${product.name}</h4>
-                                    <p class="text-sm text-gray-500">SKU: ${product.sku}</p>
-                                    <p class="text-sm text-gray-600 mt-1">Jumlah: ${product.quantity}x</p>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-semibold text-gray-900">${formatCurrency(product.price)}</div>
-                                    <div class="text-sm text-gray-500">per item</div>
-                                    <div class="font-bold text-blue-600 mt-1">${formatCurrency(product.price * product.quantity)}</div>
-                                </div>
-                            </div>
-                        `).join('');
-        }
-
-        // Tampilkan/Sembunyikan field nomor resi
-        document.getElementById('newStatus').addEventListener('change', function () {
-            const trackingDiv = document.getElementById('trackingNumberDiv');
-            if (this.value === 'shipped') {
-                trackingDiv.classList.remove('hidden');
-            } else {
-                trackingDiv.classList.add('hidden');
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
             }
         });
-
-        // Update status pesanan
-        function updateOrderStatus() {
-            const newStatus = document.getElementById('newStatus').value;
-            const note = document.getElementById('statusNote').value;
-            const tracking = document.getElementById('trackingNumber').value;
-
-            if (!newStatus) {
-                alert('Pilih status baru terlebih dahulu');
-                return;
-            }
-
-            if (newStatus === 'shipped' && !tracking) {
-                alert('Masukkan nomor resi pengiriman');
-                return;
-            }
-
-            if (confirm('Update status pesanan?')) {
-                alert(`Status berhasil diupdate!\n\nStatus: ${newStatus}\nCatatan: ${note || '-'}\n\nFitur dalam pengembangan`);
-            }
-        }
-
-        // Cetak invoice
-        function printInvoice() {
-            alert('Cetak invoice\n\nFitur dalam pengembangan');
-        }
-
-        // Kirim invoice via email
-        function sendInvoiceEmail() {
-            alert('Kirim invoice ke email pelanggan\n\nFitur dalam pengembangan');
-        }
-
-        // Lihat pelanggan
-        function viewCustomer() {
-            alert('Lihat profil pelanggan\n\nFitur dalam pengembangan');
-        }
-
-        // Lacak pengiriman
-        function trackShipment() {
-            alert('Lacak pengiriman: ' + orderData.shipping.trackingNumber + '\n\nFitur dalam pengembangan');
-        }
-
-        // Konfirmasi pembayaran
-        function confirmPayment() {
-            if (confirm('Konfirmasi pembayaran untuk pesanan ini?')) {
-                alert('Pembayaran berhasil dikonfirmasi\n\nFitur dalam pengembangan');
-            }
-        }
-
-        // Simpan catatan admin
-        function saveAdminNote() {
-            alert('Catatan berhasil disimpan\n\nFitur dalam pengembangan');
-        }
-
-        // Inisialisasi
-        renderTimeline();
-        renderProducts();
     </script>
 @endsection
