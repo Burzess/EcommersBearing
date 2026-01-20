@@ -1,0 +1,349 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Admin/ProdukController.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Auth/PasswordResetController.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Order\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Alamat.php
+
+		-
+			message: '#^Method App\\Models\\Alamat\:\:orders\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Order\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Order, \$this\(App\\Models\\Alamat\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Alamat.php
+
+		-
+			message: '#^Method App\\Models\\Alamat\:\:user\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, App\\Models\\Alamat\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, \$this\(App\\Models\\Alamat\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Alamat.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Alamat\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Alamat.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Produk\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Kategori.php
+
+		-
+			message: '#^Method App\\Models\\Kategori\:\:produks\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Produk\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Produk, \$this\(App\\Models\\Kategori\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Kategori.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Kategori\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Kategori.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\KebijakanPrivasi\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/KebijakanPrivasi.php
+
+		-
+			message: '#^Method App\\Models\\Keranjang\:\:produk\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Produk, App\\Models\\Keranjang\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Produk, \$this\(App\\Models\\Keranjang\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Keranjang.php
+
+		-
+			message: '#^Method App\\Models\\Keranjang\:\:user\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, App\\Models\\Keranjang\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, \$this\(App\\Models\\Keranjang\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Keranjang.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Keranjang\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Keranjang.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Kontak\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Kontak.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Produk\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Merk.php
+
+		-
+			message: '#^Method App\\Models\\Merk\:\:produks\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Produk\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Produk, \$this\(App\\Models\\Merk\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Merk.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Merk\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Merk.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\MetodePembayaran\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/MetodePembayaran.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Ongkir\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Ongkir.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderItem\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderStatus\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:alamat\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Alamat, App\\Models\\Order\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Alamat, \$this\(App\\Models\\Order\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:items\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderItem\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderItem, \$this\(App\\Models\\Order\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:statuses\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderStatus\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderStatus, \$this\(App\\Models\\Order\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\Order\:\:user\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, App\\Models\\Order\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, \$this\(App\\Models\\Order\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Order\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Models/Order.php
+
+		-
+			message: '#^Method App\\Models\\OrderItem\:\:order\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Order, App\\Models\\OrderItem\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Order, \$this\(App\\Models\\OrderItem\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/OrderItem.php
+
+		-
+			message: '#^Method App\\Models\\OrderItem\:\:produk\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Produk, App\\Models\\OrderItem\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Produk, \$this\(App\\Models\\OrderItem\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/OrderItem.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\OrderItem\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/OrderItem.php
+
+		-
+			message: '#^Method App\\Models\\OrderStatus\:\:createdBy\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, App\\Models\\OrderStatus\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\User, \$this\(App\\Models\\OrderStatus\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/OrderStatus.php
+
+		-
+			message: '#^Method App\\Models\\OrderStatus\:\:order\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Order, App\\Models\\OrderStatus\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Order, \$this\(App\\Models\\OrderStatus\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/OrderStatus.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\OrderStatus\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/OrderStatus.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Keranjang\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderItem\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ProdukImage\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\Produk\:\:getDiskonPersenAttribute\(\) should return int but returns float\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\Produk\:\:images\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ProdukImage\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ProdukImage, \$this\(App\\Models\\Produk\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\Produk\:\:kategori\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Kategori, App\\Models\\Produk\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Kategori, \$this\(App\\Models\\Produk\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\Produk\:\:keranjangs\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Keranjang\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Keranjang, \$this\(App\\Models\\Produk\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\Produk\:\:merk\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Merk, App\\Models\\Produk\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Merk, \$this\(App\\Models\\Produk\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\Produk\:\:orderItems\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderItem\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\OrderItem, \$this\(App\\Models\\Produk\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Produk\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Produk.php
+
+		-
+			message: '#^Method App\\Models\\ProdukImage\:\:produk\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Produk, App\\Models\\ProdukImage\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Produk, \$this\(App\\Models\\ProdukImage\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/ProdukImage.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ProdukImage\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/ProdukImage.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\User\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/Role.php
+
+		-
+			message: '#^Method App\\Models\\Role\:\:users\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\User\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\User, \$this\(App\\Models\\Role\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Role.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Role\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Role.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\TentangKami\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/TentangKami.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Alamat\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Keranjang\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Generic type Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Order\> in PHPDoc tag @return does not specify all template types of class Illuminate\\Database\\Eloquent\\Relations\\HasMany\: TRelatedModel, TDeclaringModel$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:alamats\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Alamat\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Alamat, \$this\(App\\Models\\User\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:keranjangs\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Keranjang\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Keranjang, \$this\(App\\Models\\User\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:orders\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Order\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Order, \$this\(App\\Models\\User\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:role\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Role, App\\Models\\User\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Role, \$this\(App\\Models\\User\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
