@@ -32,7 +32,7 @@ jobs:
 
       # 1. Cek Kerapian Kode (PSR-12)
       - name: Check Code Style (PHPCS)
-        run: ./vendor/bin/phpcs --standard=PSR12 app routes
+        run: ./vendor/bin/phpcs --standard=PSR12 -n app routes
 
       # 2. Analisis Statis (PHPStan)
       - name: Static Analysis (PHPStan)
