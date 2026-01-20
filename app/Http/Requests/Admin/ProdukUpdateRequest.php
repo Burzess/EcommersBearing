@@ -22,7 +22,7 @@ class ProdukUpdateRequest extends FormRequest
     public function rules(): array
     {
         $produkId = $this->route('id');
-        
+
         return [
             'kategori_id' => ['required', 'exists:kategoris,id'],
             'merk_id' => ['required', 'exists:merks,id'],

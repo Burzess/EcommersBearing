@@ -18,11 +18,11 @@ class CheckRole
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
-        
+
         if (!auth()->user()->role || auth()->user()->role->name !== $role) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
-        
+
         return $next($request);
     }
 }

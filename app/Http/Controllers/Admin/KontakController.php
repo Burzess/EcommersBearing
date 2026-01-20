@@ -17,11 +17,11 @@ class KontakController extends Controller
     public function edit()
     {
         $kontak = Kontak::first();
-        
+
         if (!$kontak) {
             $kontak = new Kontak();
         }
-        
+
         return view('admin.kontak.edit', compact('kontak'));
     }
 
@@ -42,7 +42,7 @@ class KontakController extends Controller
         ]);
 
         $kontak = Kontak::first();
-        
+
         if (!$kontak) {
             $kontak = new Kontak();
         }

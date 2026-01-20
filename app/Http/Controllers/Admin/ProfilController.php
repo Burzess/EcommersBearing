@@ -17,7 +17,7 @@ class ProfilController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
@@ -25,13 +25,13 @@ class ProfilController extends Controller
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
         ]);
-        
+
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'telepon' => $request->telepon,
         ];
-        
+
         // Upload avatar jika ada
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
@@ -39,14 +39,14 @@ class ProfilController extends Controller
             $avatar->storeAs('public/avatar', $avatarName);
             $data['avatar'] = 'avatar/' . $avatarName;
         }
-        
+
         // Update password jika diisi
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-        
+
         $user->update($data);
-        
+
         return back()->with('success', 'Profil berhasil diupdate.');
     }
 }

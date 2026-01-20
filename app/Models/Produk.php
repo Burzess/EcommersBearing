@@ -46,7 +46,8 @@ use Illuminate\Support\Str;
  */
 class Produk extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * Atribut yang dapat diisi secara massal.

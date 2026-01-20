@@ -29,15 +29,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
-            
+
             // Update last login
             auth()->user()->updateLastLogin();
-            
+
             // Redirect berdasarkan role
             if (auth()->user()->isAdmin()) {
                 return redirect()->intended('/admin/dashboard');
             }
-            
+
             return redirect()->intended('/');
         }
 
@@ -70,7 +70,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        
+
         $user->updateLastLogin();
 
         return redirect('/')->with('success', 'Registrasi berhasil! Selamat datang.');

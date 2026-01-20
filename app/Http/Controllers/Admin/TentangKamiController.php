@@ -18,11 +18,11 @@ class TentangKamiController extends Controller
     public function edit()
     {
         $tentangKami = TentangKami::first();
-        
+
         if (!$tentangKami) {
             $tentangKami = new TentangKami();
         }
-        
+
         return view('admin.tentang-kami.edit', compact('tentangKami'));
     }
 
@@ -38,7 +38,7 @@ class TentangKamiController extends Controller
         ]);
 
         $tentangKami = TentangKami::first();
-        
+
         if (!$tentangKami) {
             $tentangKami = new TentangKami();
         }

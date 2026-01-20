@@ -19,7 +19,7 @@ class OngkirController extends Controller
         ]);
 
         $alamat = Alamat::find($request->alamat_id);
-        
+
         if (!$alamat) {
             return response()->json([
                 'success' => false,

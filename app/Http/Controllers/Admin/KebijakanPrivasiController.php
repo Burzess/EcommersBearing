@@ -17,11 +17,11 @@ class KebijakanPrivasiController extends Controller
     public function edit()
     {
         $kebijakanPrivasi = KebijakanPrivasi::first();
-        
+
         if (!$kebijakanPrivasi) {
             $kebijakanPrivasi = new KebijakanPrivasi();
         }
-        
+
         return view('admin.kebijakan-privasi.edit', compact('kebijakanPrivasi'));
     }
 
@@ -37,14 +37,14 @@ class KebijakanPrivasiController extends Controller
         ]);
 
         $kebijakanPrivasi = KebijakanPrivasi::first();
-        
+
         if (!$kebijakanPrivasi) {
             $kebijakanPrivasi = new KebijakanPrivasi();
         }
 
         // Convert items array to JSON for storage
         $items = array_values($request->items); // Re-index array
-        
+
         $data = [
             'judul' => $request->judul,
             'konten' => json_encode($items),

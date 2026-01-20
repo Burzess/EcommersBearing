@@ -16,7 +16,7 @@ class CheckoutRequest extends FormRequest
     {
         // Get list of active metode pembayaran IDs
         $metodePembayaranIds = MetodePembayaran::where('is_active', true)->pluck('id')->toArray();
-        
+
         return [
             'alamat_id' => ['required', 'exists:alamats,id'],
             'metode_pembayaran_id' => ['required', 'exists:metode_pembayarans,id', function ($attribute, $value, $fail) use ($metodePembayaranIds) {
