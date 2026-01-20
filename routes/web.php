@@ -26,6 +26,17 @@ use App\Http\Controllers\Api\OngkirController;
 |
 */
 
+
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'UP',
+        'service' => 'E-Commerce Core',
+        'timestamp' => now(),
+    ]);
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | API Wilayah Routes (Proxy)
