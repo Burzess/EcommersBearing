@@ -1,0 +1,21 @@
+name: E-Commerce Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Panggil Workflow 01 (CI)
+  integration-stage:
+    uses: ./.github/workflows/01-integration.yml
+
+  # Panggil Workflow 02 (CD)
+  # Hanya jalan jika integration-stage sukses
+  delivery-stage:
+    needs: integration-stage
+    # Jalankan CD hanya jika branch adalah main (cegah deploy dari PR)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    uses: ./.github/workflows/02-delivery.yml
+    secrets: inherit # Teruskan secret dari repo ke workflow anak

@@ -1,0 +1,62 @@
+name: Continuous Integration
+
+on:
+  workflow_call:
+
+jobs:
+  quality-check:
+    name: Code Quality and Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP 8.4 Environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, bcmath
+          coverage: xdebug
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Prepare Application Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: PHP Code Sniffer (PSR-12)
+        run: ./vendor/bin/phpcs --standard=PSR12 -n app routes
+
+      - name: Static Analysis (PHPStan)
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G
+
+      - name: Dependency Security Audit
+        run: composer audit
+
+  unit-testing:
+    name: Unit and Feature Testing
+    needs: quality-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP 8.4 Environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, bcmath
+          coverage: xdebug
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Prepare Application Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run PHPUnit Tests
+        run: php artisan test
