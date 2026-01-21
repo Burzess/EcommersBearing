@@ -28,6 +28,8 @@ COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
 
 WORKDIR /var/www/html
 
+RUN mkdir -p public/build
+
 # Copy hasil build dari Stage 1 & 2
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=frontend /app/public/build ./public/build
