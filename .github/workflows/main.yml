@@ -3,19 +3,36 @@ name: E-Commerce Pipeline
 on:
   push:
     branches: [ "main" ]
+    tags: [ 'v*' ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  # Panggil Workflow 01 (CI)
+  # 1. Panggil Workflow Integration (CI)
   integration-stage:
     uses: ./.github/workflows/01-integration.yml
 
-  # Panggil Workflow 02 (CD)
-  # Hanya jalan jika integration-stage sukses
+  # 2. Panggil Workflow Delivery (CD)
   delivery-stage:
     needs: integration-stage
-    # Jalankan CD hanya jika branch adalah main (cegah deploy dari PR)
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Jalan jika push ke main ATAU jika push tag release (v1.0.0)
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     uses: ./.github/workflows/02-delivery.yml
-    secrets: inherit # Teruskan secret dari repo ke workflow anak
+    secrets: inherit
+
+  # 3. Job Notifikasi Slack
+  notification:
+    needs: [integration-stage, delivery-stage]
+    if: always() # Selalu jalan entah sukses atau gagal
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          # Deteksi status: Jika ada yang fail, kirim 'failure', jika tidak kirim 'success'
+          status: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          text: "Pipeline Kelompok 1 Selesai! Status: ${{ contains(needs.*.result, 'failure') && 'GAGAL' || 'SUKSES' }}"
+        env:
+          # Pastikan Anda sudah setting secret SLACK_WEBHOOK di GitHub
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
