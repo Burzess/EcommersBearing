@@ -28,7 +28,7 @@ use App\Http\Controllers\Api\OngkirController;
 
 Route::get('/', function (){
 	return ('hello world');
-};
+});
 
 Route::get('/health', function () {
     return response()->json([
