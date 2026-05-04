@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MetodePembayaran;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class MetodePembayaranController extends Controller
@@ -98,6 +100,10 @@ class MetodePembayaranController extends Controller
     {
         $metodePembayaran = MetodePembayaran::findOrFail($id);
 
+        if ($this->isMetodePembayaranUsed($metodePembayaran)) {
+            return back()->with('error', 'Metode pembayaran sedang digunakan oleh pesanan dan tidak dapat dihapus.');
+        }
+
         // Delete logo if exists
         if ($metodePembayaran->logo) {
             Storage::disk('public')->delete($metodePembayaran->logo);
@@ -116,5 +122,16 @@ class MetodePembayaranController extends Controller
 
         $status = $metodePembayaran->is_active ? 'diaktifkan' : 'dinonaktifkan';
         return back()->with('success', "Metode pembayaran berhasil {$status}.");
+    }
+
+    private function isMetodePembayaranUsed(MetodePembayaran $metodePembayaran): bool
+    {
+        if (Schema::hasColumn('orders', 'metode_pembayaran_id')) {
+            if (Order::where('metode_pembayaran_id', $metodePembayaran->id)->exists()) {
+                return true;
+            }
+        }
+
+        return Order::where('metode_pembayaran', $metodePembayaran->nama)->exists();
     }
 }

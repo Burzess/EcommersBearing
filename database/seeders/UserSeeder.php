@@ -23,6 +23,16 @@ class UserSeeder extends Seeder
                'is_active' => true,
           ]);
 
+          // Owner User
+          User::create([
+               'role_id' => 3,
+               'name' => 'Owner',
+               'email' => 'owner@bearing.com',
+               'password' => Hash::make('password'),
+               'email_verified_at' => now(),
+               'is_active' => true,
+          ]);
+
           // Sample Pelanggan Users
           $pelanggan = [
                ['name' => 'Budi Santoso', 'email' => 'budi@example.com', 'telepon' => '081234567890'],

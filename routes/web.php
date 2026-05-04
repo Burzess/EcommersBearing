@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Pelanggan;
+use App\Http\Controllers\Owner;
 use App\Http\Controllers\Api\WilayahController;
 use App\Http\Controllers\Api\OngkirController;
 
@@ -163,6 +164,19 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'role:pelang
     Route::get('/pembelian/{order_number}', [Pelanggan\PembelianController::class, 'show'])->name('pembelian.show');
     Route::post('/pembelian/{id}/upload-bukti', [Pelanggan\PembelianController::class, 'uploadBuktiPembayaran'])->name('pembelian.upload-bukti');
     Route::post('/pembelian/{id}/cancel', [Pelanggan\PembelianController::class, 'cancel'])->name('pembelian.cancel');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Owner Routes
+|--------------------------------------------------------------------------
+|
+| Route untuk owner yang hanya melihat laporan pendapatan.
+|
+*/
+Route::prefix('owner')->name('owner.')->middleware(['auth', 'role:owner'])->group(function () {
+    Route::get('/laporan-pendapatan', [Owner\ReportController::class, 'index'])->name('laporan-pendapatan.index');
+    Route::get('/laporan-pendapatan/export', [Owner\ReportController::class, 'export'])->name('laporan-pendapatan.export');
 });
 
 /*

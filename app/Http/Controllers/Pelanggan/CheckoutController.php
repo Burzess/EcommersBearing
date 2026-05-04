@@ -92,7 +92,7 @@ class CheckoutController extends Controller
             });
 
             // Calculate ongkir
-            $ongkirData = Ongkir::hitungOngkir($alamat->provinsi);
+            $ongkirData = Ongkir::hitungOngkirDenganSubtotal($alamat->provinsi, $alamat->kota, $subtotal);
             $ongkir = $ongkirData['tarif'];
             
             // Create Order
@@ -176,7 +176,7 @@ class CheckoutController extends Controller
             $subtotal = $harga * $request->quantity;
 
             // Calculate ongkir
-            $ongkirData = Ongkir::hitungOngkir($alamat->provinsi);
+            $ongkirData = Ongkir::hitungOngkirDenganSubtotal($alamat->provinsi, $alamat->kota, $subtotal);
             $ongkir = $ongkirData['tarif'];
             
             // Create Order

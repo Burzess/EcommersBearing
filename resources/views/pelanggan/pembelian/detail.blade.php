@@ -71,7 +71,7 @@
                                     <span class="absolute top-8 left-[-20px] -ml-px h-full w-0.5 bg-primary-600"></span>
                                 @endif
                                 <div class="relative flex items-start">
-                                    <span class="h-10 w-10 rounded-full flex items-center justify-center absolute -left-10 bg-primary-600 text-white {{ $loop->first ? 'ring-4 ring-primary-200' : '' }}">
+                                    <span class="h-6 w-6 rounded-full flex items-center justify-center absolute -left-8 top-5 bg-primary-600 text-white {{ $loop->first ? 'ring-4 ring-primary-200' : '' }}">
                                         <i class="fas fa-{{ $statusIcons[$status->status] ?? 'info-circle' }}"></i>
                                     </span>
                                     <div class="min-w-0 flex-1">
@@ -218,19 +218,29 @@
                                 <form action="{{ route('pelanggan.pembelian.upload-bukti', $order->id) }}" 
                                     method="POST" enctype="multipart/form-data" class="mt-4">
                                     @csrf
-                                    <p class="text-sm text-gray-600 mb-2">Upload bukti pembayaran:</p>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="file" name="bukti_pembayaran" accept="image/*" required
-                                            class="flex-1 text-sm border border-gray-300 rounded-lg">
-                                        <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700">
-                                            <i class="fas fa-upload mr-1"></i>Upload
-                                        </button>
+                                    <div class="border-2 border-dashed border-yellow-300 rounded-xl p-6 bg-yellow-50 text-center cursor-pointer transition-all hover:border-yellow-400 hover:bg-yellow-100"
+                                        onclick="document.getElementById('bukti-input-{{ $order->id }}').click()">
+                                        <input type="file" id="bukti-input-{{ $order->id }}" name="bukti_pembayaran" accept="image/*" required
+                                            class="hidden" onchange="handleFileSelected(this)">
+                                        <div class="flex items-center justify-center mb-3">
+                                            <i class="fas fa-cloud-upload-alt text-4xl text-yellow-600"></i>
+                                        </div>
+                                        <p class="font-semibold text-gray-900 mb-1">Upload Bukti Pembayaran</p>
+                                        <p class="text-sm text-gray-600 mb-3">Klik atau drag file gambar ke sini</p>
+                                        <p class="text-xs text-gray-500">Format: JPG, PNG | Ukuran maksimal: 5MB</p>
                                     </div>
+                                    <button type="submit" class="w-full mt-4 px-4 py-3 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center">
+                                        <i class="fas fa-upload mr-2"></i>Upload Bukti Pembayaran
+                                    </button>
                                 </form>
                             @else
-                                <p class="text-sm text-green-600 mt-2">
-                                    <i class="fas fa-check-circle mr-1"></i>Bukti pembayaran sudah diupload, menunggu verifikasi
-                                </p>
+                                <div class="mt-4 p-4 bg-green-100 rounded-lg flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-600 text-xl mt-0.5"></i>
+                                    <div>
+                                        <p class="font-semibold text-green-900">Bukti Pembayaran Terupload</p>
+                                        <p class="text-sm text-green-700">Menunggu verifikasi dari admin</p>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     @endif
@@ -314,4 +324,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function handleFileSelected(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                input.value = '';
+                return;
+            }
+
+            if (!file.type.startsWith('image/')) {
+                alert('File harus berupa gambar!');
+                input.value = '';
+                return;
+            }
+
+            // Optionally show preview or confirmation
+            const uploadArea = input.parentElement;
+            const fileName = file.name;
+            uploadArea.style.borderColor = '#16a34a';
+            uploadArea.style.backgroundColor = '#f0fdf4';
+            
+            // Show file name
+            const nameSpan = uploadArea.querySelector('p:nth-of-type(1)');
+            if (nameSpan) {
+                nameSpan.textContent = `File dipilih: ${fileName}`;
+            }
+        }
+    </script>
 @endsection

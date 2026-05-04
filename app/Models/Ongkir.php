@@ -23,6 +23,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ongkir extends Model
 {
+    private const SURABAYA_CITY_NAMES = ['SURABAYA', 'KOTA SURABAYA'];
+    private const FREE_SHIPPING_THRESHOLD = 150000;
+
     /**
      * Atribut yang dapat diisi secara massal.
      *
@@ -74,17 +77,42 @@ class Ongkir extends Model
      */
     public static function hitungOngkir(string $provinsi): array
     {
+        return self::hitungOngkirDenganSubtotal($provinsi, null, null);
+    }
+
+    /**
+     * Menghitung ongkir berdasarkan provinsi, kota, dan subtotal.
+     *
+     * @param string $provinsi
+     * @param string|null $kota
+     * @param float|int|null $subtotal
+     * @return array{tarif: float, estimasi: string, is_free_shipping: bool}
+     */
+    public static function hitungOngkirDenganSubtotal(string $provinsi, ?string $kota = null, float|int|null $subtotal = null): array
+    {
+        if (self::isGratisSurabaya($kota, $subtotal)) {
+            return [
+                'tarif' => 0.0,
+                'estimasi' => '2-4 hari',
+                'is_free_shipping' => true,
+            ];
+        }
+
         $ongkir = self::getByProvinsi($provinsi);
 
         if ($ongkir) {
             return [
-                'tarif' => $ongkir->tarif,
+                'tarif' => (float) $ongkir->tarif,
                 'estimasi' => $ongkir->estimasi_hari_min . '-' . $ongkir->estimasi_hari_max . ' hari',
+                'is_free_shipping' => false,
             ];
         }
 
         // Default ongkir jika provinsi tidak ada di database
-        return self::getDefaultOngkir($provinsi);
+        $default = self::getDefaultOngkir($provinsi);
+        $default['is_free_shipping'] = false;
+
+        return $default;
     }
 
     /**
@@ -150,16 +178,31 @@ class Ongkir extends Model
         $provinsiUpper = strtoupper($provinsi);
 
         if (in_array($provinsiUpper, $zona1)) {
-            return ['tarif' => 15000, 'estimasi' => '2-4 hari'];
+            return ['tarif' => 15000.0, 'estimasi' => '2-4 hari'];
         } elseif (in_array($provinsiUpper, $zona2)) {
-            return ['tarif' => 25000, 'estimasi' => '3-5 hari'];
+            return ['tarif' => 25000.0, 'estimasi' => '3-5 hari'];
         } elseif (in_array($provinsiUpper, $zona3)) {
-            return ['tarif' => 35000, 'estimasi' => '4-7 hari'];
+            return ['tarif' => 35000.0, 'estimasi' => '4-7 hari'];
         } elseif (in_array($provinsiUpper, $zona4)) {
-            return ['tarif' => 50000, 'estimasi' => '5-10 hari'];
+            return ['tarif' => 50000.0, 'estimasi' => '5-10 hari'];
         }
 
         // Default jika provinsi tidak dikenali
-        return ['tarif' => 30000, 'estimasi' => '3-7 hari'];
+        return ['tarif' => 30000.0, 'estimasi' => '3-7 hari'];
+    }
+
+    private static function isGratisSurabaya(?string $kota, float|int|null $subtotal): bool
+    {
+        if ($subtotal === null || (float) $subtotal < self::FREE_SHIPPING_THRESHOLD) {
+            return false;
+        }
+
+        if (! is_string($kota) || trim($kota) === '') {
+            return false;
+        }
+
+        $kotaUpper = strtoupper(trim($kota));
+
+        return in_array($kotaUpper, self::SURABAYA_CITY_NAMES, true) || str_contains($kotaUpper, 'SURABAYA');
     }
 }

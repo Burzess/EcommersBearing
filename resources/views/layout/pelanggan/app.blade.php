@@ -13,7 +13,7 @@
 --}}
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ sidebarOpen: false, sidebarCollapsed: false }"
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ mobileMenuOpen: false }"
     class="h-full">
 
 <head>
@@ -41,31 +41,15 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="h-full bg-gray-50">
-    <div class="flex h-full">
+<body class="min-h-screen bg-gray-50">
+    <div class="min-h-screen flex flex-col">
 
-        {{-- ========================================
-            SIDEBAR SECTION
-        ======================================== --}}
+        {{-- Navbar --}}
+        @include('layout.pelanggan.navbar')
 
-        {{-- Sidebar Desktop --}}
-        @include('layout.pelanggan.sidebarPelanggan')
-
-        {{-- Sidebar Mobile (Overlay) --}}
-        @include('layout.pelanggan.sidebarPelanggan-mobile')
-
-        {{-- ========================================
-            MAIN CONTENT SECTION
-        ======================================== --}}
-
-        <div class="flex-1 flex flex-col overflow-hidden">
-
-            {{-- Navbar --}}
-            @include('layout.pelanggan.navbar')
-
-            {{-- Main Content Area --}}
-            <main class="flex-1 overflow-y-auto bg-gray-50">
-                <div class="container mx-auto px-4 lg:px-8 py-6">
+        {{-- Main Content Area --}}
+        <main class="flex-1 overflow-y-auto bg-gray-50 pt-40 lg:pt-16">
+            <div class="container mx-auto px-4 lg:px-8 py-6">
 
                     {{-- Breadcrumb Navigation --}}
                     @if (isset($breadcrumbs))
@@ -102,30 +86,28 @@
                     {{-- Page Content --}}
                     @yield('content')
 
-                </div>
-            </main>
+            </div>
+        </main>
 
             {{-- ========================================
                 FOOTER SECTION
             ======================================== --}}
 
-            <footer class="bg-gray-200 border-t border-gray-200 py-4">
-                <div class="container mx-auto px-4 lg:px-8">
-                    <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
-                        {{-- Copyright --}}
-                        <p>&copy; {{ date('Y') }} Bearing Shop. All rights reserved.</p>
+        <footer class="bg-gray-200 border-t border-gray-200 py-4">
+            <div class="container mx-auto px-4 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+                    {{-- Copyright --}}
+                    <p>&copy; {{ date('Y') }} Bearing Shop. All rights reserved.</p>
 
-                        {{-- Footer Navigation Links --}}
-                        <div class="flex space-x-4 mt-2 md:mt-0">
-                            <a href="{{ route('pelanggan.tentang-kami') }}" class="hover:text-primary-600">Tentang Kami</a>
-                            <a href="{{ route('pelanggan.kontak') }}" class="hover:text-primary-600">Kontak</a>
-                            <a href="{{ route('pelanggan.kebijakan-privasi') }}" class="hover:text-primary-600">Kebijakan Privasi</a>
-                        </div>
+                    {{-- Footer Navigation Links --}}
+                    <div class="flex space-x-4 mt-2 md:mt-0">
+                        <a href="{{ route('pelanggan.tentang-kami') }}" class="hover:text-primary-600">Tentang Kami</a>
+                        <a href="{{ route('pelanggan.kontak') }}" class="hover:text-primary-600">Kontak</a>
+                        <a href="{{ route('pelanggan.kebijakan-privasi') }}" class="hover:text-primary-600">Kebijakan Privasi</a>
                     </div>
                 </div>
-            </footer>
-
-        </div>
+            </div>
+        </footer>
     </div>
 
     {{-- Additional Scripts Stack --}}

@@ -15,7 +15,8 @@ class OngkirController extends Controller
     public function hitungByAlamat(Request $request)
     {
         $request->validate([
-            'alamat_id' => 'required|exists:alamats,id'
+            'alamat_id' => 'required|exists:alamats,id',
+            'subtotal' => 'nullable|numeric|min:0',
         ]);
 
         $alamat = Alamat::find($request->alamat_id);
@@ -27,15 +28,21 @@ class OngkirController extends Controller
             ], 404);
         }
 
-        $ongkir = Ongkir::hitungOngkir($alamat->provinsi);
+        $ongkir = Ongkir::hitungOngkirDenganSubtotal(
+            $alamat->provinsi,
+            $alamat->kota,
+            $request->input('subtotal', 0)
+        );
 
         return response()->json([
             'success' => true,
             'data' => [
                 'provinsi' => $alamat->provinsi,
+                'kota' => $alamat->kota,
                 'tarif' => $ongkir['tarif'],
                 'tarif_formatted' => 'Rp ' . number_format($ongkir['tarif'], 0, ',', '.'),
                 'estimasi' => $ongkir['estimasi'],
+                'is_free_shipping' => $ongkir['is_free_shipping'] ?? false,
             ]
         ]);
     }
@@ -46,18 +53,26 @@ class OngkirController extends Controller
     public function hitungByProvinsi(Request $request)
     {
         $request->validate([
-            'provinsi' => 'required|string'
+            'provinsi' => 'required|string',
+            'kota' => 'nullable|string',
+            'subtotal' => 'nullable|numeric|min:0',
         ]);
 
-        $ongkir = Ongkir::hitungOngkir($request->provinsi);
+        $ongkir = Ongkir::hitungOngkirDenganSubtotal(
+            $request->provinsi,
+            $request->input('kota'),
+            $request->input('subtotal', 0)
+        );
 
         return response()->json([
             'success' => true,
             'data' => [
                 'provinsi' => $request->provinsi,
+                'kota' => $request->input('kota'),
                 'tarif' => $ongkir['tarif'],
                 'tarif_formatted' => 'Rp ' . number_format($ongkir['tarif'], 0, ',', '.'),
                 'estimasi' => $ongkir['estimasi'],
+                'is_free_shipping' => $ongkir['is_free_shipping'] ?? false,
             ]
         ]);
     }

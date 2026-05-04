@@ -29,6 +29,14 @@ class RoleSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 3,
+                'name' => 'owner',
+                'display_name' => 'Owner',
+                'description' => 'Owner yang hanya melihat laporan pendapatan',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

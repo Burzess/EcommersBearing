@@ -147,6 +147,13 @@
             </div>
         </div>
 
+        <!-- Metode Pembayaran -->
+        <a href="{{ route('admin.metode-pembayaran.index') }}"
+            class="flex items-center px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.metode-pembayaran.*') ? 'bg-primary-50 text-primary-600' : '' }}">
+            <i class="fas fa-credit-card w-6 text-center"></i>
+            <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Metode Pembayaran</span>
+        </a>
+
         <!-- Profil -->
         <a href="{{ route('admin.profil.index') }}"
             class="flex items-center px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.profil.*') ? 'bg-primary-50 text-primary-600' : '' }}">
