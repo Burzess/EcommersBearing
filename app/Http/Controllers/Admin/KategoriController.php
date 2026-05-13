@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
  * Controller Kategori Admin
  *
  * Menangani operasi CRUD untuk manajemen kategori produk.
- * Termasuk fitur pencarian, upload icon, dan toggle status.
+ * Termasuk fitur pencarian dan toggle status.
  *
  * @package App\Http\Controllers\Admin
  * @author  Bearing Shop Team
@@ -61,13 +61,6 @@ class KategoriController extends Controller
     {
         $data = $request->validated();
 
-        // Upload icon jika ada
-        if ($request->hasFile('icon')) {
-            $iconName = time() . '.' . $request->file('icon')->getClientOriginalExtension();
-            $request->file('icon')->storeAs('kategori', $iconName, 'public');
-            $data['icon'] = 'kategori/' . $iconName;
-        }
-
         Kategori::create($data);
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
@@ -98,13 +91,6 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
 
         $data = $request->validated();
-
-        // Upload icon baru jika ada
-        if ($request->hasFile('icon')) {
-            $iconName = time() . '.' . $request->file('icon')->getClientOriginalExtension();
-            $request->file('icon')->storeAs('kategori', $iconName, 'public');
-            $data['icon'] = 'kategori/' . $iconName;
-        }
 
         $kategori->update($data);
 

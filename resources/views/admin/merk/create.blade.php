@@ -3,131 +3,85 @@
 @section('title', 'Tambah Merk')
 
 @section('content')
-    <!-- Header -->
-    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
-        <div class="flex items-center justify-between">
+<!-- Header -->
+<div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <a href="{{ route('admin.merk.index') }}" class="inline-flex items-center text-white hover:text-white mb-4 transition-all">
+                <i class="fas fa-arrow-left mr-2"></i>Kembali
+            </a>
+            <h1 class="text-3xl font-bold text-white mb-2">Tambah Merk</h1>
+            <p class="text-primary-100">Buat merk produk baru</p>
+        </div>
+        <div class="hidden md:block">
+            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <i class="fas fa-plus text-primary-900 text-4xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Messages -->
+@if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+        <div class="flex items-center mb-2">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <strong>Terjadi kesalahan:</strong>
+        </div>
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<!-- Form -->
+<div class="bg-white rounded-xl shadow-md p-6">
+    <form action="{{ route('admin.merk.store') }}" method="POST">
+        @csrf
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Nama Merk -->
             <div>
-                <a href="{{ route('admin.merk.index') }}"
-                    class="inline-flex items-center text-white hover:text-white mb-4 transition-all">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
-                </a>
-                <h1 class="text-3xl font-bold text-white mb-2">Tambah Merk</h1>
-                <p class="text-primary-100">Buat merk produk baru</p>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Nama Merk <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="nama" value="{{ old('nama') }}" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('nama') border-red-500 @enderror"
+                    placeholder="Contoh: SKF, NSK, FAG">
+                @error('nama')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+                <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Nama merk maksimal 255 karakter</p>
             </div>
-            <div class="hidden md:block">
-                <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-plus text-primary-900 text-4xl"></i>
-                </div>
+
+            <!-- Kualitas Premium -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Kualitas Premium
+                </label>
+                <select name="is_premium"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('is_premium') border-red-500 @enderror">
+                    <option value="0" {{ old('is_premium', 0) == 0 ? 'selected' : '' }}>Standar</option>
+                    <option value="1" {{ old('is_premium') == 1 ? 'selected' : '' }}>Premium</option>
+                </select>
+                @error('is_premium')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
         </div>
-    </div>
 
-    <!-- Alert Messages -->
-    @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
-            <div class="flex items-center mb-2">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                <strong>Terjadi kesalahan:</strong>
-            </div>
-            <ul class="list-disc list-inside">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <!-- Tombol Aksi -->
+        <div class="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+            <a href="{{ route('admin.merk.index') }}"
+                class="px-6 py-2.5 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-all">
+                Batal
+            </a>
+            <button type="submit" class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
+                <i class="fas fa-save mr-2"></i>Simpan Merk
+            </button>
         </div>
-    @endif
-
-    <!-- Form -->
-    <div class="bg-white rounded-xl shadow-md p-6">
-        <form action="{{ route('admin.merk.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Nama Merk -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Nama Merk <span class="text-red-500">*</span>
-                    </label>
-                    <input type="text" name="nama" value="{{ old('nama') }}" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('nama') border-red-500 @enderror"
-                        placeholder="Contoh: SKF, NSK, FAG">
-                    @error('nama')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Nama merk harus unik dan maksimal 100 karakter</p>
-                </div>
-
-                <!-- Logo -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Logo
-                    </label>
-                    <input type="file" name="logo" accept="image/jpeg,image/png,image/jpg,image/svg+xml"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('logo') border-red-500 @enderror">
-                    @error('logo')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-gray-500 text-xs mt-1">Format: jpeg, png, jpg, svg. Maksimal 1MB</p>
-                </div>
-
-                <!-- Deskripsi -->
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Deskripsi
-                    </label>
-                    <textarea name="deskripsi" rows="3"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('deskripsi') border-red-500 @enderror"
-                        placeholder="Deskripsi singkat tentang merk ini">{{ old('deskripsi') }}</textarea>
-                    @error('deskripsi')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Deskripsi akan ditampilkan di halaman merk (opsional)</p>
-                </div>
-
-                <!-- Premium -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Merk Premium
-                    </label>
-                    <select name="is_premium"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('is_premium') border-red-500 @enderror">
-                        <option value="0" {{ old('is_premium', 0) == 0 ? 'selected' : '' }}>Tidak</option>
-                        <option value="1" {{ old('is_premium') == 1 ? 'selected' : '' }}>Ya (Premium)</option>
-                    </select>
-                    @error('is_premium')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-gray-500 text-xs mt-1">Merk premium akan ditampilkan dengan badge khusus</p>
-                </div>
-
-                <!-- Status -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Status
-                    </label>
-                    <select name="is_active"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('is_active') border-red-500 @enderror">
-                        <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Aktif</option>
-                        <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                    </select>
-                    @error('is_active')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Merk tidak aktif tidak akan ditampilkan</p>
-                </div>
-            </div>
-
-            <!-- Tombol Aksi -->
-            <div class="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
-                <a href="{{ route('admin.merk.index') }}"
-                    class="px-6 py-2.5 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-all">
-                    Batal
-                </a>
-                <button type="submit"
-                    class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
-                    <i class="fas fa-save mr-2"></i>Simpan Merk
-                </button>
-            </div>
-        </form>
-    </div>
+    </form>
+</div>
 @endsection

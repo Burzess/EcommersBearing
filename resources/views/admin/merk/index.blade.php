@@ -3,223 +3,174 @@
 @section('title', 'Manajemen Merk')
 
 @section('content')
-    <!-- Header -->
-    <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
+<!-- Header -->
+<div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-2">Manajemen Merk</h1>
+            <p class="text-primary-100">Kelola merk produk bearing Anda</p>
+        </div>
+        <div class="md:block">
+            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <i class="fas fa-tag text-primary-900 text-4xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Messages -->
+@if (session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center justify-between">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            {{ session('success') }}
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-green-700 hover:text-green-900">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-center justify-between">
+        <div class="flex items-center">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            {{ session('error') }}
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-red-700 hover:text-red-900">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+@endif
+
+<!-- Statistik Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-primary-500">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-white mb-2">Manajemen Merk</h1>
-                <p class="text-primary-100">Kelola merk produk bearing Anda</p>
+                <p class="text-gray-500 text-sm mb-1">Total Merk</p>
+                <h3 class="text-3xl font-bold text-gray-800">{{ $merks->total() }}</h3>
             </div>
-            <div class="md:block">
-                <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-tag text-primary-900 text-4xl"></i>
-                </div>
+            <div class="bg-primary-100 p-4 rounded-lg">
+                <i class="fas fa-tag text-primary-600 text-2xl"></i>
             </div>
         </div>
     </div>
 
-    <!-- Alert Messages -->
-    @if (session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center justify-between">
-            <div class="flex items-center">
-                <i class="fas fa-check-circle mr-2"></i>
-                {{ session('success') }}
-            </div>
-            <button onclick="this.parentElement.remove()" class="text-green-700 hover:text-green-900">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-center justify-between">
-            <div class="flex items-center">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                {{ session('error') }}
-            </div>
-            <button onclick="this.parentElement.remove()" class="text-red-700 hover:text-red-900">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    @endif
-
-    <!-- Statistik Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-primary-500">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Total Merk</p>
-                    <h3 class="text-3xl font-bold text-gray-800">{{ $merks->total() }}</h3>
-                </div>
-                <div class="bg-primary-100 p-4 rounded-lg">
-                    <i class="fas fa-tag text-primary-600 text-2xl"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Merk Aktif</p>
-                    <h3 class="text-3xl font-bold text-gray-800">{{ $merks->where('is_active', 1)->count() }}</h3>
-                </div>
-                <div class="bg-green-100 p-4 rounded-lg">
-                    <i class="fas fa-check-circle text-green-600 text-2xl"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm mb-1">Merk Premium</p>
-                    <h3 class="text-3xl font-bold text-gray-800">{{ $merks->where('is_premium', 1)->count() }}</h3>
-                </div>
-                <div class="bg-purple-100 p-4 rounded-lg">
-                    <i class="fas fa-crown text-purple-600 text-2xl"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Filter & Search -->
-    <div class="bg-white rounded-xl shadow-md p-4 mb-8">
-        <form action="{{ route('admin.merk.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+        <div class="flex items-center justify-between">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Cari Merk</label>
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama merk..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                <p class="text-gray-500 text-sm mb-1">Kualitas Premium</p>
+                <h3 class="text-3xl font-bold text-gray-800">{{ $merks->where('is_premium', 1)->count() }}</h3>
             </div>
-
-            <div class="flex items-end gap-2">
-                <button type="submit"
-                    class="px-4 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
-                    <i class="fas fa-search mr-2"></i>Cari
-                </button>
-                <a href="{{ route('admin.merk.index') }}"
-                    class="px-4 py-2.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all">
-                    <i class="fas fa-undo mr-2"></i>Reset
-                </a>
+            <div class="bg-purple-100 p-4 rounded-lg">
+                <i class="fas fa-crown text-purple-600 text-2xl"></i>
             </div>
-        </form>
+        </div>
     </div>
+</div>
 
-    <!-- Tabel Merk -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Logo</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Merk</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Produk</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse ($merks as $index => $merk)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $merks->firstItem() + $index }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if ($merk->logo)
-                                    <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}" 
-                                        class="w-12 h-12 rounded-lg object-cover border border-gray-200">
-                                @else
-                                    <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
-                                        <i class="fas fa-image text-gray-400"></i>
-                                    </div>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div>
-                                        <div class="text-sm font-medium text-gray-900">{{ $merk->nama }}</div>
-                                        @if ($merk->is_premium)
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
-                                                <i class="fas fa-crown mr-1 text-xs"></i>Premium
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="text-sm text-gray-500 max-w-xs truncate">{{ $merk->deskripsi ?? '-' }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary-100 text-primary-800">
-                                    {{ $merk->produks()->count() }} produk
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if ($merk->is_active)
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i> Aktif
-                                    </span>
-                                @else
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                        <i class="fas fa-pause-circle mr-1"></i> Tidak Aktif
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <div class="flex items-center space-x-2">
-                                    <!-- Toggle Status -->
-                                    <form action="{{ route('admin.merk.toggle-status', $merk->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-all" 
-                                            title="{{ $merk->is_active ? 'Nonaktifkan' : 'Aktifkan' }}">
-                                            <i class="fas {{ $merk->is_active ? 'fa-toggle-on' : 'fa-toggle-off' }}"></i>
-                                        </button>
-                                    </form>
-                                    
-                                    <!-- Edit -->
-                                    <a href="{{ route('admin.merk.edit', $merk->id) }}" 
-                                        class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    
-                                    <!-- Delete -->
-                                    <form action="{{ route('admin.merk.destroy', $merk->id) }}" method="POST" 
-                                        onsubmit="return confirm('Yakin ingin menghapus merk ini?')" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Hapus">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
-                                <div class="flex flex-col items-center">
-                                    <i class="fas fa-tag text-gray-300 text-5xl mb-4"></i>
-                                    <p class="text-gray-500 text-lg">Tidak ada data merk</p>
-                                    <p class="text-gray-400 text-sm mb-4">Mulai tambahkan merk baru</p>
-                                    <a href="{{ route('admin.merk.create') }}" 
-                                        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all">
-                                        <i class="fas fa-plus mr-2"></i>Tambah Merk
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+<!-- Filter & Search -->
+<div class="bg-white rounded-xl shadow-md p-4 mb-8">
+    <form action="{{ route('admin.merk.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Cari Merk</label>
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama merk..."
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
         </div>
 
-        <!-- Pagination -->
-        @if ($merks->hasPages())
-            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
-                {{ $merks->withQueryString()->links() }}
-            </div>
-        @endif
+        <div class="flex items-end gap-2">
+            <button type="submit" class="px-4 py-2.5 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-all">
+                <i class="fas fa-search mr-2"></i>Cari
+            </button>
+            <a href="{{ route('admin.merk.index') }}" class="px-4 py-2.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all">
+                <i class="fas fa-undo mr-2"></i>Reset
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Tabel Merk -->
+<div class="bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Merk</th>
+                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kualitas Premium</th>
+                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Produk</th>
+                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @forelse ($merks as $index => $merk)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ $merks->firstItem() + $index }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">{{ $merk->nama }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if ($merk->is_premium)
+                                <span class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
+                                    <i class="fas fa-crown mr-1"></i>Premium
+                                </span>
+                            @else
+                                <span class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-700">
+                                    Standar
+                                </span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary-100 text-primary-800">
+                                {{ $merk->produks()->count() }} produk
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div class="flex items-center space-x-2">
+                                <!-- Edit -->
+                                <a href="{{ route('admin.merk.edit', $merk->id) }}"
+                                    class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <!-- Delete -->
+                                <form action="{{ route('admin.merk.destroy', $merk->id) }}" method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus merk ini?')" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-tag text-gray-300 text-5xl mb-4"></i>
+                                <p class="text-gray-500 text-lg">Tidak ada data merk</p>
+                                <p class="text-gray-400 text-sm mb-4">Mulai tambahkan merk baru</p>
+                                <a href="{{ route('admin.merk.create') }}" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all">
+                                    <i class="fas fa-plus mr-2"></i>Tambah Merk
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+
+    <!-- Pagination -->
+    @if ($merks->hasPages())
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+            {{ $merks->withQueryString()->links() }}
+        </div>
+    @endif
+</div>
 @endsection

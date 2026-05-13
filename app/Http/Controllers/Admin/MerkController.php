@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
  * Controller Merk Admin
  *
  * Menangani operasi CRUD untuk manajemen merk/brand produk.
- * Termasuk fitur pencarian, upload logo, dan toggle status.
+ * Termasuk fitur pencarian dan toggle status.
  *
  * @package App\Http\Controllers\Admin
  * @author  Bearing Shop Team
@@ -61,14 +61,6 @@ class MerkController extends Controller
     {
         $data = $request->validated();
 
-        // Upload logo jika ada
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = time() . '.' . $logo->getClientOriginalExtension();
-            $logo->storeAs('merk', $logoName, 'public');
-            $data['logo'] = 'merk/' . $logoName;
-        }
-
         Merk::create($data);
 
         return redirect()->route('admin.merk.index')->with('success', 'Merk berhasil ditambahkan.');
@@ -99,14 +91,6 @@ class MerkController extends Controller
         $merk = Merk::findOrFail($id);
 
         $data = $request->validated();
-
-        // Upload logo baru jika ada
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = time() . '.' . $logo->getClientOriginalExtension();
-            $logo->storeAs('merk', $logoName, 'public');
-            $data['logo'] = 'merk/' . $logoName;
-        }
 
         $merk->update($data);
 
