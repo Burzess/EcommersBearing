@@ -88,7 +88,7 @@
                         <span class="text-sm font-medium text-gray-700 block">Admin Demo</span>
                         <span class="text-xs text-gray-500">Administrator</span>
                     </div>
-                    <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                    {{-- <i class="fas fa-chevron-down text-gray-400 text-xs"></i> --}}
                 </button>
 
                 <!-- Dropdown Profil -->
