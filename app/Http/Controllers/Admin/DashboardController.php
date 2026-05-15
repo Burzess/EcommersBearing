@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Produk;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Controller Dashboard Admin
@@ -37,16 +36,17 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        // Total Pesanan
-        $totalPesanan = Order::count();
+        $stats = DB::selectOne(
+            'SELECT
+                (SELECT COUNT(*) FROM orders) AS total_pesanan,
+                (SELECT COUNT(*) FROM produks) AS total_produk,
+                (SELECT COUNT(*) FROM users u INNER JOIN roles r ON r.id = u.role_id WHERE r.name = ?) AS total_pelanggan',
+            ['pelanggan']
+        );
 
-        // Total Produk
-        $totalProduk = Produk::count();
-
-        // Total Pelanggan
-        $totalPelanggan = User::whereHas('role', function ($q) {
-            $q->where('name', 'pelanggan');
-        })->count();
+        $totalPesanan = (int) ($stats->total_pesanan ?? 0);
+        $totalProduk = (int) ($stats->total_produk ?? 0);
+        $totalPelanggan = (int) ($stats->total_pelanggan ?? 0);
 
         // Grafik Penjualan 7 hari terakhir
         $penjualan7Hari = Order::where('status', 'delivered')
@@ -57,13 +57,17 @@ class DashboardController extends Controller
             ->get();
 
         // Pesanan Terbaru
-        $pesananTerbaru = Order::with('user')
+        $pesananTerbaru = Order::query()
+            ->select(['id', 'order_number', 'user_id', 'total', 'status', 'created_at'])
+            ->with('user:id,name')
             ->latest()
             ->take(10)
             ->get();
 
         // Produk dengan Stok Menipis
-        $produkStokMenipis = Produk::with(['kategori', 'merk'])
+        $produkStokMenipis = Produk::query()
+            ->select(['id', 'merk_id', 'nama', 'stok', 'min_stok'])
+            ->with('merk:id,nama')
             ->whereColumn('stok', '<=', 'min_stok')
             ->where('stok', '>', 0)
             ->orderBy('stok')

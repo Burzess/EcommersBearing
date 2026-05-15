@@ -43,7 +43,10 @@ class HomeController extends Controller
             ->get();
 
         // Kategori Aktif
-        $kategoris = Kategori::active()->ordered()->get();
+        $kategoris = Kategori::active()
+            ->ordered()
+            ->withCount('produks')
+            ->get();
 
         // Merk Premium
         $merksPremium = Merk::active()->premium()->take(6)->get();
