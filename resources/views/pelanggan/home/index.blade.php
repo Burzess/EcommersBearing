@@ -106,11 +106,7 @@
                     <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                         class="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all group flex-shrink-0 w-28">
                         <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:bg-primary-200 transition-all">
-                            @if($kategori->icon)
-                                <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-8 h-8 object-contain">
-                            @else
-                                <i class="fas fa-cog text-primary-600 text-xl"></i>
-                            @endif
+                            <i class="fas fa-layer-group text-primary-600 text-xl"></i>
                         </div>
                         <h3 class="font-semibold text-gray-900 text-center mb-1 text-xs line-clamp-2">{{ $kategori->nama }}</h3>
                         <p class="text-gray-500 text-[10px] text-center">{{ $kategori->produks_count ?? $kategori->produks->count() }} produk</p>
@@ -130,11 +126,7 @@
                 <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                     class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all group">
                     <div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:bg-primary-200 transition-all">
-                        @if($kategori->icon)
-                            <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-12 h-12 object-contain">
-                        @else
-                            <i class="fas fa-cog text-primary-600 text-3xl"></i>
-                        @endif
+                        <i class="fas fa-layer-group text-primary-600 text-3xl"></i>
                     </div>
                     <h3 class="font-bold text-gray-900 text-center mb-1 text-sm">{{ $kategori->nama }}</h3>
                     <p class="text-gray-500 text-xs text-center">{{ $kategori->produks_count ?? $kategori->produks->count() }} produk</p>
