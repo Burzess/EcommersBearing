@@ -85,7 +85,7 @@
 
         <!-- Form -->
         <div class="lg:col-span-3">
-            <form action="{{ route('admin.produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="produk-edit-form" action="{{ route('admin.produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -264,13 +264,16 @@
                         input.value = new Intl.NumberFormat('id-ID').format(value);
                     }
                     
-                    // Before form submit, convert formatted price back to number
-                    document.querySelector('form').addEventListener('submit', function() {
-                        const harga = document.getElementById('harga');
-                        const hargaDiskon = document.getElementById('harga_diskon');
-                        if (harga) harga.value = harga.value.replace(/\./g, '');
-                        if (hargaDiskon) hargaDiskon.value = hargaDiskon.value.replace(/\./g, '');
-                    });
+                    // Before form submit, convert formatted price back to plain digits
+                    const produkEditForm = document.getElementById('produk-edit-form');
+                    if (produkEditForm) {
+                        produkEditForm.addEventListener('submit', function() {
+                            const harga = document.getElementById('harga');
+                            const hargaDiskon = document.getElementById('harga_diskon');
+                            if (harga) harga.value = harga.value.replace(/[^\d]/g, '');
+                            if (hargaDiskon) hargaDiskon.value = hargaDiskon.value.replace(/[^\d]/g, '');
+                        });
+                    }
                 </script>
 
                 <!-- Spesifikasi Teknis -->

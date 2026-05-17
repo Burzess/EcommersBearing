@@ -14,6 +14,29 @@ class ProdukStoreRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'harga' => $this->normalizePrice($this->input('harga')),
+            'harga_diskon' => $this->normalizePrice($this->input('harga_diskon')),
+        ]);
+    }
+
+    private function normalizePrice(mixed $value): mixed
+    {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
+        if (is_numeric($value)) {
+            return $value;
+        }
+
+        $normalized = preg_replace('/[^\d]/', '', (string) $value);
+
+        return $normalized === '' ? null : $normalized;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

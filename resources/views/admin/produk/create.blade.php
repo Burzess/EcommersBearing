@@ -38,7 +38,7 @@
     @endif
 
     <!-- Form -->
-    <form action="{{ route('admin.produk.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="produk-create-form" action="{{ route('admin.produk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- Informasi Dasar -->
@@ -220,13 +220,16 @@
                 input.value = new Intl.NumberFormat('id-ID').format(value);
             }
             
-            // Before form submit, convert formatted price back to number
-            document.querySelector('form').addEventListener('submit', function() {
-                const harga = document.getElementById('harga');
-                const hargaDiskon = document.getElementById('harga_diskon');
-                if (harga) harga.value = harga.value.replace(/\./g, '');
-                if (hargaDiskon) hargaDiskon.value = hargaDiskon.value.replace(/\./g, '');
-            });
+            // Before form submit, convert formatted price back to plain digits
+            const produkCreateForm = document.getElementById('produk-create-form');
+            if (produkCreateForm) {
+                produkCreateForm.addEventListener('submit', function() {
+                    const harga = document.getElementById('harga');
+                    const hargaDiskon = document.getElementById('harga_diskon');
+                    if (harga) harga.value = harga.value.replace(/[^\d]/g, '');
+                    if (hargaDiskon) hargaDiskon.value = hargaDiskon.value.replace(/[^\d]/g, '');
+                });
+            }
         </script>
 
         <!-- Spesifikasi Teknis -->
