@@ -216,7 +216,7 @@
                                     </div>
                                 @endif
 
-                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-black/50 group-hover:bg-black/50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                                     <a href="{{ route('pelanggan.produk.show', $produk->slug) }}"
                                         class="bg-white text-primary-600 px-4 py-2 rounded-lg font-semibold shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all">
                                         <i class="fas fa-eye mr-2"></i>Lihat Detail
