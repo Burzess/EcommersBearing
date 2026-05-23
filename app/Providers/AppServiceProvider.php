@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Produk;
 use App\Observers\ProdukObserver;
@@ -21,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Register model observers
-        Produk::observe(ProdukObserver::class);
+        // Strict mode Eloquent di luar production: tangkap lazy loading & missing attribute lebih awal
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
 }
