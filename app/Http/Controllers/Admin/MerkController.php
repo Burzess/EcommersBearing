@@ -8,6 +8,7 @@ use App\Models\Merk;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Controller Merk Admin
@@ -61,6 +62,10 @@ class MerkController extends Controller
     {
         $data = $request->validated();
 
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('merks', 'public');
+        }
+
         Merk::create($data);
 
         return redirect()->route('admin.merk.index')->with('success', 'Merk berhasil ditambahkan.');
@@ -92,6 +97,13 @@ class MerkController extends Controller
 
         $data = $request->validated();
 
+        if ($request->hasFile('logo')) {
+            if ($merk->logo) {
+                Storage::disk('public')->delete($merk->logo);
+            }
+            $data['logo'] = $request->file('logo')->store('merks', 'public');
+        }
+
         $merk->update($data);
 
         return redirect()->route('admin.merk.index')->with('success', 'Merk berhasil diupdate.');
@@ -112,6 +124,10 @@ class MerkController extends Controller
         // Validasi: tidak bisa hapus jika ada produk terkait, termasuk yang soft deleted
         if ($merk->produks()->withTrashed()->exists()) {
             return back()->with('error', 'Merk tidak bisa dihapus karena masih ada produk terkait.');
+        }
+
+        if ($merk->logo) {
+            Storage::disk('public')->delete($merk->logo);
         }
 
         $merk->delete();

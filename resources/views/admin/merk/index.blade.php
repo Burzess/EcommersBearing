@@ -97,6 +97,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Logo</th>
                     <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Merk</th>
                     <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kualitas Premium</th>
                     <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Produk</th>
@@ -108,6 +109,15 @@
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {{ $merks->firstItem() + $index }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if($merk->logo)
+                                <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}" class="w-12 h-12 rounded-lg object-contain bg-white border border-gray-200">
+                            @else
+                                <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                                    <i class="fas fa-image text-gray-400"></i>
+                                </div>
+                            @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">{{ $merk->nama }}</div>

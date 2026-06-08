@@ -8,6 +8,7 @@ use App\Models\Kategori;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Controller Kategori Admin
@@ -61,6 +62,10 @@ class KategoriController extends Controller
     {
         $data = $request->validated();
 
+        if ($request->hasFile('icon')) {
+            $data['icon'] = $request->file('icon')->store('kategoris', 'public');
+        }
+
         Kategori::create($data);
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
@@ -92,6 +97,13 @@ class KategoriController extends Controller
 
         $data = $request->validated();
 
+        if ($request->hasFile('icon')) {
+            if ($kategori->icon) {
+                Storage::disk('public')->delete($kategori->icon);
+            }
+            $data['icon'] = $request->file('icon')->store('kategoris', 'public');
+        }
+
         $kategori->update($data);
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil diupdate.');
@@ -112,6 +124,10 @@ class KategoriController extends Controller
         // Validasi: tidak bisa hapus jika ada produk terkait, termasuk yang soft deleted
         if ($kategori->produks()->withTrashed()->exists()) {
             return back()->with('error', 'Kategori tidak bisa dihapus karena masih ada produk terkait.');
+        }
+
+        if ($kategori->icon) {
+            Storage::disk('public')->delete($kategori->icon);
         }
 
         $kategori->delete();

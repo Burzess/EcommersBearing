@@ -68,7 +68,7 @@
     <!-- Form Edit -->
     <div class="lg:col-span-2">
         <div class="bg-white rounded-xl shadow-md p-6">
-            <form action="{{ route('admin.kategori.update', $kategori->id) }}" method="POST">
+            <form action="{{ route('admin.kategori.update', $kategori->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -99,6 +99,26 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                         <p class="text-gray-500 text-xs mt-1">Semakin kecil angka, semakin di atas urutannya</p>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <!-- Icon / Gambar -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Gambar Kategori
+                        </label>
+                        @if($kategori->icon)
+                            <div class="mb-3">
+                                <img src="{{ asset('storage/' . $kategori->icon) }}" alt="Icon Kategori" class="w-32 h-32 object-cover rounded-lg border border-gray-200">
+                            </div>
+                        @endif
+                        <input type="file" name="icon" accept="image/*"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('icon') border-red-500 @enderror">
+                        @error('icon')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, PNG, GIF, SVG, WEBP. Maks 2MB.</p>
                     </div>
                 </div>
 

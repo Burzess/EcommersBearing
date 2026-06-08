@@ -15,6 +15,7 @@ class KategoriRequest extends FormRequest
     {
         return [
             'nama' => ['required', 'string', 'max:255'],
+            'icon' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
             'urutan' => ['nullable', 'integer', 'min:0'],
         ];
     }

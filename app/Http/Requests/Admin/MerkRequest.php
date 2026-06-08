@@ -15,6 +15,7 @@ class MerkRequest extends FormRequest
     {
         return [
             'nama' => ['required', 'string', 'max:255'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
             'is_premium' => ['nullable', 'boolean'],
         ];
     }

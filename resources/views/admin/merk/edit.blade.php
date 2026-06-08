@@ -74,7 +74,7 @@
     <!-- Form Edit -->
     <div class="lg:col-span-2">
         <div class="bg-white rounded-xl shadow-md p-6">
-            <form action="{{ route('admin.merk.update', $merk->id) }}" method="POST">
+            <form action="{{ route('admin.merk.update', $merk->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -106,6 +106,26 @@
                         @error('is_premium')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <!-- Logo / Gambar Merk -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Logo Merk
+                        </label>
+                        @if($merk->logo)
+                            <div class="mb-3">
+                                <img src="{{ asset('storage/' . $merk->logo) }}" alt="Logo Merk" class="w-32 h-32 object-cover rounded-lg border border-gray-200">
+                            </div>
+                        @endif
+                        <input type="file" name="logo" accept="image/*"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('logo') border-red-500 @enderror">
+                        @error('logo')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, PNG, GIF, SVG, WEBP. Maks 2MB.</p>
                     </div>
                 </div>
 

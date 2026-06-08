@@ -38,7 +38,7 @@
 
 <!-- Form -->
 <div class="bg-white rounded-xl shadow-md p-6">
-    <form action="{{ route('admin.kategori.store') }}" method="POST">
+    <form action="{{ route('admin.kategori.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -68,6 +68,21 @@
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
                 <p class="text-gray-500 text-xs mt-1">Semakin kecil angka, semakin di atas urutannya</p>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <!-- Icon / Gambar -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Gambar Kategori
+                </label>
+                <input type="file" name="icon" accept="image/*"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('icon') border-red-500 @enderror">
+                @error('icon')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+                <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Format yang didukung: JPG, PNG, GIF, SVG, WEBP. Maksimal 2MB.</p>
             </div>
         </div>
 
