@@ -108,9 +108,13 @@
                 @forelse($kategoris as $kategori)
                     <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                         class="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-primary-300 transition-colors flex-shrink-0 w-28">
-                        <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-3 mx-auto">
-                            <i class="fas fa-layer-group text-primary-600 text-xl"></i>
-                        </div>
+                        @if($kategori->icon)
+                            <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-12 h-12 rounded-lg object-cover mb-3 mx-auto">
+                        @else
+                            <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-3 mx-auto">
+                                <i class="fas fa-layer-group text-primary-600 text-xl"></i>
+                            </div>
+                        @endif
                         <h3 class="font-semibold text-gray-900 text-center mb-0.5 text-xs line-clamp-2">{{ $kategori->nama }}</h3>
                         <p class="text-gray-400 text-[10px] text-center">{{ $kategori->produks_count ?? $kategori->produks->count() }} produk</p>
                     </a>
@@ -128,9 +132,13 @@
             @forelse($kategoris as $kategori)
                 <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                     class="bg-gray-50 rounded-lg p-5 border border-gray-200 hover:border-primary-300 transition-colors">
-                    <div class="w-14 h-14 bg-primary-50 rounded-lg flex items-center justify-center mb-3 mx-auto">
-                        <i class="fas fa-layer-group text-primary-600 text-2xl"></i>
-                    </div>
+                    @if($kategori->icon)
+                        <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-14 h-14 rounded-lg object-cover mb-3 mx-auto">
+                    @else
+                        <div class="w-14 h-14 bg-primary-50 rounded-lg flex items-center justify-center mb-3 mx-auto">
+                            <i class="fas fa-layer-group text-primary-600 text-2xl"></i>
+                        </div>
+                    @endif
                     <h3 class="font-semibold text-gray-900 text-center mb-1 text-sm line-clamp-2 min-h-10">{{ $kategori->nama }}</h3>
                     <p class="text-gray-400 text-xs text-center">{{ $kategori->produks_count ?? $kategori->produks->count() }} produk</p>
                 </a>
@@ -165,10 +173,10 @@
                 <div class="flex gap-3" style="width: max-content;">
                     @foreach($merksPremium as $merk)
                         <a href="{{ route('pelanggan.produk.index', ['merk_id' => $merk->id]) }}"
-                            class="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-primary-300 transition-colors text-center flex-shrink-0 w-28">
+                            class="bg-transparent rounded-lg p-4 border border-gray-200 hover:border-primary-300 transition-colors text-center flex-shrink-0 w-28">
                             @if($merk->logo)
                                 <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}"
-                                    class="h-8 object-contain mx-auto mb-2">
+                                    class="h-8 object-contain bg-transparent mx-auto mb-2">
                             @else
                                 <div class="h-8 flex items-center justify-center mb-2">
                                     <span class="text-sm font-bold text-gray-700">{{ $merk->nama }}</span>
@@ -184,10 +192,10 @@
             <div class="hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-3">
                 @foreach($merksPremium as $merk)
                     <a href="{{ route('pelanggan.produk.index', ['merk_id' => $merk->id]) }}"
-                        class="bg-gray-50 rounded-lg p-5 border border-gray-200 hover:border-primary-300 transition-colors text-center">
+                        class="bg-transparent rounded-lg p-5 border border-gray-200 hover:border-primary-300 transition-colors text-center">
                         @if($merk->logo)
                             <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}"
-                                class="h-12 object-contain mx-auto mb-3">
+                                class="h-12 object-contain bg-transparent mx-auto mb-3">
                         @else
                             <div class="h-12 flex items-center justify-center mb-3">
                                 <span class="text-xl font-bold text-gray-700">{{ $merk->nama }}</span>
