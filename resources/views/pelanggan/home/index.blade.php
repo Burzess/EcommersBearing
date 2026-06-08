@@ -108,8 +108,8 @@
                 @forelse($kategoris as $kategori)
                     <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                         class="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-primary-300 transition-colors flex-shrink-0 w-28">
-                        @if($kategori->icon)
-                            <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-12 h-12 rounded-lg object-cover mb-3 mx-auto">
+                        @if(!empty(trim($kategori->icon)))
+                            <img src="{{ Storage::url($kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-12 h-12 rounded-lg object-cover mb-3 mx-auto">
                         @else
                             <div class="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-3 mx-auto">
                                 <i class="fas fa-layer-group text-primary-600 text-xl"></i>
@@ -132,8 +132,8 @@
             @forelse($kategoris as $kategori)
                 <a href="{{ route('pelanggan.produk.index', ['kategori_id' => $kategori->id]) }}"
                     class="bg-gray-50 rounded-lg p-5 border border-gray-200 hover:border-primary-300 transition-colors">
-                    @if($kategori->icon)
-                        <img src="{{ asset('storage/' . $kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-14 h-14 rounded-lg object-cover mb-3 mx-auto">
+                    @if(!empty(trim($kategori->icon)))
+                        <img src="{{ Storage::url($kategori->icon) }}" alt="{{ $kategori->nama }}" class="w-14 h-14 rounded-lg object-cover mb-3 mx-auto">
                     @else
                         <div class="w-14 h-14 bg-primary-50 rounded-lg flex items-center justify-center mb-3 mx-auto">
                             <i class="fas fa-layer-group text-primary-600 text-2xl"></i>
@@ -174,8 +174,8 @@
                     @foreach($merksPremium as $merk)
                         <a href="{{ route('pelanggan.produk.index', ['merk_id' => $merk->id]) }}"
                             class="bg-gray-50/50 rounded-lg p-4 border border-gray-200 hover:border-primary-300 transition-colors text-center flex-shrink-0 w-28 flex flex-col justify-center min-h-[88px]">
-                            @if($merk->logo)
-                                <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}"
+                            @if(!empty(trim($merk->logo)))
+                                <img src="{{ Storage::url($merk->logo) }}" alt="{{ $merk->nama }}"
                                     class="h-8 object-contain bg-transparent mx-auto mb-2">
                                 <h3 class="font-semibold text-gray-900 text-xs line-clamp-1">{{ $merk->nama }}</h3>
                             @else
@@ -191,8 +191,8 @@
                 @foreach($merksPremium as $merk)
                     <a href="{{ route('pelanggan.produk.index', ['merk_id' => $merk->id]) }}"
                         class="bg-transparent rounded-lg p-5 border border-gray-200 hover:border-primary-300 transition-colors text-center flex flex-col justify-center min-h-[120px]">
-                        @if($merk->logo)
-                            <img src="{{ asset('storage/' . $merk->logo) }}" alt="{{ $merk->nama }}"
+                        @if(!empty(trim($merk->logo)))
+                            <img src="{{ Storage::url($merk->logo) }}" alt="{{ $merk->nama }}"
                                 class="h-12 object-contain bg-transparent mx-auto mb-3">
                             <h3 class="font-semibold text-gray-900 text-sm">{{ $merk->nama }}</h3>
                         @else
