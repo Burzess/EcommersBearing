@@ -28,7 +28,7 @@ class KeranjangController extends Controller
      */
     public function index(): View
     {
-        $keranjangs = Keranjang::with('produk.images')
+        $keranjangs = Keranjang::with(['produk.images', 'produk.merk'])
             ->where('user_id', auth()->id())
             ->get();
 
