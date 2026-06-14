@@ -85,7 +85,7 @@
                     <div class="flex items-start space-x-4">
                         <div
                             class="w-12 h-12 bg-primary-500 bg-opacity-30 rounded-lg flex items-center justify-center shrink-0">
-                            <i class="fas fa-shield-alt text-xl"></i>
+                            <i class="fas fa-award text-xl"></i>
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg mb-1">Produk Original</h3>

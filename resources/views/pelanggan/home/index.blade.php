@@ -69,7 +69,7 @@
         </div>
         <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all">
             <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <i class="fas fa-shield-alt text-green-600 text-2xl"></i>
+                <i class="fas fa-award text-green-600 text-2xl"></i>
             </div>
             <h3 class="font-bold text-gray-900 mb-2">Produk Original</h3>
             <p class="text-gray-600 text-sm">100% bearing original bergaransi resmi</p>

@@ -83,7 +83,7 @@
                 </div>
                 <ul class="space-y-3">
                     <li class="flex items-start">
-                        <i class="fas fa-shield-alt text-primary-500 mt-1 mr-3"></i>
+                        <i class="fas fa-award text-primary-500 mt-1 mr-3"></i>
                         <div>
                             <p class="font-medium text-gray-900">Produk Original</p>
                             <p class="text-sm text-gray-600">100% produk asli bergaransi resmi</p>
