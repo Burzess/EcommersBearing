@@ -71,6 +71,7 @@ class Order extends Model
         'resi',
         'estimasi_sampai',
         'metode_pembayaran',
+        'metode_pembayaran_id',
         'bukti_pembayaran',
         'paid_at',
         'status',
