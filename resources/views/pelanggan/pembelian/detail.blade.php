@@ -101,7 +101,7 @@
                             <div class="w-24 h-24 bg-white rounded-lg overflow-hidden shrink-0 shadow-sm">
                                 @if ($item->produk && $item->produk->images->first())
                                     <img src="{{ asset('storage/' . $item->produk->images->first()->image_path) }}" 
-                                        alt="{{ $item->nama_produk }}" class="w-full h-full object-cover">
+                                        alt="{{ $item->produk_nama }}" class="w-full h-full object-cover">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-gray-200">
                                         <i class="fas fa-image text-gray-400 text-2xl"></i>
@@ -109,7 +109,7 @@
                                 @endif
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-gray-900 mb-2 line-clamp-2">{{ $item->nama_produk }}</h4>
+                                <h4 class="font-semibold text-gray-900 mb-2 line-clamp-2">{{ $item->produk_nama }}</h4>
                                 <p class="text-xs text-gray-500 mb-2">SKU: {{ $item->produk->sku ?? '-' }}</p>
                                 <div class="flex items-center justify-between">
                                     <p class="text-sm text-gray-600">{{ $item->quantity }} × Rp {{ number_format($item->harga, 0, ',', '.') }}</p>

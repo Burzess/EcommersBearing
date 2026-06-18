@@ -301,7 +301,7 @@
                                                 </div>
                                             @endif
                                             <div>
-                                                <p class="font-medium text-gray-900">{{ $item->produk->nama ?? $item->nama_produk ?? 'Produk' }}</p>
+                                                <p class="font-medium text-gray-900">{{ $item->produk->nama ?? $item->produk_nama ?? 'Produk' }}</p>
                                                 <p class="text-xs text-gray-500">SKU: {{ $item->produk->sku ?? '-' }}</p>
                                             </div>
                                         </div>

@@ -122,7 +122,7 @@
                                         @endif
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h4 class="font-semibold text-gray-900 mb-1 line-clamp-2">{{ $item->nama_produk }}</h4>
+                                        <h4 class="font-semibold text-gray-900 mb-1 line-clamp-2">{{ $item->produk_nama }}</h4>
                                         <div class="flex items-center justify-between">
                                             <p class="text-sm text-gray-600">{{ $item->quantity }} × Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
                                             <p class="font-bold text-primary-600">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</p>
