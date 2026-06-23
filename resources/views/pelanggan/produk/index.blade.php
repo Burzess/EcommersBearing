@@ -208,13 +208,6 @@
                                     </div>
                                 @endif
 
-                                @if ($produk->harga_diskon)
-                                    <div class="absolute top-3 right-3">
-                                        <span class="bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                            -{{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
-                                        </span>
-                                    </div>
-                                @endif
 
                                 <div class="absolute inset-0 bg-black/50 group-hover:bg-black/50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                                     <a href="{{ route('pelanggan.produk.show', $produk->slug) }}"
@@ -238,12 +231,7 @@
                                     <span class="text-gray-500">{{ $produk->sold_count }} terjual</span>
                                 </div>
                                 <div class="mb-4">
-                                    @if ($produk->harga_diskon)
-                                        <div class="text-xs text-gray-400 line-through">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
-                                        <div class="text-xl font-bold text-primary-600 leading-tight">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</div>
-                                    @else
-                                        <div class="text-xl font-bold text-primary-600 leading-tight">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
-                                    @endif
+                                    <div class="text-xl font-bold text-primary-600 leading-tight">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
                                 </div>
                                 {{-- Tombol selalu di paling bawah card agar align rata antar produk --}}
                                 <div class="mt-auto">

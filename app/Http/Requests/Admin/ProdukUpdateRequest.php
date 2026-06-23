@@ -18,7 +18,6 @@ class ProdukUpdateRequest extends FormRequest
     {
         $this->merge([
             'harga' => $this->normalizePrice($this->input('harga')),
-            'harga_diskon' => $this->normalizePrice($this->input('harga_diskon')),
             'stok' => $this->normalizeInteger($this->input('stok')),
             'min_stok' => $this->normalizeInteger($this->input('min_stok')),
         ]);
@@ -69,7 +68,6 @@ class ProdukUpdateRequest extends FormRequest
             'nama' => ['required', 'string', 'max:255'],
             'sku' => ['nullable', 'string', 'max:50', 'unique:produks,sku,' . $produkId],
             'harga' => ['required', 'numeric', 'min:0'],
-            'harga_diskon' => ['nullable', 'numeric', 'min:0', 'lt:harga'],
             'stok' => ['required', 'integer', 'min:0'],
             'min_stok' => ['required', 'integer', 'min:0'],
             'berat' => ['required', 'numeric', 'min:0'],
@@ -100,7 +98,6 @@ class ProdukUpdateRequest extends FormRequest
             'nama.required' => 'Nama produk wajib diisi',
             'sku.unique' => 'SKU sudah digunakan',
             'harga.required' => 'Harga wajib diisi',
-            'harga_diskon.lt' => 'Harga diskon harus lebih kecil dari harga normal',
             'stok.required' => 'Stok wajib diisi',
             'images.*.max' => 'Ukuran gambar maksimal 2MB',
         ];

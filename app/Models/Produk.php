@@ -29,7 +29,6 @@ use Illuminate\Support\Str;
  * @property string      $sku
  * @property string|null $deskripsi
  * @property float       $harga
- * @property float|null  $harga_diskon
  * @property int         $stok
  * @property int         $min_stok
  * @property float|null  $berat
@@ -62,7 +61,6 @@ class Produk extends Model
         'sku',
         'deskripsi',
         'harga',
-        'harga_diskon',
         'stok',
         'min_stok',
         'berat',
@@ -86,7 +84,6 @@ class Produk extends Model
      */
     protected $casts = [
         'harga' => 'decimal:2',
-        'harga_diskon' => 'decimal:2',
         'berat' => 'decimal:2',
         'inner_diameter' => 'decimal:2',
         'outer_diameter' => 'decimal:2',
@@ -192,20 +189,6 @@ class Produk extends Model
     public function getHargaFormatAttribute(): string
     {
         return 'Rp ' . number_format($this->harga, 0, ',', '.');
-    }
-
-    /**
-     * Menghitung persentase diskon.
-     *
-     * @return int
-     */
-    public function getDiskonPersenAttribute(): int
-    {
-        if ($this->harga_diskon && $this->harga > 0) {
-            return round((($this->harga - $this->harga_diskon) / $this->harga) * 100);
-        }
-
-        return 0;
     }
 
     /**

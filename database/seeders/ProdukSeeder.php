@@ -26,8 +26,6 @@ class ProdukSeeder extends Seeder
         // Buat 50 produk
         for ($i = 1; $i <= 50; $i++) {
             $harga = $faker->numberBetween(50000, 500000);
-            $diskon = $faker->boolean(30) ? $harga - ($harga * $faker->numberBetween(5, 30) / 100) : null;
-            
             $produk = Produk::create([
                 'kategori_id' => $faker->numberBetween(1, 6),
                 'merk_id' => $faker->numberBetween(1, 8),
@@ -35,7 +33,6 @@ class ProdukSeeder extends Seeder
                 'sku' => 'BRG-' . str_pad($i, 5, '0', STR_PAD_LEFT),
                 'deskripsi' => $faker->paragraph(3),
                 'harga' => $harga,
-                'harga_diskon' => $diskon,
                 'stok' => $faker->numberBetween(0, 100),
                 'min_stok' => 5,
                 'berat' => $faker->randomFloat(2, 10, 1000),

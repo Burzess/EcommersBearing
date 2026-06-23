@@ -77,7 +77,7 @@ class BudiPembelianSeeder extends Seeder
 
                 foreach ($selectedProduk as $produk) {
                     $quantity = $faker->numberBetween(1, 4);
-                    $harga = (float) ($produk->harga_diskon ?: $produk->harga);
+                    $harga = (float) $produk->harga;
                     $itemSubtotal = $harga * $quantity;
                     $subtotal += $itemSubtotal;
 

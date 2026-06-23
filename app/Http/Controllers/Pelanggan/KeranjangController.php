@@ -80,7 +80,7 @@ class KeranjangController extends Controller
                 'user_id' => auth()->id(),
                 'produk_id' => $request->produk_id,
                 'quantity' => $request->quantity,
-                'harga' => $produk->harga_diskon ?? $produk->harga,
+                'harga' => $produk->harga,
             ]);
         }
 

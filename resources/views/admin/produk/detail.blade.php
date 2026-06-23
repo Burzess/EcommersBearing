@@ -132,12 +132,7 @@
                         <label class="text-sm font-medium text-gray-500">Harga Normal</label>
                         <p class="text-xl font-bold text-gray-900 mt-1">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
                     </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-500">Harga Diskon</label>
-                        <p class="text-xl font-bold text-green-600 mt-1">
-                            {{ $produk->harga_diskon ? 'Rp ' . number_format($produk->harga_diskon, 0, ',', '.') : '-' }}
-                        </p>
-                    </div>
+
                     <div>
                         <label class="text-sm font-medium text-gray-500">Stok</label>
                         <p class="text-xl font-bold mt-1">

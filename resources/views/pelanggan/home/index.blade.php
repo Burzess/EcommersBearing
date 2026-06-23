@@ -246,22 +246,12 @@
                                 <i class="fas fa-image text-gray-300 text-4xl"></i>
                             </div>
                         @endif
-                        @if($produk->harga_diskon)
-                            <div class="absolute top-2 right-2 bg-primary-600 text-white text-xs px-2 py-0.5 rounded font-semibold">
-                                -{{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
-                            </div>
-                        @endif
                     </div>
                     <div class="p-4 flex flex-col flex-1">
                         <p class="text-xs text-gray-400 mb-1 uppercase tracking-wide">{{ $produk->merk->nama ?? '-' }}</p>
                         <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 min-h-12 leading-snug">{{ $produk->nama }}</h3>
                         <div class="mb-3">
-                            @if($produk->harga_diskon)
-                                <p class="text-lg font-bold text-primary-600 leading-none">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</p>
-                                <p class="text-xs text-gray-400 line-through mt-0.5">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
-                            @else
                                 <p class="text-lg font-bold text-primary-600 leading-none">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
-                            @endif
                         </div>
                         <div class="flex items-center justify-between text-xs text-gray-500 mb-4 mt-auto">
                             <span>Stok: {{ $produk->stok }}</span>
@@ -313,22 +303,12 @@
                         <div class="absolute top-2 left-2 bg-white border border-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded font-medium">
                             Baru
                         </div>
-                        @if($produk->harga_diskon)
-                            <div class="absolute top-2 right-2 bg-primary-600 text-white text-xs px-2 py-0.5 rounded font-semibold">
-                                -{{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
-                            </div>
-                        @endif
                     </div>
                     <div class="p-4 flex flex-col flex-1">
                         <p class="text-xs text-gray-400 mb-1 uppercase tracking-wide">{{ $produk->merk->nama ?? '-' }}</p>
                         <h3 class="font-semibold text-gray-900 mb-3 line-clamp-2 min-h-12 leading-snug">{{ $produk->nama }}</h3>
                         <div class="mb-3">
-                            @if($produk->harga_diskon)
-                                <p class="text-lg font-bold text-primary-600 leading-none">Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}</p>
-                                <p class="text-xs text-gray-400 line-through mt-0.5">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
-                            @else
                                 <p class="text-lg font-bold text-primary-600 leading-none">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
-                            @endif
                         </div>
                         <div class="flex items-center justify-between text-xs text-gray-500 mb-4 mt-auto">
                             <span>Stok: {{ $produk->stok }}</span>

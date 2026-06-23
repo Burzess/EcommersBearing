@@ -146,21 +146,7 @@
                     <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Harga jual normal produk</p>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Harga Diskon
-                    </label>
-                    <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">Rp</span>
-                        <input type="text" name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}"
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('harga_diskon') border-red-500 @enderror"
-                            placeholder="0" oninput="formatRupiah(this)">
-                    </div>
-                    @error('harga_diskon')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-gray-500 text-xs mt-1"><i class="fas fa-info-circle mr-1"></i>Kosongkan jika tidak ada diskon</p>
-                </div>
+
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -239,9 +225,7 @@
             if (produkCreateForm) {
                 produkCreateForm.addEventListener('submit', function() {
                     const harga = document.getElementById('harga');
-                    const hargaDiskon = document.getElementById('harga_diskon');
                     if (harga) harga.value = harga.value.replace(/[^\d]/g, '');
-                    if (hargaDiskon) hargaDiskon.value = hargaDiskon.value.replace(/[^\d]/g, '');
                 });
             }
 

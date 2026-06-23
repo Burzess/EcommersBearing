@@ -198,11 +198,6 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="font-semibold text-gray-900">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
-                                @if ($produk->harga_diskon)
-                                    <div class="text-xs text-green-600">
-                                        <i class="fas fa-tag mr-1"></i>Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}
-                                    </div>
-                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 <div class="font-semibold text-gray-900">{{ $produk->stok }}</div>

@@ -333,12 +333,7 @@
                                 <span class="text-gray-500">Ongkir:</span>
                                 <span class="font-medium">Rp {{ number_format($order->ongkir ?? 0, 0, ',', '.') }}</span>
                             </div>
-                            @if ($order->diskon)
-                                <div class="flex justify-between text-sm text-green-600">
-                                    <span>Diskon:</span>
-                                    <span>- Rp {{ number_format($order->diskon, 0, ',', '.') }}</span>
-                                </div>
-                            @endif
+
                             <div class="flex justify-between text-lg font-bold pt-2 border-t">
                                 <span>Total:</span>
                                 <span class="text-primary-600">Rp {{ number_format($order->total + ($order->ongkir ?? 0), 0, ',', '.') }}</span>

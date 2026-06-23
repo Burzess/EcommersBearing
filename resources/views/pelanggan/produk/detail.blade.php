@@ -76,21 +76,9 @@
 
                 {{-- Harga --}}
                 <div class="mb-6">
-                    @if ($produk->harga_diskon)
-                        <div class="flex items-center gap-3 mb-1">
-                            <span class="text-base text-gray-400 line-through">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
-                            <span class="bg-primary-50 text-primary-700 text-xs font-bold px-2 py-0.5 rounded border border-primary-200">
-                                Hemat {{ round((($produk->harga - $produk->harga_diskon) / $produk->harga) * 100) }}%
-                            </span>
-                        </div>
-                        <div class="text-3xl lg:text-4xl font-bold text-primary-600">
-                            Rp {{ number_format($produk->harga_diskon, 0, ',', '.') }}
-                        </div>
-                    @else
                         <div class="text-3xl lg:text-4xl font-bold text-primary-600">
                             Rp {{ number_format($produk->harga, 0, ',', '.') }}
                         </div>
-                    @endif
                 </div>
 
                 {{-- Info kunci ringkas --}}
@@ -326,22 +314,13 @@
                                     <i class="fas fa-image text-gray-300 text-4xl"></i>
                                 </div>
                             @endif
-                            @if ($related->harga_diskon)
-                                <div class="absolute top-2 right-2 bg-primary-600 text-white text-xs px-2 py-0.5 rounded font-semibold">
-                                    -{{ round((($related->harga - $related->harga_diskon) / $related->harga) * 100) }}%
-                                </div>
-                            @endif
+
                         </div>
                         <div class="p-3 flex flex-col flex-1">
                             <p class="text-xs text-gray-400 mb-1 uppercase tracking-wide">{{ $related->merk->nama ?? '-' }}</p>
                             <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2 text-sm leading-snug min-h-10">{{ $related->nama }}</h3>
                             <div class="mt-auto">
-                                @if ($related->harga_diskon)
-                                    <p class="text-xs text-gray-400 line-through">Rp {{ number_format($related->harga, 0, ',', '.') }}</p>
-                                    <p class="text-base font-bold text-primary-600 leading-tight">Rp {{ number_format($related->harga_diskon, 0, ',', '.') }}</p>
-                                @else
                                     <p class="text-base font-bold text-primary-600 leading-tight">Rp {{ number_format($related->harga, 0, ',', '.') }}</p>
-                                @endif
                             </div>
                         </div>
                     </a>

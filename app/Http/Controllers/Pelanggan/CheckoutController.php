@@ -55,7 +55,7 @@ class CheckoutController extends Controller
         $defaultAlamat = $user->getDefaultAlamat();
         $metodes = MetodePembayaran::where('is_active', true)->get();
         
-        $harga = $produk->harga_diskon ?? $produk->harga;
+        $harga = $produk->harga;
         $subtotal = $harga * $quantity;
         
         return view('pelanggan.checkout.buy-now', compact('produk', 'quantity', 'alamats', 'defaultAlamat', 'subtotal', 'harga', 'metodes'));
@@ -181,7 +181,7 @@ class CheckoutController extends Controller
             $alamat = auth()->user()->alamats()->findOrFail($request->alamat_id);
             $metodePembayaran = MetodePembayaran::findOrFail($request->metode_pembayaran_id);
             
-            $harga = $produk->harga_diskon ?? $produk->harga;
+            $harga = $produk->harga;
             $subtotal = $harga * $request->quantity;
 
             // Calculate ongkir
