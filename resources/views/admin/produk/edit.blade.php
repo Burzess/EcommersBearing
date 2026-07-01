@@ -71,11 +71,31 @@
                 <!-- Existing Images -->
                 @if ($produk->images->count() > 0)
                     <div class="mt-4 pt-4 border-t">
-                        <p class="text-sm font-medium text-gray-700 mb-2">Gambar Produk:</p>
+                        <div class="flex items-center justify-between mb-2">
+                            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wider">Gambar Produk:</p>
+                            <span class="text-[10px] text-gray-400">Arahkan untuk aksi</span>
+                        </div>
                         <div class="grid grid-cols-3 gap-2">
                             @foreach ($produk->images as $image)
-                                <img src="{{ asset('storage/' . $image->image_path) }}" 
-                                    alt="Gambar" class="w-full h-16 object-cover rounded">
+                                <div class="relative group border-2 {{ $image->is_primary ? 'border-primary-500 shadow-xs' : 'border-gray-200' }} rounded-lg overflow-hidden bg-gray-50 aspect-square">
+                                    <img src="{{ asset('storage/' . $image->image_path) }}" 
+                                        alt="Gambar" class="w-full h-full object-cover">
+                                    @if ($image->is_primary)
+                                        <span class="absolute top-1 left-1 bg-primary-600 text-white text-[9px] px-1.5 py-0.5 rounded font-semibold">Utama</span>
+                                    @endif
+                                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-1.5 transition-all duration-200">
+                                        @if (!$image->is_primary)
+                                            <button type="button" onclick="event.preventDefault(); document.getElementById('set-primary-form-{{ $image->id }}').submit();"
+                                                class="p-1.5 bg-white text-primary-600 rounded-md hover:bg-primary-50 text-xs shadow" title="Jadikan Utama">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                        @endif
+                                        <button type="button" onclick="if(confirm('Apakah Anda yakin ingin menghapus gambar ini?')) { event.preventDefault(); document.getElementById('delete-image-form-{{ $image->id }}').submit(); }"
+                                            class="p-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 text-xs shadow" title="Hapus Gambar">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -139,17 +159,6 @@
                                 @endforeach
                             </select>
                             @error('merk_id')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                SKU
-                            </label>
-                            <input type="text" name="sku" value="{{ old('sku', $produk->sku) }}"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('sku') border-red-500 @enderror">
-                            @error('sku')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
@@ -374,6 +383,18 @@
                     </button>
                 </div>
             </form>
+            @foreach ($produk->images as $image)
+                <form id="delete-image-form-{{ $image->id }}" action="{{ route('admin.produk.destroy-image', $image->id) }}" method="POST" class="hidden">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                @if (!$image->is_primary)
+                    <form id="set-primary-form-{{ $image->id }}" action="{{ route('admin.produk.set-primary-image', $image->id) }}" method="POST" class="hidden">
+                        @csrf
+                        @method('PATCH')
+                    </form>
+                @endif
+            @endforeach
         </div>
     </div>
 @endsection

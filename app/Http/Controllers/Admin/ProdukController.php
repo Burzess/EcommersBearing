@@ -60,16 +60,9 @@ class ProdukController extends Controller
         // Buang field non-DB sebelum mass assignment (file upload bukan kolom)
         unset($data['images']);
 
-        // Auto generate SKU jika kosong
+        // Auto generate SKU jika kosong: abrev Merk - abrev Kategori - increment (misal: FAG-BB-0001)
         if (empty($data['sku'])) {
-            // Cari nomor SKU tertinggi yang sudah ada (termasuk yang soft-deleted)
-            $maxSku = Produk::withTrashed()
-                ->where('sku', 'like', 'BRG-%')
-                ->orderByRaw('CAST(SUBSTRING(sku, 5) AS UNSIGNED) DESC')
-                ->value('sku');
-            
-            $number = $maxSku ? intval(substr($maxSku, 4)) + 1 : 1;
-            $data['sku'] = 'BRG-' . str_pad($number, 5, '0', STR_PAD_LEFT);
+            $data['sku'] = $this->generateSku($data['merk_id'] ?? null, $data['kategori_id'] ?? null);
         }
         
         // Auto generate slug unik
@@ -122,6 +115,9 @@ class ProdukController extends Controller
 
         $data = $request->validated();
         unset($data['images']);
+        if (empty($data['sku'])) {
+            unset($data['sku']);
+        }
         $data['slug'] = $this->generateUniqueSlug($request->nama, (int) $produk->id);
 
         $produk->update($data);
@@ -158,6 +154,43 @@ class ProdukController extends Controller
         return back()->with('success', 'Produk berhasil dihapus.');
     }
 
+    public function destroyImage($id)
+    {
+        $image = ProdukImage::findOrFail($id);
+        $produkId = $image->produk_id;
+        $isPrimary = $image->is_primary;
+
+        // Hapus file dari storage jika ada
+        if (Storage::disk('public')->exists($image->image_path)) {
+            Storage::disk('public')->delete($image->image_path);
+        }
+
+        $image->delete();
+
+        // Jika yang dihapus adalah gambar utama dan masih ada gambar lain, jadikan gambar urutan pertama sebagai utama
+        if ($isPrimary) {
+            $nextImage = ProdukImage::where('produk_id', $produkId)->orderBy('urutan')->first();
+            if ($nextImage) {
+                $nextImage->update(['is_primary' => true]);
+            }
+        }
+
+        return back()->with('success', 'Gambar produk berhasil dihapus.');
+    }
+
+    public function setPrimaryImage($id)
+    {
+        $image = ProdukImage::findOrFail($id);
+        
+        // Reset semua gambar produk ini menjadi bukan primary
+        ProdukImage::where('produk_id', $image->produk_id)->update(['is_primary' => false]);
+        
+        // Set gambar yang dipilih menjadi primary
+        $image->update(['is_primary' => true]);
+        
+        return back()->with('success', 'Gambar utama berhasil diubah.');
+    }
+
     public function export()
     {
         // TODO: Implement Excel export
@@ -185,5 +218,51 @@ class ProdukController extends Controller
         }
 
         return $slug;
+    }
+
+    // Generate SKU otomatis dari singkatan Merk dan Kategori beserta nomor urut (contoh: FAG-BB-0001)
+    private function generateSku($merkId, $kategoriId): string
+    {
+        $merk = \App\Models\Merk::find($merkId);
+        $kategori = \App\Models\Kategori::find($kategoriId);
+
+        $merkCode = $merk ? $this->abbreviate($merk->nama, 6) : 'MRK';
+        $katCode = $kategori ? $this->abbreviate($kategori->nama, 4) : 'KAT';
+
+        $prefix = $merkCode . '-' . $katCode . '-';
+        $prefixLen = strlen($prefix) + 1; // 1-indexed untuk MySQL SUBSTRING
+
+        // Cari nomor SKU tertinggi dengan prefix yang sama (termasuk soft-deleted)
+        $maxSku = Produk::withTrashed()
+            ->where('sku', 'like', $prefix . '%')
+            ->orderByRaw("CAST(SUBSTRING(sku, {$prefixLen}) AS UNSIGNED) DESC")
+            ->value('sku');
+
+        $number = 1;
+        if ($maxSku) {
+            $lastNumStr = substr($maxSku, strlen($prefix));
+            $number = intval($lastNumStr) + 1;
+        }
+
+        return $prefix . str_pad($number, 4, '0', STR_PAD_LEFT);
+    }
+
+    // Singkat nama untuk kode SKU
+    private function abbreviate(string $str, int $maxSingleWordLen = 6): string
+    {
+        $clean = trim(preg_replace('/[^a-zA-Z0-9\s]/', '', $str));
+        $words = preg_split("/\s+/", $clean, -1, PREG_SPLIT_NO_EMPTY);
+        
+        if (count($words) > 1) {
+            $abbr = '';
+            foreach ($words as $w) {
+                $abbr .= strtoupper(substr($w, 0, 1));
+            }
+            return $abbr;
+        } elseif (count($words) === 1) {
+            return strtoupper(substr($words[0], 0, $maxSingleWordLen));
+        }
+
+        return 'BRG';
     }
 }

@@ -27,15 +27,49 @@
         <div class="lg:col-span-1">
             <div class="bg-white rounded-xl shadow-md p-6">
                 @if ($produk->images->count() > 0)
-                    <img src="{{ asset('storage/' . $produk->images->first()->image_path) }}" 
-                        alt="{{ $produk->nama }}" class="w-full h-64 object-cover rounded-lg mb-4">
+                    <div class="relative mb-4">
+                        <img src="{{ asset('storage/' . $produk->images->first()->image_path) }}" 
+                            alt="{{ $produk->nama }}" class="w-full h-64 object-cover rounded-xl shadow-xs">
+                        <span class="absolute top-3 left-3 bg-primary-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold shadow">
+                            <i class="fas fa-star mr-1 text-yellow-300"></i>Gambar Utama
+                        </span>
+                    </div>
                     
-                    @if ($produk->images->count() > 1)
-                        <div class="grid grid-cols-4 gap-2">
-                            @foreach ($produk->images as $image)
-                                <img src="{{ asset('storage/' . $image->image_path) }}" 
-                                    alt="Gambar" class="w-full h-16 object-cover rounded cursor-pointer hover:opacity-75 transition-all">
-                            @endforeach
+                    @if ($produk->images->count() > 0)
+                        <div class="mt-4 pt-4 border-t">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Daftar Gambar ({{ $produk->images->count() }}):</p>
+                                <span class="text-[11px] text-gray-400">Arahkan kursor untuk aksi</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                @foreach ($produk->images as $image)
+                                    <div class="relative group border-2 {{ $image->is_primary ? 'border-primary-500 shadow-xs' : 'border-gray-200' }} rounded-lg overflow-hidden bg-gray-50 aspect-square">
+                                        <img src="{{ asset('storage/' . $image->image_path) }}" 
+                                            alt="Gambar" class="w-full h-full object-cover">
+                                        @if ($image->is_primary)
+                                            <span class="absolute top-1 left-1 bg-primary-600 text-white text-[9px] px-1.5 py-0.5 rounded font-semibold">Utama</span>
+                                        @endif
+                                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-1.5 transition-all duration-200">
+                                            @if (!$image->is_primary)
+                                                <form action="{{ route('admin.produk.set-primary-image', $image->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="p-1.5 bg-white text-primary-600 rounded-md hover:bg-primary-50 text-xs shadow" title="Jadikan Utama">
+                                                        <i class="fas fa-star"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            <form action="{{ route('admin.produk.destroy-image', $image->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus gambar ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="p-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 text-xs shadow" title="Hapus Gambar">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     @endif
                 @else

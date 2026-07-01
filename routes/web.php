@@ -231,6 +231,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/produk/{id}/edit', [Admin\ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{id}', [Admin\ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/produk/{id}', [Admin\ProdukController::class, 'destroy'])->name('produk.destroy');
+    Route::delete('/produk/image/{id}', [Admin\ProdukController::class, 'destroyImage'])->name('produk.destroy-image');
+    Route::patch('/produk/image/{id}/primary', [Admin\ProdukController::class, 'setPrimaryImage'])->name('produk.set-primary-image');
     Route::get('/produk-export', [Admin\ProdukController::class, 'export'])->name('produk.export');
 
     /*
