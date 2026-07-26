@@ -62,6 +62,22 @@
                     </div>
                 </div>
 
+                <!-- Cancelled Reason Alert -->
+                @if ($order->status == 'cancelled' && $order->cancelled_reason)
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-red-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-red-700 font-medium">
+                                    Pesanan dibatalkan: {{ $order->cancelled_reason }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Timeline Status -->
                 @if ($order->statuses->count() > 0)
                     <div class="relative pl-8">
@@ -214,6 +230,19 @@
                                     <i class="fas fa-clock mr-1"></i>Menunggu Pembayaran
                                 </span>
                             </div>
+
+                            <div class="mt-3 mb-4 p-4 bg-orange-100 rounded-lg border border-orange-200">
+                                <div class="flex items-start">
+                                    <i class="fas fa-exclamation-circle text-orange-600 mt-1 mr-3 text-lg"></i>
+                                    <div>
+                                        <p class="font-semibold text-orange-900">Batas Waktu Pembayaran</p>
+                                        <p class="text-sm text-orange-800">
+                                            Pesanan akan dibatalkan secara otomatis jika tidak dibayar sebelum 
+                                            <strong>{{ $order->created_at->addDays(1)->format('d M Y, H:i') }}</strong> (1x24 jam).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             @if (!$order->bukti_pembayaran)
                                 <form action="{{ route('pelanggan.pembelian.upload-bukti', $order->id) }}" 
                                     method="POST" enctype="multipart/form-data" class="mt-4">
@@ -303,6 +332,13 @@
                                     Konfirmasi Batalkan
                                 </button>
                             </form>
+                        @endif
+
+                        @if ($order->status == 'delivered')
+                        <a href="{{ route('pelanggan.pembelian.cetak', $order->order_number) }}" target="_blank"
+                            class="w-full px-4 py-2.5 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all block text-center mb-3">
+                            <i class="fas fa-print mr-2"></i>Cetak Bukti Pembayaran
+                        </a>
                         @endif
 
                         <a href="{{ route('pelanggan.pembelian.index') }}"

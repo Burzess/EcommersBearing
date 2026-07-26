@@ -229,6 +229,13 @@
                         </div>
                     </div>
                     <div class="flex items-start space-x-3">
+                        <i class="fas fa-clock text-orange-500 mt-1"></i>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Batas Waktu Pembayaran</p>
+                            <p class="text-xs text-gray-600">Pesanan akan batal otomatis jika tidak dibayar dalam 1x24 jam</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
                         <i class="fas fa-undo text-primary-600 mt-1"></i>
                         <div>
                             <p class="text-sm font-medium text-gray-900">Garansi Uang Kembali</p>

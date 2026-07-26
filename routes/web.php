@@ -168,6 +168,7 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'role:pelang
     */
     Route::get('/pembelian/riwayat', [Pelanggan\PembelianController::class, 'index'])->name('pembelian.index');
     Route::get('/pembelian/{order_number}', [Pelanggan\PembelianController::class, 'show'])->name('pembelian.show');
+    Route::get('/pembelian/{order_number}/cetak', [Pelanggan\PembelianController::class, 'cetak'])->name('pembelian.cetak');
     Route::post('/pembelian/{id}/upload-bukti', [Pelanggan\PembelianController::class, 'uploadBuktiPembayaran'])->name('pembelian.upload-bukti');
     Route::post('/pembelian/{id}/cancel', [Pelanggan\PembelianController::class, 'cancel'])->name('pembelian.cancel');
 });
@@ -237,6 +238,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     /*
     |----------------------------------------------------------------------
+    | Barang Masuk
+    |----------------------------------------------------------------------
+    */
+    Route::get('/barang-masuk', [Admin\BarangMasukController::class, 'index'])->name('barang-masuk.index');
+    Route::get('/barang-masuk/create', [Admin\BarangMasukController::class, 'create'])->name('barang-masuk.create');
+    Route::post('/barang-masuk', [Admin\BarangMasukController::class, 'store'])->name('barang-masuk.store');
+
+    /*
+    |----------------------------------------------------------------------
     | Manajemen Kategori
     |----------------------------------------------------------------------
     */
@@ -268,6 +278,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     */
     Route::get('/pembelian', [Admin\PembelianController::class, 'index'])->name('pembelian.index');
     Route::get('/pembelian/{id}', [Admin\PembelianController::class, 'show'])->name('pembelian.show');
+    Route::get('/pembelian/{id}/cetak', [Admin\PembelianController::class, 'cetak'])->name('pembelian.cetak');
     Route::patch('/pembelian/{id}/status', [Admin\PembelianController::class, 'updateStatus'])->name('pembelian.update-status');
     Route::patch('/pembelian/{id}/resi', [Admin\PembelianController::class, 'updateResi'])->name('pembelian.update-resi');
     Route::get('/pembelian-export', [Admin\PembelianController::class, 'export'])->name('pembelian.export');

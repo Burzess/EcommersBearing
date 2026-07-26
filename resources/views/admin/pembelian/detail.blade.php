@@ -14,10 +14,15 @@
                 <h1 class="text-3xl font-bold text-white mb-2">Detail Pembelian</h1>
                 <p class="text-primary-100">{{ $order->order_number }}</p>
             </div>
-            <div class="hidden md:block">
-                <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+            <div class="hidden md:block text-right">
+                <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <i class="fas fa-receipt text-primary-900 text-4xl"></i>
                 </div>
+                @if ($order->status == 'delivered')
+                <a href="{{ route('admin.pembelian.cetak', $order->id) }}" target="_blank" class="inline-block bg-white text-primary-900 px-4 py-2 rounded-lg font-bold hover:bg-gray-100 transition shadow-sm">
+                    <i class="fas fa-print mr-1"></i> Cetak Bukti
+                </a>
+                @endif
             </div>
         </div>
     </div>
@@ -111,13 +116,24 @@
                         @csrf
                         @method('PATCH')
                         <label class="block text-sm font-medium text-gray-700 mb-2">Ubah Status</label>
+                        @php
+                            $statusRank = [
+                                'pending' => 1,
+                                'paid' => 2,
+                                'processing' => 3,
+                                'shipped' => 4,
+                                'delivered' => 5,
+                                'cancelled' => 6
+                            ];
+                            $currentRank = $statusRank[$order->status] ?? 0;
+                        @endphp
                         <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">
-                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="paid" {{ $order->status == 'paid' ? 'selected' : '' }}>Paid</option>
-                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
-                            <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
-                            <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }} {{ 1 < $currentRank ? 'disabled' : '' }}>Pending</option>
+                            <option value="paid" {{ $order->status == 'paid' ? 'selected' : '' }} {{ 2 < $currentRank ? 'disabled' : '' }}>Paid</option>
+                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }} {{ 3 < $currentRank ? 'disabled' : '' }}>Processing</option>
+                            <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }} {{ 4 < $currentRank ? 'disabled' : '' }}>Shipped</option>
+                            <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }} {{ 5 < $currentRank ? 'disabled' : '' }}>Delivered</option>
+                            <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }} {{ in_array($order->status, ['processing', 'shipped', 'delivered']) ? 'disabled' : '' }}>Cancelled</option>
                         </select>
                         <input type="text" name="keterangan" placeholder="Keterangan (opsional)" 
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 mb-2">

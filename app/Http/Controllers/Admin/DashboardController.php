@@ -74,13 +74,37 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
+        // Barang Paling Laris (Best Selling Products)
+        // Kita menggunakan kolom sold_count jika tersedia dan selalu di-update,
+        // Atau bisa juga agregasi dari order_items jika diperlukan.
+        $barangLaris = Produk::query()
+            ->select(['id', 'nama', 'sold_count', 'harga', 'stok'])
+            ->where('sold_count', '>', 0)
+            ->orderByDesc('sold_count')
+            ->take(5)
+            ->get();
+
+        // Pelanggan Paling Sering Belanja (Top Customers by Total Spent)
+        $topPelanggan = DB::table('users')
+            ->join('roles', 'users.role_id', '=', 'roles.id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.id', 'users.name', 'users.email', DB::raw('COUNT(orders.id) as total_order'), DB::raw('SUM(orders.total) as total_belanja'))
+            ->where('roles.name', 'pelanggan')
+            ->where('orders.status', 'delivered')
+            ->groupBy('users.id', 'users.name', 'users.email')
+            ->orderByDesc('total_belanja')
+            ->take(5)
+            ->get();
+
         return view('admin.dashboard.index', compact(
             'totalPesanan',
             'totalProduk',
             'totalPelanggan',
             'penjualan7Hari',
             'pesananTerbaru',
-            'produkStokMenipis'
+            'produkStokMenipis',
+            'barangLaris',
+            'topPelanggan'
         ));
     }
 }

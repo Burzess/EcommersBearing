@@ -31,10 +31,10 @@
         </a>
 
         <!-- Produk -->
-        <div x-data="sidebarFlyout({ open: {{ request()->routeIs('admin.produk.*') ? 'true' : 'false' }} })">
+        <div x-data="sidebarFlyout({ open: {{ request()->routeIs('admin.produk.*') || request()->routeIs('admin.barang-masuk.*') ? 'true' : 'false' }} })">
             <button x-ref="trigger" @click="toggle()"
                 :title="sidebarCollapsed ? 'Produk' : ''"
-                class="flex items-center justify-between w-full px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.produk.*') ? 'bg-primary-50 text-primary-600' : '' }}">
+                class="flex items-center justify-between w-full px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.produk.*') || request()->routeIs('admin.barang-masuk.*') ? 'bg-primary-50 text-primary-600' : '' }}">
                 <div class="flex items-center">
                     <i class="fas fa-box w-6 text-center"></i>
                     <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Produk</span>
@@ -52,6 +52,10 @@
                 <a href="{{ route('admin.produk.create') }}"
                     class="block px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 {{ request()->routeIs('admin.produk.create') ? 'bg-primary-100 text-primary-600' : '' }}">
                     <i class="fas fa-plus mr-2"></i>Tambah Produk
+                </a>
+                <a href="{{ route('admin.barang-masuk.index') }}"
+                    class="block px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 {{ request()->routeIs('admin.barang-masuk.*') ? 'bg-primary-100 text-primary-600' : '' }}">
+                    <i class="fas fa-truck-loading mr-2"></i>Barang Masuk
                 </a>
             </div>
 
@@ -71,6 +75,10 @@
                     <a href="{{ route('admin.produk.create') }}"
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 {{ request()->routeIs('admin.produk.create') ? 'bg-primary-100 text-primary-600' : '' }}">
                         <i class="fas fa-plus mr-2 w-4"></i>Tambah Produk
+                    </a>
+                    <a href="{{ route('admin.barang-masuk.index') }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 {{ request()->routeIs('admin.barang-masuk.*') ? 'bg-primary-100 text-primary-600' : '' }}">
+                        <i class="fas fa-truck-loading mr-2 w-4"></i>Barang Masuk
                     </a>
                 </div>
             </template>
@@ -164,12 +172,12 @@
             </template>
         </div>
 
-        <!-- Pembelian -->
+        <!-- Penjualan -->
         <a href="{{ route('admin.pembelian.index') }}"
-            :title="sidebarCollapsed ? 'Pembelian' : ''"
+            :title="sidebarCollapsed ? 'Penjualan' : ''"
             class="flex items-center px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.pembelian.*') ? 'bg-primary-50 text-primary-600' : '' }}">
             <i class="fas fa-shopping-cart w-6 text-center"></i>
-            <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Pembelian</span>
+            <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Penjualan</span>
         </a>
 
         <!-- Akun Pelanggan -->

@@ -148,6 +148,16 @@ class Produk extends Model
         return $this->hasMany(OrderItem::class, 'produk_id');
     }
 
+    /**
+     * Mendapatkan log barang masuk untuk produk ini.
+     *
+     * @return HasMany<BarangMasuk>
+     */
+    public function barangMasuks(): HasMany
+    {
+        return $this->hasMany(BarangMasuk::class, 'produk_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

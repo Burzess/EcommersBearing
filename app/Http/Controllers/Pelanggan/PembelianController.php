@@ -39,6 +39,16 @@ class PembelianController extends Controller
         return view('pelanggan.pembelian.detail', compact('order'));
     }
 
+    public function cetak($orderNumber)
+    {
+        $order = Order::with(['items.produk.images', 'statuses'])
+            ->where('user_id', auth()->id())
+            ->where('order_number', $orderNumber)
+            ->firstOrFail();
+        
+        return view('pelanggan.pembelian.cetak', compact('order'));
+    }
+
     public function uploadBuktiPembayaran(Request $request, $id)
     {
         $order = Order::where('user_id', auth()->id())->findOrFail($id);

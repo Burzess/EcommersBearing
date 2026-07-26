@@ -69,6 +69,19 @@ class PembelianController extends Controller
     }
 
     /**
+     * Cetak bukti pembayaran pesanan.
+     *
+     * @param int $id ID order
+     * @return View
+     */
+    public function cetak(int $id): View
+    {
+        $order = Order::with(['user', 'items.produk.images', 'statuses.createdBy'])->findOrFail($id);
+
+        return view('admin.pembelian.cetak', compact('order'));
+    }
+
+    /**
      * Memperbarui status pesanan.
      *
      * @param Request $request
@@ -83,6 +96,36 @@ class PembelianController extends Controller
             'status' => 'required|in:pending,paid,processing,shipped,delivered,cancelled',
             'keterangan' => 'nullable|string',
         ]);
+
+        $statusOrder = [
+            'pending' => 1,
+            'paid' => 2,
+            'processing' => 3,
+            'shipped' => 4,
+            'delivered' => 5,
+        ];
+
+        $currentStatus = $order->status;
+        $newStatus = $request->status;
+
+        if ($currentStatus !== $newStatus) {
+            if ($currentStatus === 'cancelled') {
+                return back()->with('error', 'Pesanan yang sudah dibatalkan tidak dapat diubah statusnya.');
+            }
+
+            if ($newStatus === 'cancelled') {
+                if (!in_array($currentStatus, ['pending', 'paid'])) {
+                    return back()->with('error', 'Pesanan ini sudah diproses dan tidak dapat dibatalkan.');
+                }
+            } else {
+                $currentRank = $statusOrder[$currentStatus] ?? 0;
+                $newRank = $statusOrder[$newStatus] ?? 0;
+
+                if ($newRank < $currentRank) {
+                    return back()->with('error', 'Tidak dapat mengubah status pesanan kembali ke status sebelumnya.');
+                }
+            }
+        }
 
         $order->updateStatus($request->status, $request->keterangan, auth()->id());
 
@@ -114,8 +157,8 @@ class PembelianController extends Controller
             'estimasi_sampai' => $request->estimasi_sampai,
         ]);
 
-        // Update status ke shipped jika belum
-        if ($order->status !== 'shipped') {
+        // Update status ke shipped jika belum dan jika status belum melewati shipped
+        if (!in_array($order->status, ['shipped', 'delivered', 'cancelled'])) {
             $order->updateStatus('shipped', 'Pesanan telah dikirim dengan kurir ' . $request->kurir, auth()->id());
         }
 

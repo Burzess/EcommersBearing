@@ -90,7 +90,7 @@ class Ongkir extends Model
      */
     public static function hitungOngkirDenganSubtotal(string $provinsi, ?string $kota = null, float|int|null $subtotal = null): array
     {
-        if (self::isGratisSurabaya($kota, $subtotal)) {
+        if ($subtotal !== null && (float) $subtotal >= self::FREE_SHIPPING_THRESHOLD) {
             return [
                 'tarif' => 0.0,
                 'estimasi' => '2-4 hari',

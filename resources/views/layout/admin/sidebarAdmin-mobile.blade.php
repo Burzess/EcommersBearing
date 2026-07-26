@@ -31,9 +31,9 @@
         </a>
 
         <!-- Produk -->
-        <div x-data="{ open: {{ request()->routeIs('admin.produk.*') ? 'true' : 'false' }} }">
+        <div x-data="{ open: {{ request()->routeIs('admin.produk.*') || request()->routeIs('admin.barang-masuk.*') ? 'true' : 'false' }} }">
             <button @click="open = !open"
-                class="flex items-center justify-between w-full px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.produk.*') ? 'bg-primary-50 text-primary-600' : '' }}">
+                class="flex items-center justify-between w-full px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.produk.*') || request()->routeIs('admin.barang-masuk.*') ? 'bg-primary-50 text-primary-600' : '' }}">
                 <div class="flex items-center">
                     <i class="fas fa-box w-6 text-center"></i>
                     <span class="ml-3">Produk</span>
@@ -48,6 +48,10 @@
                 <a href="{{ route('admin.produk.create') }}"
                     class="block px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 {{ request()->routeIs('admin.produk.create') ? 'bg-primary-100 text-primary-600' : '' }}">
                     <i class="fas fa-plus mr-2"></i>Tambah Produk
+                </a>
+                <a href="{{ route('admin.barang-masuk.index') }}"
+                    class="block px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 {{ request()->routeIs('admin.barang-masuk.*') ? 'bg-primary-100 text-primary-600' : '' }}">
+                    <i class="fas fa-truck-loading mr-2"></i>Barang Masuk
                 </a>
             </div>
         </div>
@@ -96,11 +100,11 @@
             </div>
         </div>
 
-        <!-- Pembelian -->
+        <!-- Penjualan -->
         <a href="{{ route('admin.pembelian.index') }}"
             class="flex items-center px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.pembelian.*') ? 'bg-primary-50 text-primary-600' : '' }}">
             <i class="fas fa-shopping-cart w-6 text-center"></i>
-            <span class="ml-3">Pembelian</span>
+            <span class="ml-3">Penjualan</span>
         </a>
 
         <!-- Akun Pelanggan -->

@@ -125,6 +125,86 @@
         </div>
     </div>
 
+    <!-- Leaderboards -->
+    <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Barang Paling Laris -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-900">
+                    <i class="fas fa-fire mr-2 text-orange-500"></i>Barang Paling Laris
+                </h3>
+            </div>
+            
+            <div class="space-y-3">
+                @forelse ($barangLaris as $index => $produk)
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-orange-200 transition-colors">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3 
+                                {{ $index == 0 ? 'bg-yellow-100 text-yellow-600' : ($index == 1 ? 'bg-gray-200 text-gray-600' : ($index == 2 ? 'bg-orange-100 text-orange-700' : 'bg-primary-50 text-primary-600')) }}">
+                                <span class="font-bold text-sm">{{ $index + 1 }}</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">{{ Str::limit($produk->nama, 30) }}</p>
+                                <p class="text-xs text-gray-500">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-orange-100 text-orange-800">
+                                {{ $produk->sold_count }} Terjual
+                            </span>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-6 text-gray-400">
+                        <i class="fas fa-box-open text-4xl mb-2"></i>
+                        <p>Belum ada data penjualan produk</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Top Pelanggan -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-900">
+                    <i class="fas fa-crown mr-2 text-yellow-500"></i>Top Pelanggan
+                </h3>
+                <a href="{{ route('admin.akunpelanggan.index') }}" class="text-sm text-primary-600 hover:text-primary-800">
+                    Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="space-y-3">
+                @forelse ($topPelanggan as $index => $pelanggan)
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-yellow-200 transition-colors">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3 relative">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($pelanggan->name) }}&size=32&background=random" alt="Avatar" class="rounded-full">
+                                @if($index == 0)
+                                    <i class="fas fa-crown absolute -top-2 -right-1 text-yellow-500 text-xs transform rotate-12"></i>
+                                @endif
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900 text-sm">{{ $pelanggan->name }}</p>
+                                <p class="text-xs text-gray-500">{{ $pelanggan->total_order }} Pesanan Selesai</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-bold text-primary-600">
+                                Rp {{ number_format($pelanggan->total_belanja, 0, ',', '.') }}
+                            </p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-6 text-gray-400">
+                        <i class="fas fa-users text-4xl mb-2"></i>
+                        <p>Belum ada data pelanggan</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+
     <!-- Pesanan Terbaru -->
     <div class="bg-white rounded-xl shadow-md overflow-hidden">
         <div class="p-6 border-b border-gray-200">
