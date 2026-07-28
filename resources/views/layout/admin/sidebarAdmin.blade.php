@@ -180,12 +180,12 @@
             <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Penjualan</span>
         </a>
 
-        <!-- Akun Pelanggan -->
+        <!-- Top Pelanggan -->
         <a href="{{ route('admin.akunpelanggan.index') }}"
-            :title="sidebarCollapsed ? 'Pelanggan' : ''"
+            :title="sidebarCollapsed ? 'Top Pelanggan' : ''"
             class="flex items-center px-3 py-3 text-gray-700 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors {{ request()->routeIs('admin.akunpelanggan.*') ? 'bg-primary-50 text-primary-600' : '' }}">
             <i class="fas fa-users w-6 text-center"></i>
-            <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Pelanggan</span>
+            <span :class="{ 'hidden': sidebarCollapsed }" class="ml-3">Top Pelanggan</span>
         </a>
 
         <!-- Pembatas -->

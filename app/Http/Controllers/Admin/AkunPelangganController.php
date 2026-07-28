@@ -12,7 +12,7 @@ class AkunPelangganController extends Controller
     {
         $query = User::whereHas('role', function ($q) {
             $q->where('name', 'pelanggan');
-        });
+        })->withCount('orders');
 
         // Search
         if ($request->filled('search')) {
@@ -29,7 +29,7 @@ class AkunPelangganController extends Controller
             $query->where('is_active', $request->is_active);
         }
 
-        $pelanggans = $query->latest()->paginate(20);
+        $pelanggans = $query->orderByDesc('orders_count')->paginate(20);
 
         return view('admin.akunpelanggan.index', compact('pelanggans'));
     }

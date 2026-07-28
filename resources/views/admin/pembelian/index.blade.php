@@ -1,13 +1,13 @@
 @extends('layout.admin.app')
 
-@section('title', 'Manajemen Pembelian - Admin')
+@section('title', 'Manajemen Penjualan - Admin')
 
 @section('content')
     <!-- Header -->
     <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-white mb-2">Manajemen Pembelian</h1>
+                <h1 class="text-3xl font-bold text-white mb-2">Manajemen Penjualan</h1>
                 <p class="text-primary-100">Kelola pesanan dari pelanggan</p>
             </div>
             <div class="hidden md:block">

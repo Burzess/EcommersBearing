@@ -1,13 +1,13 @@
 @extends('layout.admin.app')
 
-@section('title', 'Manajemen Akun Pelanggan - Admin')
+@section('title', 'Top Pelanggan - Admin')
 
 @section('content')
     <!-- Header Halaman -->
     <div class="bg-linear-to-r from-primary-700 to-primary-900 rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-white mb-2">Manajemen Akun Pelanggan</h1>
+                <h1 class="text-3xl font-bold text-white mb-2">Top Pelanggan</h1>
                 <p class="text-primary-100">Kelola data pelanggan terdaftar</p>
             </div>
             <div class="md:block">
@@ -130,6 +130,9 @@
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Terdaftar
                         </th>
+                        <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Total Pesanan
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -166,10 +169,13 @@
                             <td class="px-6 py-4 text-sm text-gray-500">
                                 {{ $pelanggan->created_at->format('d M Y') }}
                             </td>
+                            <td class="px-6 py-4 text-center text-sm font-bold text-primary-600">
+                                {{ $pelanggan->orders_count }}
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-12 text-center">
+                            <td colspan="6" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-users text-gray-300 text-5xl mb-4"></i>
                                     <p class="text-gray-500 text-lg">Tidak ada data pelanggan</p>

@@ -1,6 +1,6 @@
 @extends('layout.admin.app')
 
-@section('title', 'Detail Pembelian - Admin')
+@section('title', 'Detail Penjualan - Admin')
 
 @section('content')
     <!-- Header -->
@@ -9,9 +9,9 @@
             <div>
                 <a href="{{ route('admin.pembelian.index') }}"
                     class="inline-flex items-center text-white hover:text-white mb-4 transition-all">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+                    <i class="fas fa-arrow-ft mr-2"></i>Kembali
                 </a>
-                <h1 class="text-3xl font-bold text-white mb-2">Detail Pembelian</h1>
+                <h1 class="text-3xl font-bold text-white mb-2">Detail Penjualan</h1>
                 <p class="text-primary-100">{{ $order->order_number }}</p>
             </div>
             <div class="hidden md:block text-right">

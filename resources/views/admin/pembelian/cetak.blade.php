@@ -17,20 +17,45 @@
             border: 1px solid #ddd;
             padding: 30px;
         }
-        .header {
+        .invoice-banner {
+            background-color: #fce4e4;
+            color: #000;
             text-align: center;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
             margin-bottom: 20px;
         }
-        .header h1 {
-            margin: 0 0 5px 0;
-            font-size: 24px;
+        .kop-surat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
-        .header p {
-            margin: 0;
+        .company-info {
+            text-align: left;
             font-size: 14px;
-            color: #666;
+            line-height: 1.5;
+        }
+        .company-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        .kop-surat img {
+            max-width: 150px;
+        }
+        .order-details-wrap {
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            margin-bottom: 25px;
+        }
+        .meta-table {
+            border-collapse: collapse;
+        }
+        .meta-table td {
+            padding: 2px 15px 2px 0;
+            border: none;
+            font-size: 14px;
         }
         .info-row {
             display: flex;
@@ -123,10 +148,33 @@
 <body>
     <button onclick="window.print()" class="print-btn no-print">Cetak Bukti Pembayaran</button>
     <div class="container">
-        <div class="header">
-            <h1>BUKTI PEMBAYARAN / INVOICE</h1>
-            <p>Order Number: {{ $order->order_number }}</p>
-            <p>Tanggal Pemesanan: {{ $order->created_at->format('d F Y H:i') }}</p>
+        <div class="invoice-banner">
+            BUKTI PEMBAYARAN / INVOICE
+        </div>
+
+        <div class="kop-surat">
+            <div class="company-info">
+                <h2>PT ASIAN BEARINDO GROUP</h2>
+                Jl. Merdeka 789, Jakarta, Indonesia<br>
+                Telp: 0123-456-789<br>
+                Email: mail@ptabj.co.id
+            </div>
+            <div class="logo">
+                <img src="{{ asset('images/logo_bearindo.png') }}" alt="Logo PT ASIAN BEARINDO GROUP">
+            </div>
+        </div>
+
+        <div class="order-details-wrap">
+            <table class="meta-table">
+                <tr>
+                    <td>Nomor Invoice:</td>
+                    <td>{{ $order->order_number }}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Invoice:</td>
+                    <td>{{ $order->created_at->format('d F Y') }}</td>
+                </tr>
+            </table>
         </div>
 
         <div class="info-row">
