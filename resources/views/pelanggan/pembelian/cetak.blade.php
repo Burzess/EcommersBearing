@@ -155,7 +155,7 @@
         <div class="kop-surat">
             <div class="company-info">
                 <h2>PT ASIAN BEARINDO GROUP</h2>
-                Jl. Merdeka 789, Jakarta, Indonesia<br>
+                Tanjung sari no.19 surabaya<br>
                 Telp: 0123-456-789<br>
                 Email: mail@ptabj.co.id
             </div>
